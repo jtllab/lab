@@ -7,13 +7,13 @@
   "appConfigMaps": [
     {
       "app_id": "UNKNOW",
-      "config_id": "fa9670"
+      "config_id": "bbce46"
     }
   ],
   "configs": [
     {
       "app_id": "UNKNOW",
-      "config_id": "fa9670",
+      "config_id": "bbce46",
       "config_name": "Default",
       "config_remarks": "",
       "services": []
