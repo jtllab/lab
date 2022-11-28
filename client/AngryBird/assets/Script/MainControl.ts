@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log} from 'cc';
+import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D} from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('MainControl')
@@ -9,12 +9,12 @@ export class MainControl extends Component {
 
     @property(Prefab)
     pipePrefab : Prefab = null;
-
+ 
     
     pipe: Node[] = [null, null, null]
 
-
-     start() {
+    spGameOver: Sprite = null;
+        start() {
         for (let i = 0; i < this.pipe.length; i++) {
             this.pipe[i] = instantiate(this.pipePrefab);
             this.node.addChild(this.pipe[i]);
@@ -24,7 +24,22 @@ export class MainControl extends Component {
             //console.log(this.pipe[i].getPosition());
         }
      }
-     
+     onLoad(){
+        this.spGameOver = this.node.getChildByName("GameOver").getComponent(Sprite);
+        this.spGameOver.node.active = false;
+        if (PhysicsSystem2D.instance) {
+            PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+            //PhysicsSystem2D.instance.on(Contact2DType.END_CONTACT, this.onEndContact, this);
+            //PhysicsSystem2D.instance.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
+            //PhysicsSystem2D.instance.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
+        }
+     }
+     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact| null) {
+        // 只在两个碰撞体开始接触时被调用一次
+        //console.log('onBeginContact');
+        this.spGameOver.node.active = true;
+
+    }
     /* onLoad(){
         //let collider = this.getComponent(BoxCollider2D);
         if (PhysicsSystem2D.instance) {
@@ -71,6 +86,8 @@ export class MainControl extends Component {
         for (let i = 0; i < this.pipe.length; i++) {
             //this.pipe[i].getPosition().x -= 1.0;
             this.pipe[i].setPosition(this.pipe[i].getPosition().subtract(this.secChangeOffset));
+            this.pipe[i].getChildByName("pipeUp").getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
+            this.pipe[i].getChildByName("pipeDown").getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
             if (this.pipe[i].getPosition().x <= -170) {
                 //this.pipe[i].x = 430;
                 var minY = -120;
