@@ -1,0 +1,201 @@
+{
+  "ver": "1.0.7",
+  "importer": "sprite-atlas",
+  "imported": true,
+  "uuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {
+    "909f6": {
+      "importer": "sprite-frame",
+      "uuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e@909f6",
+      "displayName": "",
+      "id": "909f6",
+      "name": "twinkle_0",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 83,
+        "trimY": 34,
+        "width": 33,
+        "height": 25,
+        "rawWidth": 33,
+        "rawHeight": 25,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "2fc5be00-8314-476f-8d5f-c15e5d9bf60a@6c48a",
+        "atlasUuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b1a82": {
+      "importer": "sprite-frame",
+      "uuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e@b1a82",
+      "displayName": "",
+      "id": "b1a82",
+      "name": "twinkle_1",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 83,
+        "trimY": 2,
+        "width": 39,
+        "height": 30,
+        "rawWidth": 39,
+        "rawHeight": 30,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "2fc5be00-8314-476f-8d5f-c15e5d9bf60a@6c48a",
+        "atlasUuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d5154": {
+      "importer": "sprite-frame",
+      "uuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e@d5154",
+      "displayName": "",
+      "id": "d5154",
+      "name": "twinkle_2",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": true,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 45,
+        "trimY": 2,
+        "width": 47,
+        "height": 36,
+        "rawWidth": 47,
+        "rawHeight": 36,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "2fc5be00-8314-476f-8d5f-c15e5d9bf60a@6c48a",
+        "atlasUuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "61fbc": {
+      "importer": "sprite-frame",
+      "uuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e@61fbc",
+      "displayName": "",
+      "id": "61fbc",
+      "name": "twinkle_3",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": true,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 2,
+        "trimY": 2,
+        "width": 54,
+        "height": 41,
+        "rawWidth": 54,
+        "rawHeight": 41,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "2fc5be00-8314-476f-8d5f-c15e5d9bf60a@6c48a",
+        "atlasUuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "atlasTextureName": "twinkle.png",
+    "format": 2,
+    "uuid": "aff79c03-f2ef-4a95-b7fa-a08ae514328e",
+    "textureUuid": "2fc5be00-8314-476f-8d5f-c15e5d9bf60a@6c48a"
+  }
+}

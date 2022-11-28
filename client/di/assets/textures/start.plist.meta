@@ -1,0 +1,155 @@
+{
+  "ver": "1.0.7",
+  "importer": "sprite-atlas",
+  "imported": true,
+  "uuid": "6ecb9267-985f-42a5-8f86-07947dffaf60",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {
+    "84545": {
+      "importer": "sprite-frame",
+      "uuid": "6ecb9267-985f-42a5-8f86-07947dffaf60@84545",
+      "displayName": "",
+      "id": "84545",
+      "name": "ScenceStart",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 2,
+        "trimY": 2,
+        "width": 600,
+        "height": 400,
+        "rawWidth": 600,
+        "rawHeight": 400,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b32dba76-53c7-4afc-befb-36f9a6691089@6c48a",
+        "atlasUuid": "6ecb9267-985f-42a5-8f86-07947dffaf60"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "0ad69": {
+      "importer": "sprite-frame",
+      "uuid": "6ecb9267-985f-42a5-8f86-07947dffaf60@0ad69",
+      "displayName": "",
+      "id": "0ad69",
+      "name": "playgameClose",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": true,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 604,
+        "trimY": 2,
+        "width": 167,
+        "height": 38,
+        "rawWidth": 167,
+        "rawHeight": 38,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b32dba76-53c7-4afc-befb-36f9a6691089@6c48a",
+        "atlasUuid": "6ecb9267-985f-42a5-8f86-07947dffaf60"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1b50f": {
+      "importer": "sprite-frame",
+      "uuid": "6ecb9267-985f-42a5-8f86-07947dffaf60@1b50f",
+      "displayName": "",
+      "id": "1b50f",
+      "name": "playgameNormal",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": true,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 604,
+        "trimY": 171,
+        "width": 167,
+        "height": 38,
+        "rawWidth": 167,
+        "rawHeight": 38,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b32dba76-53c7-4afc-befb-36f9a6691089@6c48a",
+        "atlasUuid": "6ecb9267-985f-42a5-8f86-07947dffaf60"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "atlasTextureName": "start.png",
+    "format": 2,
+    "uuid": "6ecb9267-985f-42a5-8f86-07947dffaf60",
+    "textureUuid": "b32dba76-53c7-4afc-befb-36f9a6691089@6c48a"
+  }
+}
