@@ -67,5 +67,9 @@ export class PlayerController extends Component {
     body.linearVelocity = v;
   }
 
-  update(deltaTime: number) {}
+  private a: number = 1;
+  update(deltaTime: number) {
+    this.node.setRotationFromEuler(new Vec3(0, 0, this.a));
+    this.a = this.a + 1;
+  }
 }
