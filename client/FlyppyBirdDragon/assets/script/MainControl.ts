@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Sprite, Vec3, Prefab, instantiate} from 'cc';
+import { _decorator, Component, Node, Sprite, Vec3, Prefab, instantiate, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact} from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('MainControl')
@@ -19,8 +19,16 @@ export class MainControl extends Component {
     @property
     resetOffset = new Vec3();
 
+    spGameOver: Sprite = null;
+
     onLoad(){
-        
+        PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
+        this.spGameOver = this.node.getChildByName("GameOver").getComponent(Sprite);
+        this.spGameOver.node.active = false;
+    }
+    onBeginContact (self : Collider2D, other : Collider2D, contact : IPhysics2DContact | null){
+        console.log("game over");
+        this.spGameOver.node.active = true;
     }
 
     start() {
