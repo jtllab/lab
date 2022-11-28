@@ -86,6 +86,8 @@ export class MainControl extends Component {
         for (let i = 0; i < this.pipe.length; i++) {
             //this.pipe[i].getPosition().x -= 1.0;
             this.pipe[i].setPosition(this.pipe[i].getPosition().subtract(this.secChangeOffset));
+
+            //刚体随着pipe位置移动
             this.pipe[i].getChildByName("pipeUp").getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
             this.pipe[i].getChildByName("pipeDown").getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
             if (this.pipe[i].getPosition().x <= -170) {
