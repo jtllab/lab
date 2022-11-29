@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, Sprite, Vec3, Prefab, instantiate, Button, EventMouse, Label} from 'cc';
+import { AudioSourceControl, SoundType } from './AudioSourceControl';
 const { ccclass, property } = _decorator;
 
 export enum GameStatus {
@@ -35,6 +36,9 @@ export class MainControl extends Component {
     lableScore : Label;
 
     gameScore : number = 0;
+
+    @property(AudioSourceControl)
+    audioSourceControl : AudioSourceControl;
 
     onLoad(){
         this.gameOver = this.node.getChildByName("GameOver").getComponent(Sprite);
@@ -106,6 +110,7 @@ export class MainControl extends Component {
         //记分重置
         this.gameScore = 0;
         this.lableScore.string = this.gameScore.toString();
+        this.audioSourceControl.playSound(SoundType.SoundStart);
     }
 
    

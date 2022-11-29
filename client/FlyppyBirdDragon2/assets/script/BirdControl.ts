@@ -1,4 +1,5 @@
 import { _decorator, Component, input, Input, Vec3, EventMouse, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D, Node } from 'cc';
+import { SoundType } from './AudioSourceControl';
 import { GameStatus, MainControl } from './MainControl';
 const { ccclass, property } = _decorator;
 
@@ -38,15 +39,18 @@ export class BirdControl extends Component {
 
     onMouseDown(event : EventMouse){
         this.speed = 4;
+        this.mainControl.audioSourceControl.playSound(SoundType.SoundFly);
     }
 
     onBeginContact (self : Collider2D, other : Collider2D, contact : IPhysics2DContact | null){
         //根据tag进行区分
         if (other.tag === 0){
             this.mainControl.gameOverActive();
+            this.mainControl.audioSourceControl.playSound(SoundType.SoundDie)
         }else if (other.tag === 1){
             this.mainControl.gameScore++;
             this.mainControl.lableScore.string = this.mainControl.gameScore.toString();
+            this.mainControl.audioSourceControl.playSound(SoundType.SoundScore);
         }
     }
 }
