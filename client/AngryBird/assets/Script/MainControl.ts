@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D, Button, EventMouse, EventTouch, Input} from 'cc';
+import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D, Button, EventMouse, EventTouch, Input, Label} from 'cc';
 import { BirdControl } from './BirdControl';
 const { ccclass, property } = _decorator;
 export enum GameStatus
@@ -10,6 +10,9 @@ export enum GameStatus
 
 @ccclass('MainControl')
 export class MainControl extends Component {
+
+    @property(Label)
+    lableScore : Label = null;
 
     @property(Sprite)
     spBg : Sprite [] = [null, null];
@@ -23,6 +26,9 @@ export class MainControl extends Component {
     spGameOver: Sprite = null;
 
     birldcontrol:BirdControl=null;
+
+    //游戏计分
+    gameScore : number = 0;
 
     //开始按钮
     btnStart : Button = null;
@@ -78,6 +84,10 @@ export class MainControl extends Component {
         //this.birldcontrol.onCollisionEnter();
         //bird.rotation = 0;
         bird.getComponent(BirdControl).onCollisionEnter();
+
+        //分数重置
+        this.gameScore = 0;
+        this.lableScore.string = this.gameScore.toString();
     }
     gameOver()
     {
@@ -105,6 +115,7 @@ export class MainControl extends Component {
         for (let i = 0; i < this.pipe.length; i++) {
             //this.pipe[i].getPosition().x -= 1.0;
             this.pipe[i].setPosition(this.pipe[i].getPosition().subtract(this.secChangeOffset));
+            
             //刚体随着pipe位置移动
             //console.log(this.pipe[i].getChildByName("pipeUp")+"aaaa");
             //console.log(this.pipe[i].getChildByName("pipeUp").getComponent(RigidBody2D)["_body"]);
@@ -115,6 +126,9 @@ export class MainControl extends Component {
                 var maxY = 120;
                 this.pipe[i].setPosition(new Vec3(340, minY + Math.random() * (maxY - minY)));
 
+                //过一个管子+1分
+                this.gameScore++;
+                this.lableScore.string = this.gameScore.toString();
             }
         }
 

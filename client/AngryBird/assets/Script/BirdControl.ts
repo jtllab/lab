@@ -44,6 +44,10 @@ export class BirdControl extends Component {
             angle = 30;
         }
         this.node.setRotationFromEuler(new Vec3(0,0,-angle));
+        var pos = this.node.getPosition();
+        if (pos.y <= -this.canvas.getComponent(UITransform).height/2) {
+            this.mainControl.gameOver();
+        }
         
     }
     onMouseDown(event: EventMouse) {
