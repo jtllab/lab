@@ -60,6 +60,7 @@ export class MainControl extends Component {
         this.btnStart.node.active = false;
         this.gameStatus = GameStatus.Game_Playing;
         this.spGameOver.node.active = false;
+        /*
         for (let i = 0; i < this.pipe.length; i++) {
             this.pipe[i] = instantiate(this.pipePrefab);
             this.node.getChildByName("Pipe").addChild(this.pipe[i]);
@@ -67,7 +68,7 @@ export class MainControl extends Component {
             var maxY = 120;
             this.pipe[i].setPosition(new Vec3(190 + 170 * i,minY + Math.random() * (maxY - minY)));
         }
-
+        */
         var bird = this.node.getChildByName("Bird");
         bird.getPosition().y = 0;
         //bird.rotation = 0;
