@@ -1,6 +1,12 @@
-import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D} from 'cc';
-import { GameState } from './GameState';
+import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D, Button, EventMouse, EventTouch, Input} from 'cc';
 const { ccclass, property } = _decorator;
+
+export enum GameStatus
+{
+    Game_Ready = 0, //准备
+    Game_Playing,      //正在游戏
+    Game_Over,      //结束
+}
 
 @ccclass('MainControl')
 export class MainControl extends Component {
@@ -15,61 +21,66 @@ export class MainControl extends Component {
     pipe: Node[] = [null, null, null]
 
     spGameOver: Sprite = null;
+
+
+    //开始按钮
+    btnStart : Button = null;
+    //游戏状态
+    gameStatus : GameStatus = GameStatus.Game_Ready;
+    
         start() {
-        for (let i = 0; i < this.pipe.length; i++) {
-            this.pipe[i] = instantiate(this.pipePrefab);
-            this.node.addChild(this.pipe[i]);
-            var minY = -120;
-            var maxY = 120;
-            this.pipe[i].setPosition(new Vec3(190 + 170 * i,minY + Math.random() * (maxY - minY)));
-            //console.log(this.pipe[i].getPosition());
-        }
+            //生成障碍物
+            for (let i = 0; i < this.pipe.length; i++) {
+                this.pipe[i] = instantiate(this.pipePrefab);
+                this.node.getChildByName("Pipe").addChild(this.pipe[i]);
+                var minY = -120;
+                var maxY = 120;
+                this.pipe[i].setPosition(new Vec3(190 + 170 * i,minY + Math.random() * (maxY - minY)));
+            }
      }
      onLoad(){
+        //获取开始按钮
+        this.btnStart = this.node.getChildByName("BtnStart").getComponent(Button);
+        //给开始按钮添加响应
+        this.btnStart.node.on(Node.EventType.TOUCH_END,this.touchStarBtn,this)
         this.spGameOver = this.node.getChildByName("GameOver").getComponent(Sprite);
         this.spGameOver.node.active = false;
         if (PhysicsSystem2D.instance) {
             PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-            //PhysicsSystem2D.instance.on(Contact2DType.END_CONTACT, this.onEndContact, this);
-            //PhysicsSystem2D.instance.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
-            //PhysicsSystem2D.instance.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
         }
      }
      onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact| null) {
         // 只在两个碰撞体开始接触时被调用一次
-        //console.log('onBeginContact');
         this.spGameOver.node.active = true;
+        this.gameOver();
+        console.log('Game Over');
 
     }
-    /* onLoad(){
-        //let collider = this.getComponent(BoxCollider2D);
-        if (PhysicsSystem2D.instance) {
-            PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-            //PhysicsSystem2D.instance.on(Contact2DType.END_CONTACT, this.onEndContact, this);
-            //PhysicsSystem2D.instance.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
-            //PhysicsSystem2D.instance.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
+
+    touchStarBtn(even:EventMouse){
+        this.btnStart.node.active = false;
+        this.gameStatus = GameStatus.Game_Playing;
+        this.spGameOver.node.active = false;
+        
+        for (let i = 0; i < this.pipe.length; i++) {
+            //this.pipe[i] = instantiate(this.pipePrefab);
+            //this.node.getChildByName("Pipe").addChild(this.pipe[i]);
+            var minY = -120;
+            var maxY = 120;
+            this.pipe[i].setPosition(new Vec3(190 + 170 * i,minY + Math.random() * (maxY - minY)));
         }
-
-     }
-     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact| null) {
-        // 只在两个碰撞体开始接触时被调用一次
-        console.log('onBeginContact');
+        
+        var bird = this.node.getChildByName("Bird");
+        bird.getPosition().y = 0;
+        //bird.rotation = 0;
     }
-    onEndContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // 只在两个碰撞体结束接触时被调用一次
-        console.log('onEndContact');
+    gameOver()
+    {
+        this.spGameOver.node.active = true;
+        this.btnStart.node.active = true;
+        this.gameStatus = GameStatus.Game_Over;
     }
-    onPreSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // 每次将要处理碰撞体接触逻辑时被调用
-        console.log('onPreSolve');
-    }
-    onPostSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // 每次处理完碰撞体接触逻辑时被调用
-        console.log('onPostSolve');
-    }
-
-*/
-
+ 
      @property
      secChangeOffset = new Vec3();
 
@@ -83,19 +94,20 @@ export class MainControl extends Component {
      tmpX = new Vec3(); //日志x
      update(deltaTime: number) {
 
+        if(this.gameStatus != GameStatus.Game_Playing)return;
+
         // move pipes
         for (let i = 0; i < this.pipe.length; i++) {
             //this.pipe[i].getPosition().x -= 1.0;
             this.pipe[i].setPosition(this.pipe[i].getPosition().subtract(this.secChangeOffset));
-
             //刚体随着pipe位置移动
+            //console.log(this.pipe[i].getChildByName("pipeUp")+"aaaa");
+            //console.log(this.pipe[i].getChildByName("pipeUp").getComponent(RigidBody2D)["_body"]);
             this.pipe[i].getChildByName("pipeUp").getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
             this.pipe[i].getChildByName("pipeDown").getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
             if (this.pipe[i].getPosition().x <= -170) {
-                //this.pipe[i].x = 430;
                 var minY = -120;
                 var maxY = 120;
-                //this.pipe[i].y = minY + Math.random() * (maxY - minY);
                 this.pipe[i].setPosition(new Vec3(340, minY + Math.random() * (maxY - minY)));
 
             }
@@ -114,7 +126,7 @@ export class MainControl extends Component {
 
           
 
-         GameState.getInstance().score++;
+         //GameState.getInstance().score++;
     }
 }
 
