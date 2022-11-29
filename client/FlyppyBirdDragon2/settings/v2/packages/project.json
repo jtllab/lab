@@ -1,0 +1,17 @@
+{
+  "general": {
+    "designResolution": {
+      "width": 288,
+      "height": 512,
+      "fitWidth": true
+    }
+  },
+  "physics": {
+    "collisionGroups": [],
+    "collisionMatrix": {
+      "0": 1,
+      "1": 4,
+      "2": 2
+    }
+  }
+}
