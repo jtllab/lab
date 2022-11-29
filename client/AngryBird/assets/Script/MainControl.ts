@@ -1,6 +1,6 @@
 import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D, Button, EventMouse, EventTouch, Input} from 'cc';
+import { BirdControl } from './BirdControl';
 const { ccclass, property } = _decorator;
-
 export enum GameStatus
 {
     Game_Ready = 0, //准备
@@ -22,6 +22,7 @@ export class MainControl extends Component {
 
     spGameOver: Sprite = null;
 
+    birldcontrol:BirdControl=null;
 
     //开始按钮
     btnStart : Button = null;
@@ -58,10 +59,10 @@ export class MainControl extends Component {
     }
 
     touchStarBtn(even:EventMouse){
-        this.btnStart.node.active = false;
-        this.gameStatus = GameStatus.Game_Playing;
+        this.btnStart.node.active = false;//隐藏开始按钮
+        this.gameStatus = GameStatus.Game_Playing;//
         this.spGameOver.node.active = false;
-        
+        //重置管子
         for (let i = 0; i < this.pipe.length; i++) {
             //this.pipe[i] = instantiate(this.pipePrefab);
             //this.node.getChildByName("Pipe").addChild(this.pipe[i]);
@@ -69,10 +70,14 @@ export class MainControl extends Component {
             var maxY = 120;
             this.pipe[i].setPosition(new Vec3(190 + 170 * i,minY + Math.random() * (maxY - minY)));
         }
-        
+        //重置鸟的位置
         var bird = this.node.getChildByName("Bird");
-        bird.getPosition().y = 0;
+        var pos = bird.getPosition();
+        pos.y = 0;
+        bird.setPosition(pos);
+        //this.birldcontrol.onCollisionEnter();
         //bird.rotation = 0;
+        bird.getComponent(BirdControl).onCollisionEnter();
     }
     gameOver()
     {

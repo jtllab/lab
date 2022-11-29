@@ -59,7 +59,7 @@ export class BirdControl extends Component {
     onCollisionEnter()
     {
         //游戏结束
-        this.mainControl.gameOver();
+        //this.mainControl.gameOver();
         this.speed = 0;
     }
     
