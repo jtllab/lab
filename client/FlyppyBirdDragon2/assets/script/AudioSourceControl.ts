@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, AudioClip } from 'cc';
+import { _decorator, Component, Node, AudioClip, AudioSource } from 'cc';
 const { ccclass, property } = _decorator;
 
 export enum SoundType {
@@ -8,8 +8,8 @@ export enum SoundType {
     SoundStart
 }
 
-@ccclass('AudioControl')
-export class AudioControl extends Component {
+@ccclass('AudioSourceControl')
+export class AudioSourceControl extends Component {
 
     @property(AudioClip)
     flySound : AudioClip;
@@ -23,19 +23,22 @@ export class AudioControl extends Component {
     @property(AudioClip)
     startSound : AudioClip;
 
+    @property(AudioSource)
+    audioSource : AudioSource;
+
     start() {
 
     }
     
     playSound(type : SoundType){
         if (type === SoundType.SoundFly) {
-            this.flySound.
+            this.audioSource.playOneShot(this.flySound);
         }else if (type === SoundType.SoundScore){
-
+            this.audioSource.playOneShot(this.scoreSound);
         }else if (type === SoundType.SoundStart){
-
+            this.audioSource.playOneShot(this.startSound);
         }else if (type === SoundType.SoundDie){
-
+            this.audioSource.playOneShot(this.dieSound);
         }
     }
 

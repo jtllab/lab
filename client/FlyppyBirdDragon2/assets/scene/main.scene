@@ -21,11 +21,11 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 37
+      "__id__": 38
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 38
+      "__id__": 39
     },
     "_id": "368d123b-0459-4a1f-91e5-f1988f17c054"
   },
@@ -65,9 +65,6 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 33
-      },
-      {
         "__id__": 34
       },
       {
@@ -75,6 +72,9 @@
       },
       {
         "__id__": 36
+      },
+      {
+        "__id__": 37
       }
     ],
     "_prefab": null,
@@ -1085,6 +1085,9 @@
       },
       {
         "__id__": 32
+      },
+      {
+        "__id__": 33
       }
     ],
     "_prefab": null,
@@ -1150,7 +1153,37 @@
     "_loop": false,
     "_playOnAwake": true,
     "_volume": 1,
-    "_id": "1epn8ItghM6Kn7oHHOK23B"
+    "_id": "9cnzBBlqhL/bxYXhOLzoAF"
+  },
+  {
+    "__type__": "980f8h8O7NMlrO0opaFU9jF",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 30
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "flySound": {
+      "__uuid__": "60d195e4-5ed9-4b12-938d-edb37fc4b836",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "scoreSound": {
+      "__uuid__": "20b67e6d-a89b-4a32-acc7-448bf5729e7b",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "dieSound": {
+      "__uuid__": "6887382f-cf49-48c7-810a-8309168dbaa8",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "startSound": {
+      "__uuid__": "1e249b2e-f97e-4c0d-8cc4-50b4a817553c",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "audioSource": {
+      "__id__": 32
+    },
+    "_id": "03s2rdm0xN1aweacmNZQpb"
   },
   {
     "__type__": "cc.UITransform",
@@ -1253,6 +1286,9 @@
     "lableScore": {
       "__id__": 29
     },
+    "audioSourceControl": {
+      "__id__": 33
+    },
     "_id": "10MWMILf9MGr/g+rd+Ph3r"
   },
   {
@@ -1262,19 +1298,19 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 39
-    },
-    "shadows": {
       "__id__": 40
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 41
     },
-    "fog": {
+    "_skybox": {
       "__id__": 42
     },
-    "octree": {
+    "fog": {
       "__id__": 43
+    },
+    "octree": {
+      "__id__": 44
     }
   },
   {
