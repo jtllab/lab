@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D} from 'cc';
+import { GameState } from './GameState';
 const { ccclass, property } = _decorator;
 
 @ccclass('MainControl')
@@ -113,6 +114,7 @@ export class MainControl extends Component {
 
           
 
+         GameState.getInstance().score++;
     }
 }
 
