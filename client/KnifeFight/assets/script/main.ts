@@ -4,46 +4,70 @@ const { ccclass, property } = _decorator;
 @ccclass('main')
 export class main extends Component {
     @property
-    // knifeList: Node[] = new Array(4)
-    knifeNode: Node = null
+    knifeList: Node[] = new Array()
     heroNode: Node = null
     woodNode: Node = null
     addKnifeButton: Node = null
+    speedUpButton: Node = null
     rotation: number = 2
     startPosition: any = null
     step: number = 10
 
     @property(Prefab)
-    // knifePrefab : Prefab = null;
-    pipePrefab : Prefab;
+    knifePrefab : Prefab = null;
 
     start() {
         input.on(Input.EventType.TOUCH_MOVE, this.touch_move, this)
         input.on(Input.EventType.TOUCH_START, this.touch_start, this)
-        console.log(instantiate(this.pipePrefab));
     }
 
     update(deltaTime: number) {
-        this.knifeNode.angle += this.rotation
+        for (let i = 1; i < this.knifeList.length + 1; i++){
+            this.knifeList[i - 1].angle += this.rotation
+        }
     }
 
     onEnable() {
-        this.knifeNode = this.node.getChildByName("knife")
         this.heroNode = this.node.getChildByName("hero")
         this.woodNode = this.node.getChildByName("target")
         this.addKnifeButton = this.node.getChildByName("AddKnife")
-        // this.heroNode.active = false
-        // this.addKnifeButton.active = false
-        // this.woodNode.active = false
-        this.knifeNode.getComponent(UITransform).setAnchorPoint(0.5, -0.7)
+        this.speedUpButton = this.node.getChildByName("speedUp")
+        // this.knifeNode.getComponent(UITransform).setAnchorPoint(0.5, -0.7)
         this.addKnifeButton.on(Button.EventType.CLICK, this.addKnifeCallBack, this)
+        this.speedUpButton.on(Button.EventType.CLICK, this.speedUpCallBack, this)
         // this.knifeList.push(this.knifeNode)
     }
 
+    modifyKnifeNode(knifeNode: Node){
+        knifeNode.setPosition(this.heroNode.position.x, this.heroNode.position.y, 0)
+        console.log(this.heroNode.position);
+        console.log(knifeNode.position);
+        
+        knifeNode.setScale(0.2, 0.2, 1)
+        knifeNode.getComponent(UITransform).setAnchorPoint(0.5, -0.7)
+    }
+
     addKnifeCallBack(){
-        // this.knifeList.push(instantiate(this.knifePrefab))
-        console.log(this.pipePrefab);
-        // console.log(this.knifeList);
+        let addKnife = instantiate(this.knifePrefab)
+        this.modifyKnifeNode(addKnife)
+        this.knifeList.push(addKnife)
+        this.node.addChild(addKnife)
+        if (this.knifeList.length === 6) {
+            this.addKnifeButton.active = false
+        }
+        let angle = 360 / this.knifeList.length
+        for (let i = 1; i < this.knifeList.length + 1; i++){
+            this.knifeList[i - 1].angle = angle * i
+        }
+        console.log(this.knifeList);
+    }
+
+    speedUpCallBack(){
+        if (this.rotation <= 5) {
+            this.rotation += 1
+        } else {
+            this.speedUpButton.active = false
+        }
     }
 
     getAnchor() {
@@ -63,9 +87,12 @@ export class main extends Component {
         let x = (location.x - this.startPosition.x) / 100
         let y = (location.y - this.startPosition.y) / 100
         let newPosition = new Vec3(this.heroNode.position.x + x, this.heroNode.position.y + y, this.heroNode.position.z)
-        let knifeNewPosition = new Vec3(this.knifeNode.position.x + x, this.knifeNode.position.y + y, this.knifeNode.position.z)
+        for (let i = 0; i < this.knifeList.length; i++){
+            // let knifeNewPosition = new Vec3(this.knifeList[i].position.x + x, this.knifeList[i].position.y + y, this.knifeList[i].position.z)
+            // this.knifeList[i].setPosition(knifeNewPosition);
+            this.knifeList[i].setPosition(newPosition);
+        }
         this.heroNode.setPosition(newPosition);
-        this.knifeNode.setPosition(knifeNewPosition);
         console.log("move", location);
     }
 }
