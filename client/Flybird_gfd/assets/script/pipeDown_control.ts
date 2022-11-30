@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, Sprite, Vec3, Prefab, instantiate } from 'cc';
+import {  pipe_init } from './pipe_init';
 const { ccclass, property } = _decorator;
 
 @ccclass('pipe_control')
@@ -12,11 +13,22 @@ export class pipe_control extends Component {
 
     }
 
-    
+    pipeDown_Reset(){
+        
+        var minY = 190;
+        var maxY = 300;
+        this.node.setPosition(new Vec3(130 ,minY + Math.random() * (maxY - minY)))
+
+    }
+
 
     update(deltaTime: number) {
+
         this.node.setPosition(this.node.getPosition().subtract(this.secChangeOffset));
-        
+        if(this.node.getPosition().x <= -310){
+            this.pipeDown_Reset();
+        }
+
         
         
     }

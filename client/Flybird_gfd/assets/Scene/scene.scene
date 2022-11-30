@@ -721,7 +721,7 @@
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 1,
-    "_type": 3,
+    "_type": 0,
     "_allowSleep": true,
     "_gravityScale": 1,
     "_linearDamping": 0,
@@ -733,11 +733,11 @@
     },
     "_angularVelocity": 0,
     "_fixedRotation": false,
-    "_id": "7abzHQuEFFc6kNRFAixE/3"
+    "_id": "7flRH1nbBPtr8To9h6qpJi"
   },
   {
     "__type__": "cc.Node",
-    "_name": "Node",
+    "_name": "pipe",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -812,11 +812,11 @@
     "_enabled": true,
     "__prefab": null,
     "pipe_down": {
-      "__uuid__": "83a8802d-79da-4403-ae5e-1196b6d79cac",
+      "__uuid__": "dc7b32b5-080f-4b1b-aae9-e84580f14d70",
       "__expectedType__": "cc.Prefab"
     },
     "pipe_up": {
-      "__uuid__": "b25f6db4-c880-49d1-b7dc-2e60679cfde4",
+      "__uuid__": "4646ab9f-eb16-462a-9e71-5270f124d2fd",
       "__expectedType__": "cc.Prefab"
     },
     "_id": "37BVUiawlHaKobS1TY9QxK"
