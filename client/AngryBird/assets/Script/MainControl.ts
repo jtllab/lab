@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D, Button, EventMouse, EventTouch, Input, Label} from 'cc';
+import { _decorator, Component, Node, CCObject, Sprite, sp, Vec3 ,Prefab, instantiate, director,CollisionEventType, BoxCollider2D, PhysicsSystem2D, Contact2DType,Collider2D, IPhysics2DContact, log, RigidBody2D, Button, EventMouse, EventTouch, Input, Label, AnimationClip, AnimationState, Animation} from 'cc';
 import { BirdControl } from './BirdControl';
 const { ccclass, property } = _decorator;
 export enum GameStatus
@@ -88,12 +88,20 @@ export class MainControl extends Component {
         //分数重置
         this.gameScore = 0;
         this.lableScore.string = this.gameScore.toString();
+        {
+            var bird = this.node.getChildByName("Bird");
+            bird.getComponent(Animation).resume();
+        }
     }
     gameOver()
     {
         this.spGameOver.node.active = true;
         this.btnStart.node.active = true;
         this.gameStatus = GameStatus.Game_Over;
+        {
+            var bird = this.node.getChildByName("Bird");
+            bird.getComponent(Animation).pause();
+        }
     }
  
      @property
