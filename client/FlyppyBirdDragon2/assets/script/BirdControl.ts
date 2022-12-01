@@ -27,14 +27,16 @@ export class BirdControl extends Component {
     }
 
     update(deltaTime: number) {
-        console.log(this.mainControl.gameStatus);
+        //console.log(this.mainControl.gameStatus);
         if (this.mainControl.gameStatus != GameStatus.GamePlaying){
             return;
         }
-        console.log(this.node.getPosition());
+        //console.log(this.node.getPosition());
         this.speed -= 0.1;
         this.speedVec.set(0, this.node.getPosition().y + this.speed,0);
         this.node.setPosition(this.speedVec);
+       
+       
         if (this.node.getPosition().y >= this.canvas.getComponent(UITransform).contentSize.y/2
             || this.node.getPosition().y <= -this.canvas.getComponent(UITransform).contentSize.y/2){
                 this.mainControl.gameOverActive();
