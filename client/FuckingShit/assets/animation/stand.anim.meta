@@ -2,12 +2,12 @@
   "ver": "2.0.3",
   "importer": "animation-clip",
   "imported": true,
-  "uuid": "cf730eac-d64b-4808-aaa1-476a733463c7",
+  "uuid": "cb2c9246-4dd6-40f8-899e-b427747c2d19",
   "files": [
     ".cconb"
   ],
   "subMetas": {},
   "userData": {
-    "name": "walk"
+    "name": "stand"
   }
 }

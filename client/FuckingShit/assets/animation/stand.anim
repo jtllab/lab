@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.AnimationClip",
-    "_name": "walk",
+    "_name": "stand",
     "_objFlags": 0,
     "__editorExtras__": {
       "embeddedPlayerGroups": []
@@ -11,7 +11,7 @@
     "speed": 1,
     "wrapMode": 2,
     "enableTrsBlending": false,
-    "_duration": 2,
+    "_duration": 0.8,
     "_hash": 500763545,
     "_tracks": [
       {
@@ -59,53 +59,23 @@
       0,
       0.2,
       0.4,
-      0.6,
-      0.8,
-      1,
-      1.2,
-      1.4,
-      1.6,
-      1.8
+      0.6
     ],
     "_values": [
       {
-        "__uuid__": "ef632674-f184-42b3-ae6b-9bbfe557155c@f9941",
+        "__uuid__": "6b5e590a-7341-4eb5-acc2-9f4739b80fca@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "15c6e526-df7d-4ebf-b81a-ffaaf8b02c0c@f9941",
+        "__uuid__": "fc00a180-df42-45f2-960f-6b16f7cfa7b1@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "9cf397a4-6186-4cad-86df-92cc374e6ce9@f9941",
+        "__uuid__": "a0d59ced-1b36-47d7-beee-39ba26066b66@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "c581144b-ade9-42e0-b133-cf2818cf600f@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "3e7e8d82-f234-4ea3-901b-f5511164dbc0@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "4852bff0-7dba-43ad-832b-f5e1848365ee@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "5a997fe2-0f0d-4f1e-b558-fb99d60bd3bb@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "ef121ce1-8061-4a77-b975-f38a0e8f8c45@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "ef632674-f184-42b3-ae6b-9bbfe557155c@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "ef632674-f184-42b3-ae6b-9bbfe557155c@f9941",
+        "__uuid__": "3e823d0e-6e58-4865-a3e0-007efdbfe9e8@f9941",
         "__expectedType__": "cc.SpriteFrame"
       }
     ]

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Input, input, EventKeyboard, KeyCode } from 'cc';
+import { _decorator, Component, Node, Input, input,Animation, EventKeyboard, KeyCode } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('goombaControl')
@@ -7,8 +7,10 @@ export class goombaControl extends Component {
     heroLoc : number = 0;
     left : boolean;
     right : boolean;
+    private _state : string = '';
+    private _playerAni: Animation = null;
     start() {
-
+        this.setState('stand');
     }
 
     update(deltaTime: number) {
@@ -22,6 +24,7 @@ export class goombaControl extends Component {
         {
             //节点X坐标右移
             this.node.setPosition(this.node.getPosition().x+3,this.node.getPosition().y);
+            //this.setState('walk_right');
         }//ss
         
     }
@@ -33,6 +36,9 @@ export class goombaControl extends Component {
         console.log(this.heroLoc);
         this.left = false;
         this.right = false;
+        this._playerAni = this.node.getComponent(Animation);
+        console.log('start');
+        
         
     }
 
@@ -48,11 +54,12 @@ export class goombaControl extends Component {
                 this.left = true;
                 break;
             
-            //键盘A触发
+            //键盘D触发
             case KeyCode.KEY_D:
                 console.log('DDDD');
                 //this.node.setPosition(this.node.getPosition().x+10,this.node.getPosition().y);
                 this.right = true;
+                this.setState('walk_right');
                 break;
 
         }
@@ -68,7 +75,17 @@ export class goombaControl extends Component {
                 break;
             case KeyCode.KEY_D:
                 this.right = false;
+                this.setState('stand');
                 break;
+        }
+    }
+
+    setState(state){
+        if (this._state == state) return;
+
+        this._state = state;
+        if (this._playerAni){
+            this._playerAni.play(this._state);
         }
     }
 }
