@@ -17,6 +17,8 @@ export class heroControl extends Component {
         {
             //节点X坐标左移
             this.node.setPosition(this.node.getPosition().x-3,this.node.getPosition().y);
+            
+            
         }
         else if(this.right)
         {
