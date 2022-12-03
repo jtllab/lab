@@ -1,45 +1,49 @@
-import { _decorator, Component, Node, TiledMap, RigidBody2D, PhysicsSystem2D, ERigidBody2DType, Vec2, BoxCollider2D } from 'cc';
+import { _decorator, Component, Node, TiledMap, RigidBody2D, PhysicsSystem2D, ERigidBody2DType, Vec2, BoxCollider2D, UITransform } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('game')
 export class game extends Component {
 
-    @property({type: TiledMap})
-    public map: TiledMap | null = null;
+    @property({type: Node})
+    public map: Node | null = null;
+
+    public static physicGroupType = {
+        wall : 1 << 1,
+        player: 1 << 2,
+        smog: 1 << 3
+    };
 
     start() {
         let p = PhysicsSystem2D.instance;
-        //p.debugDrawFlags = 1;
+        p.debugDrawFlags = 1;
 
         if (this.map){
-            let layer = this.map.getLayer('wall');
-            let layerSize = layer.getLayerSize();
-            let tiledSize = this.map.getTileSize();
+            for (const mapNode of this.map.children) {
+                mapNode.getComponent(UITransform).setAnchorPoint(new Vec2(0, 0));
 
-            // console.info('layersize')
-            // console.info(layerSize)
-            // console.info(tiledSize)
+                let map = mapNode.getComponent(TiledMap);
+                let tiledSize = map.getTileSize();
+                console.info("tiledSize", tiledSize)
+                
+                let wallLayer = map.getLayer('wall');
+                let wallLayerSize = wallLayer.getLayerSize();
 
-            for (let i = 0; i < layerSize.width; i++) {
-                for (let j = 0; j < layerSize.height; j++) {
-                    let tiled = layer.getTiledTileAt(i, j, true);
-                    let tiledId = layer.getTileGIDAt(i, j);
-                    
-                    if (tiledId != 0) {
-                        //console.info(tiledId)
-                        let body = tiled.node.addComponent(RigidBody2D);
-                        body.type = ERigidBody2DType.Static;
-                        let collider = tiled.node.addComponent(BoxCollider2D);
-                        // console.info(tiledSize.width, tiledSize.height);
-                        // console.info('----', tiledSize.x, tiledSize.y);
-                        // console.info('----', collider.offset);
-                        collider.offset = new Vec2(tiledSize.width/2, tiledSize.height/2);
-                        //console.info('----', collider.offset);
-                        //collider.offset = new Vec2(0, 0);
-                        collider.size = tiledSize;
-                        collider.group = 2;
-                        collider
-                        collider.apply();
+
+                for (let i = 0; i < wallLayerSize.width; i++) {
+                    for (let j = 0; j < wallLayerSize.height; j++) {
+                        let tiled = wallLayer.getTiledTileAt(i, j, true);
+                        let tiledId = tiled.grid;
+                        
+                        if (tiledId != 0) {
+                            let body = tiled.node.addComponent(RigidBody2D);
+                            body.type = ERigidBody2DType.Static;
+                            body.group = game.physicGroupType.wall;
+                            let collider = tiled.node.addComponent(BoxCollider2D);
+                            collider.offset = new Vec2(tiledSize.width/2, tiledSize.height/2);
+                            collider.size = tiledSize;
+                            collider.group = game.physicGroupType.wall;
+                            collider.apply();
+                        }
                     }
                 }
             }
