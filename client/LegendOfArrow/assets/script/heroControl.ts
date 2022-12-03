@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('heroControl')
@@ -15,6 +15,9 @@ export class heroControl extends Component {
     //hero移动速度
     speed:number = 2;
 
+    @property(SpriteFrame)
+    bulleteicon : SpriteFrame = null;
+
     start() {
 
     }
@@ -30,6 +33,9 @@ export class heroControl extends Component {
         this.up = false;
         this.down = false;
         this._playerAni = this.node.getComponent(Animation);
+
+        input.on(Input.EventType.MOUSE_DOWN, this.onTouch, this);
+
     }
 
     update(deltaTime: number) {
@@ -119,6 +125,27 @@ export class heroControl extends Component {
             this._playerAni.play(this._state);
         }
     }
+
+    
+    onTouch()
+    {
+        this.fire();
+        console.log('fire');
+    }
+    //开火射击
+    fire()
+    {
+        let bullet:Node=new Node();
+        let sprite:Sprite=bullet.addComponent(Sprite);
+        //子弹图片赋值
+        sprite.spriteFrame=this.bulleteicon;
+
+        //挂载到炮台节点下
+        bullet.parent=this.node;
+        //设置相对父节点位置
+        bullet.setPosition(0,80,0);
+    }
+
 
 }
 

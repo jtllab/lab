@@ -144,7 +144,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 327.04956726986626,
+    "_orthoHeight": 326.9291338582677,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -674,6 +674,10 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "bulleteicon": {
+      "__uuid__": "63223999-d6bf-4c51-996f-290c5aa4cf6f@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": "b2p0o9kb5H/ITwbBYAMMPg"
   },
   {
