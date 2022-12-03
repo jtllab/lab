@@ -539,7 +539,7 @@
     "_id": "645ywIYuBBSr8QuOttEVvw"
   },
   {
-    "__type__": "b94b8ei2QZMKrRG7zuQPLn/",
+    "__type__": "8f27draFTJPApzdmylPkPa/",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -547,15 +547,11 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "bulleteicon": {
-      "__uuid__": "63223999-d6bf-4c51-996f-290c5aa4cf6f@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
     "bulletPrefab": {
       "__uuid__": "12b282d4-c96d-45d9-af00-43a6b2f0776a",
       "__expectedType__": "cc.Prefab"
     },
-    "_id": "b2p0o9kb5H/ITwbBYAMMPg"
+    "_id": "74kge06F9Fj6qWiu74WM5k"
   },
   {
     "__type__": "cc.Node",
