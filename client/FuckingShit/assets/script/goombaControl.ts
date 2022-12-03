@@ -9,6 +9,7 @@ export class goombaControl extends Component {
     right : boolean;
     private _state : string = '';
     private _playerAni: Animation = null;
+    speed:number = 2;
     start() {
         this.setState('stand');
     }
@@ -18,12 +19,12 @@ export class goombaControl extends Component {
         if(this.left)
         {
             //节点X坐标左移
-            this.node.setPosition(this.node.getPosition().x-3,this.node.getPosition().y);
+            this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y);
         }
         else if(this.right)
         {
             //节点X坐标右移
-            this.node.setPosition(this.node.getPosition().x+3,this.node.getPosition().y);
+            this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y);
             //this.setState('walk_right');
         }//ss
         
