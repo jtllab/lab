@@ -1,14 +1,18 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('heroControl')
 export class heroControl extends Component {
 
     heroLoc : number = 0;
-    left : boolean;
-    right : boolean;
-    up : boolean;
-    down : boolean;
+    left : boolean; //左
+    right : boolean; //右 
+    up : boolean; //上
+    down : boolean; //下
+    leftup : boolean;//左上
+    rightup : boolean;//右上
+    leftdown : boolean;//左下
+    rightdown : boolean;//右下
     private _state : string = '';
     private _playerAni: Animation = null;
 
@@ -17,6 +21,9 @@ export class heroControl extends Component {
 
     @property(SpriteFrame)
     bulleteicon : SpriteFrame = null;
+
+    @property(Prefab)
+    bulletPrefab : Prefab = null;
 
     start() {
 
@@ -42,14 +49,36 @@ export class heroControl extends Component {
         
         if(this.left)
         {
-            //节点X坐标正方向移动
-            this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y);
+            if(this.up)
+            {
+                //左上移动
+                this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y+this.speed);
+
+            }else if(this.down){
+                //左下移动
+                this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y-this.speed);
+            }
+            else{
+                //左移
+                this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y);
+            }
+            
         }
         else if(this.right)
         {
-            //节点X坐标负方向移动
-            this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y);
-            //this.setState('walk_right');
+            if(this.up)
+            {
+                //右上移动
+                this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y+this.speed);
+
+            }else if(this.down){
+                //右下移动
+                this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y-this.speed);
+            }
+            else{
+                //右移
+                this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y);           
+            }
         }
         else if(this.up)
         {
@@ -135,15 +164,16 @@ export class heroControl extends Component {
     //开火射击
     fire()
     {
-        let bullet:Node=new Node();
-        let sprite:Sprite=bullet.addComponent(Sprite);
-        //子弹图片赋值
-        sprite.spriteFrame=this.bulleteicon;
+        //新的子弹生成新的预制体
+        let bullet:Node = instantiate(this.bulletPrefab);
+        
+        this.node.parent.addChild(bullet);
 
-        //挂载到炮台节点下
-        bullet.parent=this.node;
+       
+        //子弹图层设置等于父节点图层
+        bullet.layer = this.node.layer;
         //设置相对父节点位置
-        bullet.setPosition(0,80,0);
+        bullet.setPosition(this.node.position);
     }
 
 
