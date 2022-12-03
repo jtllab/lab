@@ -1,4 +1,4 @@
-import { _decorator, Component, input, Input, Vec3, EventMouse, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D, Node } from 'cc';
+import { _decorator, Component, input, Input, Vec3, EventMouse, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D, Node, UITransform } from 'cc';
 import { SoundType } from './AudioSourceControl';
 import { GameStatus, MainControl } from './MainControl';
 const { ccclass, property } = _decorator;
@@ -15,6 +15,8 @@ export class BirdControl extends Component {
 
     mainControl : MainControl;
 
+    angle : number = 0;
+
     start() {
 
     }
@@ -27,14 +29,23 @@ export class BirdControl extends Component {
     }
 
     update(deltaTime: number) {
-        console.log(this.mainControl.gameStatus);
         if (this.mainControl.gameStatus != GameStatus.GamePlaying){
+            this.speed = 0;
             return;
         }
-        console.log(this.node.getPosition());
         this.speed -= 0.1;
         this.speedVec.set(0, this.node.getPosition().y + this.speed,0);
         this.node.setPosition(this.speedVec);
+        this.angle = -(this.speed/2) * 30;
+        if (this.angle >= 30) {
+            this.angle = 30;
+        }
+        this.node.setRotationFromEuler(new Vec3(0,0,-this.angle));
+        if (this.node.getPosition().y >= this.canvas.getComponent(UITransform).contentSize.y/2
+            || this.node.getPosition().y <= -this.canvas.getComponent(UITransform).contentSize.y/2){
+                this.mainControl.gameOverActive();
+                this.mainControl.audioSourceControl.playSound(SoundType.SoundDie);
+            }
     }
 
     onMouseDown(event : EventMouse){
@@ -46,7 +57,8 @@ export class BirdControl extends Component {
         //根据tag进行区分
         if (other.tag === 0){
             this.mainControl.gameOverActive();
-            this.mainControl.audioSourceControl.playSound(SoundType.SoundDie)
+            this.mainControl.audioSourceControl.playSound(SoundType.SoundDie);     
+            console.log("game over",this.speed);   
         }else if (other.tag === 1){
             this.mainControl.gameScore++;
             this.mainControl.lableScore.string = this.mainControl.gameScore.toString();
