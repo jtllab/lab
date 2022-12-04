@@ -69,20 +69,37 @@ export class PlayerController extends Component {
       }
       if(event.keyCode === KeyCode.ARROW_LEFT){
         console.log("左");
+        this._Leftflag = 1;
+
       }
 
       if(event.keyCode === KeyCode.ARROW_DOWN){
         console.log("下");
+        this._Downflag = 1;
       }
 
       if(event.keyCode === KeyCode.ARROW_RIGHT){
         console.log("右");
+        this._Rightflag = 1;
       }
     }
 
     onKeyboardUp(event:EventKeyboard){
       if(event.keyCode === KeyCode.ARROW_UP){
         this._Upflag = 0;
+      }
+      if(event.keyCode === KeyCode.ARROW_DOWN){
+        console.log("下");
+        this._Downflag = 0;
+      }
+      if(event.keyCode === KeyCode.ARROW_LEFT){
+        console.log("左");
+        this._Leftflag = 0;
+      }
+      if(event.keyCode === KeyCode.ARROW_RIGHT){
+        console.log("右");
+        this._Rightflag = 0;
+
       }
     }
 
@@ -113,10 +130,18 @@ export class PlayerController extends Component {
   update(deltaTime: number) {
 
     if(this._Upflag === 1){
-      console.log(KeyCode);
-      this.node.setPosition(this.node.getPosition().add3f(0, 1, 0));   //jansen  可用
+      this.node.setPosition(this.node.getPosition().add3f(0, 10, 0));   //jansen  可用
     }
-    
+    if(this._Downflag === 1){
+      this.node.setPosition(this.node.getPosition().add3f(0, -10, 0));   //jansen  可用
+    }
+    if(this._Leftflag === 1){
+      this.node.setPosition(this.node.getPosition().add3f(-10, 0, 0));   //jansen  可用
+    }
+    if(this._Rightflag === 1){
+      this.node.setPosition(this.node.getPosition().add3f(10, 0, 0));   //jansen  可用
+    }
+
     if (this._startJump) {
       this._curJumpTime += deltaTime;
       if (this._curJumpTime > this._jumpTime) {
@@ -133,5 +158,3 @@ export class PlayerController extends Component {
     }
   }
 }
-
-
