@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, CCObject, Sprite, Vec3 } from 'cc';
+import { GameState, GameStatus } from './common';
 const { ccclass, property } = _decorator;
 
 @ccclass('bg_move')
@@ -37,14 +38,19 @@ export class bg_move extends Component {
 
     update(deltaTime: number) {
 
-        this.bg1.node.setPosition(this.bg1.node.getPosition().subtract(this.secChangeOffset));
-        this.bg2.node.setPosition(this.bg2.node.getPosition().subtract(this.secChangeOffset));
-        if (this.bg1.node.getPosition().x <= -288 ){
-            this.bg1_Reset()
+        if(GameStatus.gamestate == GameState.GamePlaying){
+            
+            this.bg1.node.setPosition(this.bg1.node.getPosition().subtract(this.secChangeOffset));
+            this.bg2.node.setPosition(this.bg2.node.getPosition().subtract(this.secChangeOffset));
+            if (this.bg1.node.getPosition().x <= -288 ){
+                this.bg1_Reset()
+            }
+            if (this.bg2.node.getPosition().x <= -288 ){
+                this.bg2_Reset()
+            }
+
         }
-        if (this.bg2.node.getPosition().x <= -288 ){
-            this.bg2_Reset()
-        }
+
 
    
         

@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, Vec3 } from 'cc';
+import {  GameState, GameStatus } from './common';
 const { ccclass, property } = _decorator;
 
 @ccclass('pipeUp_control')
@@ -15,12 +16,18 @@ export class pipeUp_control extends Component {
         var maxY = -200;
         this.node.setPosition(new Vec3(130 ,minY + Math.random() * (maxY - minY)))
     }
-
+ 
     update(deltaTime: number) {
-        this.node.setPosition(this.node.getPosition().subtract(this.secChangeOffset));
-        if(this.node.getPosition().x <= -310){
-            this.pipeUp_Reset();
+        if(GameStatus.gamestate == GameState.GamePlaying){
+
+            this.node.setPosition(this.node.getPosition().subtract(this.secChangeOffset));
+            if(this.node.getPosition().x <= -310){
+                this.pipeUp_Reset();
+            }
+
         }
+       
+
     }
 }
 

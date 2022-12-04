@@ -2,7 +2,7 @@
   "ver": "1.0.25",
   "importer": "image",
   "imported": true,
-  "uuid": "32c6b926-6203-43d6-b4e4-8930b51b679c",
+  "uuid": "6dee5428-67a5-4216-9bd3-57c3e1ad0704",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "32c6b926-6203-43d6-b4e4-8930b51b679c@6c48a",
+      "uuid": "6dee5428-67a5-4216-9bd3-57c3e1ad0704@6c48a",
       "displayName": "pipe_down",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "32c6b926-6203-43d6-b4e4-8930b51b679c",
+        "imageUuidOrDatabaseUri": "6dee5428-67a5-4216-9bd3-57c3e1ad0704",
         "isUuid": true,
         "visible": false,
         "minfilter": "linear",
@@ -34,7 +34,7 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "32c6b926-6203-43d6-b4e4-8930b51b679c@f9941",
+      "uuid": "6dee5428-67a5-4216-9bd3-57c3e1ad0704@f9941",
       "displayName": "pipe_down",
       "id": "f9941",
       "name": "spriteFrame",
@@ -114,7 +114,7 @@
           ]
         },
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "32c6b926-6203-43d6-b4e4-8930b51b679c@6c48a",
+        "imageUuidOrDatabaseUri": "6dee5428-67a5-4216-9bd3-57c3e1ad0704@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.11",
@@ -129,6 +129,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "32c6b926-6203-43d6-b4e4-8930b51b679c@f9941"
+    "redirect": "6dee5428-67a5-4216-9bd3-57c3e1ad0704@f9941"
   }
 }
