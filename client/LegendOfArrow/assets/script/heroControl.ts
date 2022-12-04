@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact } from 'cc';
 const { ccclass, property } = _decorator;
 import { bulletControl }  from './bulletControl';
 
@@ -35,7 +35,6 @@ export class heroControl extends Component {
     start() {
 
     }
-
     onLoad()
     {
          input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);

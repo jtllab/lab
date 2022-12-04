@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3 } from 'cc';
+import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('bullet')
@@ -16,6 +16,8 @@ export class bulletControl extends Component {
  onLoad() {
      // 每 1/60 秒调用一次 onTimer 函数
      this.schedule(this.onTimer, 1 / 60);
+
+    
  }
 
  // 由于我们这里使用定时器来更新子弹飞行位置，所以不需要在 update 函数中更新子弹位置
@@ -36,6 +38,6 @@ export class bulletControl extends Component {
      // 更新子弹位置
      this.node.setPosition(this.node.getPosition().add(this.posOffset));
  }
-}
 
+}
 
