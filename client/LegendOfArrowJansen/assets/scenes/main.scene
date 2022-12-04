@@ -539,7 +539,7 @@
     "_id": "645ywIYuBBSr8QuOttEVvw"
   },
   {
-    "__type__": "8f27draFTJPApzdmylPkPa/",
+    "__type__": "6c7baVVGmZMuqOP73l7UthS",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -551,7 +551,7 @@
       "__uuid__": "12b282d4-c96d-45d9-af00-43a6b2f0776a",
       "__expectedType__": "cc.Prefab"
     },
-    "_id": "74kge06F9Fj6qWiu74WM5k"
+    "_id": "e4RA20/k5LhbxWpd/VCwmp"
   },
   {
     "__type__": "cc.Node",

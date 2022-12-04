@@ -1,9 +1,9 @@
 import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode, Animation, Sprite, SpriteFrame, Prefab, instantiate, math } from "cc";
-import { BulletControl } from "./BulletControl";
+import { BulletController } from "./BulletController";
 const { ccclass, property } = _decorator;
 
-@ccclass("HeroControl")
-export class HeroControl extends Component {
+@ccclass("HeroController")
+export class HeroController extends Component {
     left: boolean;
     right: boolean;
     up: boolean;
@@ -161,7 +161,7 @@ export class HeroControl extends Component {
         var posOffset = this.posOffset.clone();
 
         // 初始化子弹的移动速度，这包括的是子弹的方向和速度
-        bullet.getComponent(BulletControl).posOffset = posOffset.multiplyScalar(5);
+        bullet.getComponent(BulletController).posOffset = posOffset.multiplyScalar(5);
 
         //挂载到炮台节点下
         this.node.parent.addChild(bullet);

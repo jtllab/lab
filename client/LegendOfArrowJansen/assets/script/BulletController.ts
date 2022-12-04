@@ -2,7 +2,7 @@ import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input
 const { ccclass, property } = _decorator;
 
 @ccclass("bullet")
-export class BulletControl extends Component {
+export class BulletController extends Component {
     // 子弹的移动方向
     public posOffset: math.Vec3 = new math.Vec3(0, 0, 0);
 
