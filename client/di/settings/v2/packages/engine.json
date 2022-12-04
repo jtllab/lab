@@ -137,5 +137,8 @@
       "version": ""
     },
     "flags": {}
+  },
+  "macroConfig": {
+    "ENABLE_TILEDMAP_CULLING": true
   }
 }
