@@ -6,8 +6,7 @@ export class bullet extends Component {
 
 
     onLoad(){
-      //  this.node.on(Input.EventType.MOUSE_DOWN,this.onTouch,this)
-
+      this.schedule(this.onTimer,0.01);
     }
 
     start() {
@@ -15,9 +14,22 @@ export class bullet extends Component {
     }
 
     update(deltaTime: number) {
-        
-    
+
     }
+    
+  
+
+
+
+  onTimer(){
+      if(this.node.getPosition().y>300){
+          this.unschedule(this.onTimer);
+          this.node.destroy();
+          return;
+      }
+      this.node.getPosition().y+=5;
+  }
+
 
 
 }
