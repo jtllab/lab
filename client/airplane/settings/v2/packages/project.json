@@ -1,0 +1,19 @@
+{
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "SELF_PLANE"
+      },
+      {
+        "index": 2,
+        "name": "ENEMY_PLANE"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 1,
+      "1": 4,
+      "2": 2
+    }
+  }
+}
