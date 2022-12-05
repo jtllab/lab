@@ -1,5 +1,7 @@
-import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType } from 'cc';
+import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation} from 'cc';
+import { heroControl } from './heroControl';
 const { ccclass, property } = _decorator;
+
 
 @ccclass('bullet')
 export class bulletControl extends Component {
@@ -9,6 +11,9 @@ export class bulletControl extends Component {
 
  // 记录子弹的初始位置，用于检查子弹是否飞出太远，如果太远则销毁子弹，防止子弹一直存在浪费计算机资源
  private beginPos: Vec3;
+
+ private _state : string = '';
+ private _playerAni: Animation = null;
  start() {
      this.beginPos = this.node.getPosition();
  }
@@ -27,9 +32,10 @@ export class bulletControl extends Component {
  onTimer() {
      {
          // 检查子弹是否飞出太远，如果是则销毁子弹，防止一直存在浪费计算机资源
-         if (this.node.getPosition().subtract(this.beginPos).length() > 1000) {
+         if (this.node.getPosition().subtract(this.beginPos).length() > 100) {
              // 取消这个定时器，防止一直存在浪费计算机资源
              this.unschedule(this.onTimer);
+             this.setState('exp1')
              // 销毁这个node就是销毁这个子弹
              this.node.destroy();
              return;
@@ -39,5 +45,16 @@ export class bulletControl extends Component {
      this.node.setPosition(this.node.getPosition().add(this.posOffset));
  }
 
+ 
+//子弹爆炸效果
+
+ setState(state){
+    if (this._state == state) return;
+
+    this._state = state;
+    if (this._playerAni){
+        this._playerAni.play(this._state);
+    }
+}
 }
 

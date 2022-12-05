@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, ProgressBar, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact } from 'cc';
+import { bulletControl } from './bulletControl';
 const { ccclass, property } = _decorator;
 
 @ccclass('slfsControl')
@@ -7,9 +8,9 @@ export class slfsControl extends Component {
     hp_bar : ProgressBar = null;
 
     //最大血量
-    max_hp : number = 300;
+    max_hp : number = 3000;
     //当前血量
-    hp : number = 300;
+    hp : number = 3000;
 
     onLoad()
     {
@@ -22,6 +23,12 @@ export class slfsControl extends Component {
     }
 
     update(deltaTime: number) {
+        //监测死灵法师血量
+        if(this.hp <= 0)
+        [
+            this.hp = this.max_hp,
+            console.log('复活')
+        ]
         
     }
 
@@ -35,6 +42,7 @@ export class slfsControl extends Component {
                 this.hp=this.hp-10;
                 console.log(this.hp)
                 this.hp_bar.progress = this.hp/this.max_hp
+
                 break
         }
     }
