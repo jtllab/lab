@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, ProgressBar, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact } from 'cc';
+import { _decorator, Component, Node, ProgressBar, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact,Animation } from 'cc';
 import { bulletControl } from './bulletControl';
 const { ccclass, property } = _decorator;
 
@@ -12,11 +12,17 @@ export class slfsControl extends Component {
     //当前血量
     hp : number = 3000;
 
+    @property(Animation)
+    animation: Animation = null;
+
     onLoad()
     {
         if (PhysicsSystem2D.instance) {
             PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
+
+        // 监听 'play-explosion-animation' 事件
+        this.node.on('play-explosion-animation', this.playExplosionAnimation, this);
     }
     start() {
         this.hp_bar.progress = this.hp/this.max_hp;
@@ -42,9 +48,16 @@ export class slfsControl extends Component {
                 this.hp=this.hp-10;
                 console.log(this.hp)
                 this.hp_bar.progress = this.hp/this.max_hp
-
-                break
+                //触发事件来播放爆炸动画
+                this.node.emit('play-explosion-animation');
+                break;
         }
+    }
+
+    playExplosionAnimation() {
+        // 播放爆炸动画
+        console.log('爆炸');
+        this.animation.play('exp1');
     }
 }
 

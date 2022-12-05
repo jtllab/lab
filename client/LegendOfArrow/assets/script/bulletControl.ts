@@ -21,6 +21,7 @@ export class bulletControl extends Component {
  onLoad() {
      // 每 1/60 秒调用一次 onTimer 函数
      this.schedule(this.onTimer, 1 / 60);
+     this._playerAni = this.node.getComponent(Animation);
 
     
  }
@@ -32,10 +33,10 @@ export class bulletControl extends Component {
  onTimer() {
      {
          // 检查子弹是否飞出太远，如果是则销毁子弹，防止一直存在浪费计算机资源
-         if (this.node.getPosition().subtract(this.beginPos).length() > 100) {
+         if (this.node.getPosition().subtract(this.beginPos).length() > 1000) {
              // 取消这个定时器，防止一直存在浪费计算机资源
              this.unschedule(this.onTimer);
-             this.setState('exp1')
+             //this.setState('exp1');
              // 销毁这个node就是销毁这个子弹
              this.node.destroy();
              return;
