@@ -30,13 +30,12 @@ export class slfsControl extends Component {
         // 只在两个碰撞体开始接触时被调用一次
         //console.log('HIT');
         switch(otherCollider.node.name){
-            case 'bullet':
-                console.log('HIT');
-                //this.hp=this.hp-10;
-                console.log('xxx');
+            case 'bulletPrefeb':
+                console.log('HIT！！！')
+                this.hp=this.hp-10;
                 console.log(this.hp)
-                this.hp_bar.progress = this.hp/this.max_hp;
-                break;
+                this.hp_bar.progress = this.hp/this.max_hp
+                break
         }
     }
 }
