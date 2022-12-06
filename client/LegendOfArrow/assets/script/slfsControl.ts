@@ -43,15 +43,15 @@ export class slfsControl extends Component {
         switch(otherCollider.node.name){
             case 'bulletPrefeb':
                 console.log('HIT！！！')
+                
                 this.hp=this.hp-10;
                 console.log(this.hp)
                 this.hp_bar.progress = this.hp/this.max_hp
                 //触发事件来播放爆炸动画
                 otherCollider.node.getComponent(bulletControl).setState("exp1");
-                //死灵法师被击中的动画
-                this.animation.play('slfs_byhit');
-                //
-                console.log('bbbbbbbbbbbb');
+                //selfCollider.node.getComponent(Animation).play("slfs_byhit");
+                this.animation.play("slfs_byhit");
+                //otherCollider.node.destroy();
                 break;
         }
     }

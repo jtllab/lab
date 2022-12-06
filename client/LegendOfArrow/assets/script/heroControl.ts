@@ -52,53 +52,6 @@ export class heroControl extends Component {
     }
 
     update(deltaTime: number) {
-        
-      /*  if(this.left)
-        {
-            if(this.up)
-            {
-                //左上移动
-                this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y+this.speed);
-
-            }else if(this.down){
-                //左下移动
-                this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y-this.speed);
-            }
-            else{
-                //左移
-                this.node.setPosition(this.node.getPosition().x-this.speed,this.node.getPosition().y);
-            }
-            
-        }
-        else if(this.right)
-        {
-            if(this.up)
-            {
-                //右上移动
-                this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y+this.speed);
-
-            }else if(this.down){
-                //右下移动
-                this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y-this.speed);
-            }
-            else{
-                //右移
-                this.node.setPosition(this.node.getPosition().x+this.speed,this.node.getPosition().y);           
-            }
-        }
-        else if(this.up)
-        {
-            //节点y坐标正方向移动
-            this.node.setPosition(this.node.getPosition().x,this.node.getPosition().y+this.speed);
-
-        }
-        else if(this.down)
-        {
-            //节点y坐标负方向移动
-            this.node.setPosition(this.node.getPosition().x,this.node.getPosition().y-this.speed);
-
-        }*/
-
         // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
         var off = this.posOffset.clone();
         // 乘上 posOffsetMul，在不移动时，这个值为 0，乘以0后这个向量就是 0 了，就不会移动了
