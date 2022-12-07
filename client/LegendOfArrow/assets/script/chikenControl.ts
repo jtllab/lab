@@ -5,7 +5,9 @@ const { ccclass, property } = _decorator;
 export class chikenControl extends Component {
     //鸡的移动速度
     speed : number = 100;
-    direction : number = 1;
+    direction1 : number = 1;
+    direction2 : number = -1;
+
     onLoad()
     {
         //1秒改变一次方向
@@ -18,9 +20,9 @@ export class chikenControl extends Component {
 
     
     update(deltaTime: number) {
-        this.node.position = this.node.position.add(v3(this.direction*this.speed*deltaTime,0));
+        this.node.position = this.node.position.add(v3(this.direction1*this.speed*deltaTime,this.direction2*this.speed*deltaTime));
         
-        if(this.node.position.x > 960|| this.node.position.x < 0)
+        if(this.node.position.x > 960|| this.node.position.x < 0 ||this.node.position.y < 0||this.node.position.y < 640)
         {
             this.speed =- this.speed;
         } 
@@ -28,7 +30,9 @@ export class chikenControl extends Component {
 
     change(deltaTime:number){
         //改变方向
-        let direction = Math.random()>0.5?1:-1;
+        this.direction1 = Math.random()>0.5?1:-1;
+        this.direction2 = Math.random()>0.5?1:-1;
+
     }
 }
 
