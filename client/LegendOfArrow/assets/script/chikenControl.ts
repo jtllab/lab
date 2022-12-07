@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, v2, Vec2, v3 } from 'cc';
+import { _decorator, Component, Node, v2, Vec2, v3, random } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('chikenControl')
@@ -12,7 +12,8 @@ export class chikenControl extends Component {
 
     
     update(deltaTime: number) {
-        this.node.position = this.node.position.add(v3(this.speed*deltaTime,0));
+        let direction = Math.random()>0.5?1:-1;
+        this.node.position = this.node.position.add(v3(direction*this.speed*deltaTime,0));
         
         if(this.node.position.x > 960|| this.node.position.x < 0)
         {
