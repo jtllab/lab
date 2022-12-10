@@ -14,6 +14,10 @@ export class bulletControl extends Component {
 
  private _state : string = '';
  private _playerAni: Animation = null;
+
+ 
+ @property(Animation)
+ animation: Animation = null;
  start() {
      this.beginPos = this.node.getPosition();
  }
@@ -50,12 +54,14 @@ export class bulletControl extends Component {
 //子弹爆炸效果
 
  setState(state){
-    if (this._state == state) return;
+   if (this._state == state) return;
 
     this._state = state;
     if (this._playerAni){
         this._playerAni.play(this._state);
     }
+   // this.node.destroy();
+    
 }
 }
 

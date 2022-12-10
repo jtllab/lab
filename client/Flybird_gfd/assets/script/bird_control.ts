@@ -51,6 +51,7 @@ export class bird_control extends Component {
 
         //出界
         if( this.node.getPosition().y < -256 || this.node.getPosition().y > 256) {
+            // 通过GameStatus类调用setGameStateOver方法设置游戏状态
             GameStatus.setGameStateOver();
         }
 

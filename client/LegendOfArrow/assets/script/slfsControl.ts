@@ -20,9 +20,7 @@ export class slfsControl extends Component {
         if (PhysicsSystem2D.instance) {
             PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
-
-        // 监听 'play-explosion-animation' 事件
-        this.node.on('play-explosion-animation', this.playExplosionAnimation, this);
+        this.animation = this.node.getComponent(Animation);
     }
     start() {
         this.hp_bar.progress = this.hp/this.max_hp;
@@ -45,20 +43,19 @@ export class slfsControl extends Component {
         switch(otherCollider.node.name){
             case 'bulletPrefeb':
                 console.log('HIT！！！')
+                
                 this.hp=this.hp-10;
                 console.log(this.hp)
                 this.hp_bar.progress = this.hp/this.max_hp
                 //触发事件来播放爆炸动画
-                this.node.emit('play-explosion-animation');
+                otherCollider.node.getComponent(bulletControl).setState("exp1");
+                //selfCollider.node.getComponent(Animation).play("slfs_byhit");
+                this.animation.play("slfs_byhit");
+                //otherCollider.node.destroy();
                 break;
         }
     }
 
-    playExplosionAnimation() {
-        // 播放爆炸动画
-        console.log('爆炸');
-        this.animation.play('exp1');
-    }
 }
 
 
