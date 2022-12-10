@@ -1,4 +1,4 @@
-import { _decorator, Component, input, Input, EventKeyboard, KeyCode, Vec3, Animation } from 'cc';
+import { _decorator, Component, input, Input, EventKeyboard, KeyCode, Vec3, Animation, find, Node } from 'cc';
 import { commonUtils } from '../Util/commonUtils';
 const { ccclass, property } = _decorator;
 
@@ -17,6 +17,8 @@ export class heroControl extends Component {
     left: boolean = false;
     right: boolean = false;
 
+    camera: Node;
+
     //人物速度
     speed: number = 0;
 
@@ -31,6 +33,7 @@ export class heroControl extends Component {
         input.on(Input.EventType.KEY_DOWN,this.onKeyBoardDown,this);
         input.on(Input.EventType.KEY_UP,this.onKeyBoardUp,this);
         this.animation = this.node.getComponent(Animation);
+        this.camera = find("Canvas/Camera");
     }
 
 
@@ -40,6 +43,7 @@ export class heroControl extends Component {
 
     update(deltaTime: number) {
         this.heroMove(deltaTime);
+        this.camera.setPosition(this.node.getPosition());
         //console.log(deltaTime);
     }
 
@@ -62,7 +66,6 @@ export class heroControl extends Component {
                 this.offsetVec3.add3f(this.speed,0,0);
             }
             this.node.setPosition(this.node.getPosition().add(this.offsetVec3));
-            
         }
     }
 

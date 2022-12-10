@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, Vec3, director, Scheduler, instantiate } from 'cc';
+import { _decorator, Component, Node, Prefab, Vec3, director, Scheduler, instantiate, Camera } from 'cc';
 import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../Util/commonUtils';
 const { ccclass, property } = _decorator;
