@@ -1,4 +1,4 @@
-import { _decorator, Component, input, Input, EventKeyboard, KeyCode, Vec3, Animation, find, Node } from 'cc';
+import { _decorator, Component, input, Input, EventKeyboard, KeyCode, Vec3, Animation, find, Node, Collider, BoxCollider2D, Contact2DType } from 'cc';
 import { commonUtils } from '../Util/commonUtils';
 const { ccclass, property } = _decorator;
 
@@ -17,10 +17,15 @@ export class heroControl extends Component {
     left: boolean = false;
     right: boolean = false;
 
+    collider: BoxCollider2D;
+
     camera: Node;
 
     //人物速度
     speed: number = 0;
+
+    //速度倍率
+    speedMult: number = 1;
 
     animState: string = "";
 
@@ -34,9 +39,11 @@ export class heroControl extends Component {
         input.on(Input.EventType.KEY_UP,this.onKeyBoardUp,this);
         this.animation = this.node.getComponent(Animation);
         this.camera = find("Canvas/Camera");
+        this.collider = this.node.getComponent(BoxCollider2D);
+        this.collider.on(Contact2DType.BEGIN_CONTACT,this.onContactBegin,this);
+        this.collider.on(Contact2DType.BEGIN_CONTACT,this.onContactEnd,this);
     }
-
-
+    
     start() {
         
     }
@@ -47,13 +54,24 @@ export class heroControl extends Component {
         //console.log(deltaTime);
     }
 
+
+    onContactBegin(){
+        this.speedMult = 0.7;
+        console.log("begin");
+    }
+
+    onContactEnd(){
+        this.speedMult = 1;
+        console.log("end");
+    }
+
     heroMove(deltaTime: number){
         this.offsetVec3.set(0,0,0);
         if (this.left || this.right || this.up || this.down){
             if ((this.up && this.left) || (this.up && this.right) || (this.down && this.left) || (this.down && this.right)){
-                this.speed = 1.5
+                this.speed = 1.5 * this.speedMult;
             }else {
-                this.speed = 2;
+                this.speed = 2 * this.speedMult;
             }
             if (this.up){
                 this.offsetVec3.add3f(0,this.speed,0);

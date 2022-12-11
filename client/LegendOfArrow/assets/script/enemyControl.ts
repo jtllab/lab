@@ -1,9 +1,8 @@
-import { _decorator, Component, Node, Vec3, find, RigidBody2D } from 'cc';
-import { commonUtils } from '../Util/commonUtils';
+import { _decorator, Component, Node, Vec3, find } from 'cc';
 const { ccclass, property } = _decorator;
 
-@ccclass('monsterControl')
-export class monsterControl extends Component {
+@ccclass('enemyControl')
+export class enemyControl extends Component {
 
     hero: Node;
 
@@ -12,8 +11,8 @@ export class monsterControl extends Component {
     speed: number = 70;
 
     start() {
-        this.hero = find("Canvas/Hero");
-    } 
+        this.hero = find("Canvas/ch/hero");
+    }
 
     update(deltaTime: number) {
         //玩家坐标减去怪物坐标得到距离，即方向
