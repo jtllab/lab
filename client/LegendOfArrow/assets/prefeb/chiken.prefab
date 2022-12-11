@@ -34,13 +34,10 @@
       },
       {
         "__id__": 10
-      },
-      {
-        "__id__": 12
       }
     ],
     "_prefab": {
-      "__id__": 14
+      "__id__": 12
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -167,7 +164,7 @@
       "y": 0
     },
     "_angularVelocity": 0,
-    "_fixedRotation": false,
+    "_fixedRotation": true,
     "_id": ""
   },
   {
@@ -175,7 +172,7 @@
     "fileId": "1a6EjTN4VA5bH9poMSn90l"
   },
   {
-    "__type__": "3a4deGyD2tCJqGfP4ceFXC+",
+    "__type__": "02bf5QCH4lIkLLcsaBz412b",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -189,10 +186,10 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "e8Pxqclu1KKY8Drrp13CFK"
+    "fileId": "9cjvHz0i9C0ZinL9MOjq/d"
   },
   {
-    "__type__": "cc.PolygonCollider2D",
+    "__type__": "cc.BoxCollider2D",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -213,150 +210,16 @@
       "x": 0,
       "y": 0
     },
-    "_points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": -2,
-        "y": 13
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -2,
-        "y": 11
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": 9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": 3
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -10,
-        "y": 1
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -10,
-        "y": -3
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": -5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": -9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -8,
-        "y": -9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -8,
-        "y": -11
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": -11
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": -13
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 6,
-        "y": -13
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 6,
-        "y": -11
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 8,
-        "y": -11
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 8,
-        "y": -9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 6,
-        "y": -9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 6,
-        "y": -5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 10,
-        "y": -3
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 10,
-        "y": 1
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 6,
-        "y": 3
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 6,
-        "y": 9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 4,
-        "y": 9
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 2,
-        "y": 13
-      }
-    ],
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "c3TwnOXp5OuoHHv46dA5b9"
-  },
-  {
-    "__type__": "02bf5QCH4lIkLLcsaBz412b",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 13
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 20,
+      "height": 26
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "9cjvHz0i9C0ZinL9MOjq/d"
+    "fileId": "03GCsNqw1OF53jnmgqBXf3"
   },
   {
     "__type__": "cc.PrefabInfo",

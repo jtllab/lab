@@ -17,9 +17,9 @@ export class slfsControl extends Component {
 
     onLoad()
     {
-        if (PhysicsSystem2D.instance) {
-            PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-        }
+        // if (PhysicsSystem2D.instance) {
+        //     PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        // }
         this.animation = this.node.getComponent(Animation);
     }
     start() {
@@ -29,10 +29,10 @@ export class slfsControl extends Component {
     update(deltaTime: number) {
         //监测死灵法师血量
         if(this.hp <= 0)
-        [
+        {
             this.hp = this.max_hp,
             console.log('复活')
-        ]
+        }
         
     }
 

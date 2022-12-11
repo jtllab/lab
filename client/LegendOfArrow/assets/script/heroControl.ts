@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find } from 'cc';
 const { ccclass, property } = _decorator;
 import { bulletControl }  from './bulletControl';
 
@@ -16,6 +16,8 @@ export class heroControl extends Component {
     rightdown : boolean;//右下
     private _state : string = '';
     private _playerAni: Animation = null;
+
+    camera: Node;
 
     //攻击间隔时间
     private _interval: number = 1;
@@ -51,7 +53,7 @@ export class heroControl extends Component {
         this.up = false;
         this.down = false;
         this._playerAni = this.node.getComponent(Animation);
-        
+        this.camera = find("Canvas/Camera");
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
         this._attackMethod =  this.fire
         this.attack()
@@ -64,7 +66,7 @@ export class heroControl extends Component {
         off = off.multiplyScalar(this.posOffsetMul);
         // 用位置偏移量更新节点位置
         this.node.setPosition(this.node.getPosition().add(off));
-
+        this.camera.setPosition(this.node.getPosition());
     }
     updatePosOffset() {
         this.posOffsetMul = 0;
