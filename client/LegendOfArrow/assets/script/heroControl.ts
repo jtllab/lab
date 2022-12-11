@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, find } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact } from 'cc';
 const { ccclass, property } = _decorator;
 import { bulletControl }  from './bulletControl';
 
@@ -17,7 +17,10 @@ export class heroControl extends Component {
     private _state : string = '';
     private _playerAni: Animation = null;
 
-    camera: Node;
+    //攻击间隔时间
+    private _interval: number = 1;
+    //攻击调用的函数
+    private _attackMethod: Function = Node;
 
     //hero移动速度
     speed:number = 2;
@@ -35,7 +38,7 @@ export class heroControl extends Component {
     bulletPrefab : Prefab = null;
 
     start() {
-
+        
     }
     onLoad()
     {
@@ -48,10 +51,10 @@ export class heroControl extends Component {
         this.up = false;
         this.down = false;
         this._playerAni = this.node.getComponent(Animation);
-        this.camera = find("Canvas/Camera");
-
-        input.on(Input.EventType.MOUSE_DOWN, this.onTouch, this);
-
+        
+        // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
+        this._attackMethod =  this.fire
+        this.attack()
     }
 
     update(deltaTime: number) {
@@ -61,7 +64,6 @@ export class heroControl extends Component {
         off = off.multiplyScalar(this.posOffsetMul);
         // 用位置偏移量更新节点位置
         this.node.setPosition(this.node.getPosition().add(off));
-        this.camera.setPosition(this.node.getPosition());
 
     }
     updatePosOffset() {
@@ -88,7 +90,7 @@ export class heroControl extends Component {
                 this.posOffset.y = this.speed;
                 this.setState("hero_up");
             } else if (this.down) {
-                //节点y坐标负方向移动
+                //节点y坐标负方向移动 
                 this.posOffset.y = -this.speed;
                 this.setState("hero_down");
             } else {
@@ -164,12 +166,12 @@ export class heroControl extends Component {
         }
     }
 
-    
-    onTouch()
-    {
-        this.fire();
-        console.log('fire');
+    attack() {
+        this.schedule(function() {
+            this._attackMethod()
+        }, this._interval);
     }
+
     //开火射击
     fire()
     {
