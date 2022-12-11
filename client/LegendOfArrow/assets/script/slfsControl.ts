@@ -17,9 +17,9 @@ export class slfsControl extends Component {
 
     onLoad()
     {
-        // if (PhysicsSystem2D.instance) {
-        //     PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-        // }
+        if (PhysicsSystem2D.instance) {
+            PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        }
         this.animation = this.node.getComponent(Animation);
     }
     start() {
