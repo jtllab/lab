@@ -542,7 +542,10 @@
         "__expectedType__": "cc.AnimationClip"
       }
     ],
-    "_defaultClip": null,
+    "_defaultClip": {
+      "__uuid__": "ac7851ef-98c6-4b67-8706-9cbb62b0afa6",
+      "__expectedType__": "cc.AnimationClip"
+    },
     "_id": "645ywIYuBBSr8QuOttEVvw"
   },
   {
@@ -727,7 +730,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "enabledContactListener": false,
+    "enabledContactListener": true,
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 1,

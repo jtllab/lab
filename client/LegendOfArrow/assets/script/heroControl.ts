@@ -1,23 +1,28 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D } from 'cc';
 const { ccclass, property } = _decorator;
 import { bulletControl }  from './bulletControl';
+
+export enum HeroSpeedStatus {
+    subSpeed = 0,  //减速
+    normalSpeed,   //正常速度
+    upSpeed     //加速buff
+}
 
 @ccclass('heroControl')
 export class heroControl extends Component {
 
-    heroLoc : number = 0;
-    left : boolean; //左
-    right : boolean; //右 
-    up : boolean; //上
-    down : boolean; //下
-    leftup : boolean;//左上
-    rightup : boolean;//右上
-    leftdown : boolean;//左下
-    rightdown : boolean;//右下
+    left : boolean = false; //左
+    right : boolean = false; //右 
+    up : boolean = false; //上
+    down : boolean = false; //下
     private _state : string = '';
     private _playerAni: Animation = null;
 
+    heroSpeedStatus: HeroSpeedStatus = HeroSpeedStatus.normalSpeed;
+
     camera: Node;
+
+    collider: Collider2D;
 
     //攻击间隔时间
     private _interval: number = 1;
@@ -26,6 +31,16 @@ export class heroControl extends Component {
 
     //hero移动速度
     speed:number = 2;
+
+    //移动速度倍率
+    speedMult: number = 1;
+
+    //移动速度异常倍率
+    speedUnusualMult: number = 1;
+
+    hp: number = 100;
+
+    hpMax: number = 100;
 
     // hero移动单位偏移量，每次update时，英雄移动的偏移量等于 posOffset * posOffsetMul，posOffsetMul为0时，不移动。
     posOffsetMul: number = 0;
@@ -46,17 +61,14 @@ export class heroControl extends Component {
     {
          input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
-        this.heroLoc = this.node.getPosition().x;
-        console.log(this.heroLoc);
-        this.left = false;
-        this.right = false;
-        this.up = false;
-        this.down = false;
         this._playerAni = this.node.getComponent(Animation);
         this.camera = find("Canvas/Camera");
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
         this._attackMethod =  this.fire
         this.attack()
+        this.collider = this.node.getComponent(PolygonCollider2D);
+        this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
+        this.collider.on(Contact2DType.END_CONTACT,this.onEndContact,this);
     }
 
     update(deltaTime: number) {
@@ -73,27 +85,32 @@ export class heroControl extends Component {
         if (this.left || this.right || this.up || this.down) {
             // 如果有按键按下，就把速度设置乘数设置为1，这样就会移动了
             this.posOffsetMul = 1;
-
+            if ((this.left && (this.up || this.down)) || (this.right && (this.up || this.down))){
+                //斜向移动时，将速度减慢，避免向量相加速度加快
+                this.speedMult = 0.7;
+            }else {
+                this.speedMult = 1;
+            }
             // 根据按键情况更新方向
             // 这里有一个 BUG，如果同时按下横竖两个方向键，会导致英雄实际跑动方向更快，就留给你们自己修复了(提示，斜向走时，减小 posOffsetMul 的值)
             if (this.left) {
                 //节点X坐标正方向移动
-                this.posOffset.x = -this.speed;
+                this.posOffset.x = -this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_left");
             } else if (this.right) {
                 //节点X坐标负方向移动
-                this.posOffset.x = this.speed;
+                this.posOffset.x = this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_right");
             } else {
                 this.posOffset.x = 0;
             }
             if (this.up) {
                 //节点y坐标正方向移动
-                this.posOffset.y = this.speed;
+                this.posOffset.y = this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_up");
             } else if (this.down) {
                 //节点y坐标负方向移动 
-                this.posOffset.y = -this.speed;
+                this.posOffset.y = -this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_down");
             } else {
                 this.posOffset.y = 0;
@@ -194,6 +211,40 @@ export class heroControl extends Component {
 
         //挂载到炮台节点下
         this.node.parent.addChild(bullet);
+    }
+
+    onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
+        switch (other.node.name){
+            case "chiken":
+                //玩家碰到怪物减速
+                console.log(other);
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;
+        }
+    }
+
+    onEndContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null) {
+        switch (other.node.name){
+            case "chiken":
+                //玩家离开怪物后恢复原速度倍率
+                console.log(other);
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+        }
+    }
+
+    updateHeroSpeedStatus(status: HeroSpeedStatus){
+        if (status = this.heroSpeedStatus){
+            return;
+        }
+        this.heroSpeedStatus = status;
+        if (status == HeroSpeedStatus.subSpeed){
+            this.speedUnusualMult = 0.8;
+        }else if (status == HeroSpeedStatus.upSpeed){
+            this.speedUnusualMult = 1.2;
+        }else {
+            this.speedUnusualMult = 1;
+        }
     }
 
 

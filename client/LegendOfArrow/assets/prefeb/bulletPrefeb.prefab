@@ -44,8 +44,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 514.8875,
-      "y": 284.9945000000001,
+      "x": 0,
+      "y": 0,
       "z": 0
     },
     "_lrot": {
@@ -152,6 +152,7 @@
     "__prefab": {
       "__id__": 7
     },
+    "animation": null,
     "_id": ""
   },
   {
@@ -198,7 +199,7 @@
     "__prefab": {
       "__id__": 11
     },
-    "enabledContactListener": false,
+    "enabledContactListener": true,
     "bullet": true,
     "awakeOnLoad": true,
     "_group": 1,
@@ -213,7 +214,7 @@
       "y": 0
     },
     "_angularVelocity": 0,
-    "_fixedRotation": false,
+    "_fixedRotation": true,
     "_id": ""
   },
   {
