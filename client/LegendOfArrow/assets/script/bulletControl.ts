@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation} from 'cc';
+import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation, CircleCollider2D} from 'cc';
 import { heroControl } from './heroControl';
 const { ccclass, property } = _decorator;
 
@@ -15,6 +15,8 @@ export class bulletControl extends Component {
     private _state : string = '';
     private _playerAni: Animation = null;
 
+    collider: CircleCollider2D;
+
     //子弹伤害
     damage: number = 2;
 
@@ -30,7 +32,8 @@ export class bulletControl extends Component {
         // 每 1/60 秒调用一次 onTimer 函数
         this.schedule(this.onTimer, 1 / 60);
         this._playerAni = this.node.getComponent(Animation);
-
+        this.collider = this.node.getComponent(CircleCollider2D);
+        this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
         
     }
 
@@ -52,6 +55,15 @@ export class bulletControl extends Component {
         }
         // 更新子弹位置
         this.node.setPosition(this.node.getPosition().add(this.posOffset));
+    }
+
+    onHitBegin(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
+        console.log("hit begin self is:",self);
+        switch (other.node.name){
+            case "chiken":
+                console.log("hit begin other is:",other);
+                break;
+        }
     }
 
     
