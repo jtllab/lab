@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Prefab, Vec3, find } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType } from 'cc';
 import { chikenControl } from './chikenControl';
 import { commonUtils } from './commonUtils';
 
@@ -29,6 +29,8 @@ export class enemyBorn extends Component {
     // 定义一个计数器，初始值为 0
     counter: number = 0;
 
+    chikenHP: number = 10;
+
     onLoad(){
         this.hero = find("Canvas/ch/hero");
         console.log(this.hero);
@@ -56,6 +58,7 @@ export class enemyBorn extends Component {
         // console.log("随机数:",random ,"生成坐标", this.monsterBornVec3);
         let monsterNew = instantiate(this.chikenPrefab);
         //玩家移动后画面外
+        monsterNew["hp"] = this.chikenHP
         monsterNew.setPosition(this.hero.getPosition().add(this.monsterBornVec3));
         this.node.addChild(monsterNew);
 
