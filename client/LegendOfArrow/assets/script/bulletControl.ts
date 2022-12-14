@@ -61,7 +61,13 @@ export class bulletControl extends Component {
         // console.log("hit begin self is:",self);
         switch (other.node.name){
             case "chiken":
-                // console.log("hit begin other is:",other);
+                console.log("hit begin other is:",other);
+                other.node.hp -= this.damage
+                console.log(other.node.hp);
+                if (other.node.hp <= 0) {
+                    console.log("chicken destory");
+                    other.destroy()
+                }
                 break;
         }
     }
