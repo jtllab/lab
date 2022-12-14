@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, UITransform, input, Input, Vec3, Button, instantiate, Prefab } from 'cc';
+import { _decorator, Component, Node, UITransform, input, Input, Vec3, Button, instantiate, Prefab, PolygonCollider2D, Contact2DType } from 'cc';
+import { Collider2D, IPhysics2DContact } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('main')
@@ -12,6 +13,8 @@ export class main extends Component {
     rotation: number = 2
     startPosition: any = null
     step: number = 10
+
+    collider: PolygonCollider2D;
 
     @property(Prefab)
     knifePrefab : Prefab = null;
@@ -36,12 +39,24 @@ export class main extends Component {
         this.addKnifeButton.on(Button.EventType.CLICK, this.addKnifeCallBack, this)
         this.speedUpButton.on(Button.EventType.CLICK, this.speedUpCallBack, this)
         // this.knifeList.push(this.knifeNode)
+
+        let collider = this.heroNode.getComponent(PolygonCollider2D);
+        if (collider) {
+            console.log("success");
+            
+            // Builtin 2D 物理模块只会发送 BEGIN_CONTACT 和 END_CONTACT 回调消息。
+            collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this.heroNode);
+            // collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+            // collider.on(Contact2DType.END_CONTACT, this.onEndContact, this);
+            // collider.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
+            // collider.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
+        }
     }
 
     modifyKnifeNode(knifeNode: Node){
         knifeNode.setPosition(this.heroNode.position.x, this.heroNode.position.y, 0)
-        console.log(this.heroNode.position);
-        console.log(knifeNode.position);
+        // console.log(this.heroNode.position);
+        // console.log(knifeNode.position);
         
         knifeNode.setScale(0.2, 0.2, 1)
         knifeNode.getComponent(UITransform).setAnchorPoint(0.5, -0.7)
@@ -76,10 +91,10 @@ export class main extends Component {
     }
 
     touch_start(e) {
-        console.log(this.node)
+        // console.log(this.node)
         let location = e.getLocation()
         this.startPosition = location
-        console.log("start", location);
+        // console.log("start", location);
     }
     
     touch_move(e) {
@@ -93,7 +108,16 @@ export class main extends Component {
             this.knifeList[i].setPosition(newPosition);
         }
         this.heroNode.setPosition(newPosition);
-        console.log("move", location);
+        // console.log("move", location);
+    }
+
+    onHitBegin(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
+        console.log("hit begin self is:",self);
+        switch (other.node.name){
+            case "chiken":
+                console.log("hit begin other is:",other);
+                break;
+        }
     }
 }
 
