@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, find } from 'cc';
+import { _decorator, Component, Node, Vec3, find, CCInteger } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('enemyControl')
@@ -9,6 +9,10 @@ export class enemyControl extends Component {
     distVec = new Vec3();
 
     speed: number = 70;
+
+    //怪物碰撞的伤害
+    @property(CCInteger)
+    damage: number;
 
     start() {
         this.hero = find("Canvas/ch/hero");

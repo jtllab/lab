@@ -1,6 +1,7 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D } from 'cc';
 const { ccclass, property } = _decorator;
 import { bulletControl }  from './bulletControl';
+import { enemyControl } from './enemyControl';
 
 export enum HeroSpeedStatus {
     subSpeed = 0,  //减速
@@ -42,6 +43,8 @@ export class heroControl extends Component {
 
     hpMax: number = 100;
 
+    hpBar: ProgressBar;
+
     // hero移动单位偏移量，每次update时，英雄移动的偏移量等于 posOffset * posOffsetMul，posOffsetMul为0时，不移动。
     posOffsetMul: number = 0;
     // 保留 posOffset 的原因是这相当于是子弹射出方向，子弹的移动方向也是根据这个来的
@@ -69,6 +72,8 @@ export class heroControl extends Component {
         this.collider = this.node.getComponent(PolygonCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
         this.collider.on(Contact2DType.END_CONTACT,this.onEndContact,this);
+        this.hpBar = this.node.getChildByName("hpBar").getComponent(ProgressBar);
+        this.hpBar.progress = this.hp/this.hpMax;
     }
 
     update(deltaTime: number) {
@@ -217,8 +222,12 @@ export class heroControl extends Component {
         switch (other.node.name){
             case "chiken":
                 //玩家碰到怪物减速
-                console.log(other);
+                console.log(other.name);
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                //削减血量
+                this.hp -= other.node.getComponent(enemyControl).damage;
+                console.log("remain hp :", this.hp);
+                this.hpBar.progress = this.hp/this.hpMax;
                 break;
         }
     }
@@ -227,7 +236,7 @@ export class heroControl extends Component {
         switch (other.node.name){
             case "chiken":
                 //玩家离开怪物后恢复原速度倍率
-                console.log(other);
+                // console.log(other);
                 this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
                 break;
         }

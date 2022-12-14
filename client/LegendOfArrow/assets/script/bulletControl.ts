@@ -58,10 +58,10 @@ export class bulletControl extends Component {
     }
 
     onHitBegin(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
-        console.log("hit begin self is:",self);
+        // console.log("hit begin self is:",self);
         switch (other.node.name){
             case "chiken":
-                console.log("hit begin other is:",other);
+                // console.log("hit begin other is:",other);
                 break;
         }
     }
