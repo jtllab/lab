@@ -62,7 +62,7 @@ export class heroControl extends Component {
     }
     onLoad()
     {
-         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
+        input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
         this._playerAni = this.node.getComponent(Animation);
         this.camera = find("Canvas/Camera");
@@ -222,7 +222,7 @@ export class heroControl extends Component {
         switch (other.node.name){
             case "chiken":
                 //玩家碰到怪物减速
-                console.log(other.name);
+                console.log(other._id);
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 //削减血量
                 this.hp -= other.node.getComponent(enemyControl).damage;

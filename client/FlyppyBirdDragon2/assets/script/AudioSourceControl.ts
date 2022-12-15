@@ -31,15 +31,15 @@ export class AudioSourceControl extends Component {
     }
     
     playSound(type : SoundType){
-        if (type === SoundType.SoundFly) {
-            this.audioSource.playOneShot(this.flySound);
-        }else if (type === SoundType.SoundScore){
-            this.audioSource.playOneShot(this.scoreSound);
-        }else if (type === SoundType.SoundStart){
-            this.audioSource.playOneShot(this.startSound);
-        }else if (type === SoundType.SoundDie){
-            this.audioSource.playOneShot(this.dieSound);
-        }
+        // if (type === SoundType.SoundFly) {
+        //     this.audioSource.playOneShot(this.flySound);
+        // }else if (type === SoundType.SoundScore){
+        //     this.audioSource.playOneShot(this.scoreSound);
+        // }else if (type === SoundType.SoundStart){
+        //     this.audioSource.playOneShot(this.startSound);
+        // }else if (type === SoundType.SoundDie){
+        //     this.audioSource.playOneShot(this.dieSound);
+        // }
     }
 
     update(deltaTime: number) {

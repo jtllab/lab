@@ -190,7 +190,7 @@
     "fileId": "9cjvHz0i9C0ZinL9MOjq/d"
   },
   {
-    "__type__": "cc.BoxCollider2D",
+    "__type__": "cc.PolygonCollider2D",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -211,16 +211,43 @@
       "x": 0,
       "y": 0
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 20,
-      "height": 26
-    },
+    "_points": [
+      {
+        "__type__": "cc.Vec2",
+        "x": -2,
+        "y": 13
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -10,
+        "y": 1
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -8,
+        "y": -11
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 6,
+        "y": -13
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 10,
+        "y": -3
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 6,
+        "y": 9
+      }
+    ],
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "03GCsNqw1OF53jnmgqBXf3"
+    "fileId": "1aR6UxLOZIyow6XzMea5up"
   },
   {
     "__type__": "cc.PrefabInfo",
