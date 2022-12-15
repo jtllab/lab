@@ -10,6 +10,8 @@ export class enemyControl extends Component {
 
     speed: number = 70;
 
+    //hp: number = 10;
+
     //怪物碰撞的伤害
     @property(CCInteger)
     damage: number;

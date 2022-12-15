@@ -3,6 +3,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('chikenControl')
 export class chikenControl extends Component {
+
+    
     //鸡的移动速度
     speed : number = 100;
     direction1 : number = 1;

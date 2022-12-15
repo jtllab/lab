@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D } from 'cc';
 import { chikenControl } from './chikenControl';
 import { commonUtils } from './commonUtils';
 
@@ -67,11 +67,18 @@ export class enemyBorn extends Component {
         this.counter++;
 
         //数量等于50就不继续生成
-        if(this.counter == 50)
+        if(this.counter == 1)
         {
             this.unschedule(this.chikenBorn);
         }
     }
+
+    /*chikenKill(){
+        this.counter--;
+        let r2d =this.node.getComponent(RigidBody2D);
+        r2d.setActive(false);
+        this.node.destroy();
+    }*/
 
 }
 

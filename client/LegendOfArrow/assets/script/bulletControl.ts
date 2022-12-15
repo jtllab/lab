@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation, CircleCollider2D} from 'cc';
+import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation, CircleCollider2D, RigidBody2D} from 'cc';
 import { heroControl } from './heroControl';
 const { ccclass, property } = _decorator;
 
@@ -57,7 +57,7 @@ export class bulletControl extends Component {
         this.node.setPosition(this.node.getPosition().add(this.posOffset));
     }
 
-    onHitBegin(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
+    onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
         // console.log("hit begin self is:",self);
         switch (other.node.name){
             case "chiken":
@@ -66,7 +66,8 @@ export class bulletControl extends Component {
                 console.log(other.node.hp);
                 if (other.node.hp <= 0) {
                     console.log("chicken destory");
-                    other.destroy()
+                    
+                    other.destroy();
                 }
                 break;
         }
