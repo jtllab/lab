@@ -62,23 +62,26 @@ export class enemyBorn extends Component {
         monsterNew.setPosition(this.hero.getPosition().add(this.monsterBornVec3));
         this.node.addChild(monsterNew);
 
-        //给chiken添加移动组件
-        // chiken.addComponent(chikenControl);
+
         this.counter++;
 
-        //数量等于50就不继续生成
-        if(this.counter == 1)
+        //数量等于3就不继续生成
+        if(this.counter == 3)
         {
             this.unschedule(this.chikenBorn);
         }
     }
 
-    /*chikenKill(){
+    chikenDied(){
+        console.log('鸡死前');
+        //鸡死后就减少数量
         this.counter--;
-        let r2d =this.node.getComponent(RigidBody2D);
-        r2d.setActive(false);
-        this.node.destroy();
-    }*/
+        // 当鸡的数量再次小于3时，重新开始生成鸡
+        if (this.counter < 3) {
+            this.schedule(this.chikenBorn, 1.0);
+        }
+        
+    }
 
 }
 

@@ -1,7 +1,7 @@
 import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation, CircleCollider2D, RigidBody2D} from 'cc';
 import { heroControl } from './heroControl';
 const { ccclass, property } = _decorator;
-
+import { enemyBorn } from './enemyBorn';
 
 @ccclass('bullet')
 export class bulletControl extends Component {
@@ -20,6 +20,9 @@ export class bulletControl extends Component {
     //子弹伤害
     damage: number = 2;
 
+    // 声明 enemyBorn 类型的变量
+    enemyBorn: enemyBorn = null;
+
  
     @property(Animation)
     animation: Animation = null;
@@ -34,6 +37,9 @@ export class bulletControl extends Component {
         this._playerAni = this.node.getComponent(Animation);
         this.collider = this.node.getComponent(CircleCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
+
+        this.enemyBorn = this.node.parent.getComponent(enemyBorn);
+
         
     }
 
@@ -67,7 +73,11 @@ export class bulletControl extends Component {
                 if (other.node.hp <= 0) {
                     console.log("chicken destory");
                     
-                    other.destroy();
+                    //延时0.1s后销毁鸡
+                    this.scheduleOnce(() => {
+                        other.node.destroy();// Code to be executed after the delay
+                    }, 0.01);
+                    this.enemyBorn.chikenDied();
                 }
                 break;
         }
