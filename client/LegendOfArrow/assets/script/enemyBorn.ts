@@ -66,7 +66,7 @@ export class enemyBorn extends Component {
         this.counter++;
 
         //数量等于3就不继续生成
-        if(this.counter == 3)
+        if(this.counter >= 3)
         {
             this.unschedule(this.chikenBorn);
         }
@@ -77,11 +77,10 @@ export class enemyBorn extends Component {
         //鸡死后就减少数量
         this.counter--;
         // 当鸡的数量再次小于3时，重新开始生成鸡
-        /*if (this.counter < 3) {
+        if (this.counter < 3) {
             this.schedule(this.chikenBorn, 1.0);
-        }*/
-        // 将 this.counter 的值设置为0，重新开始生成鸡
-        this.counter = 0;
+        }
+
         
     }
 
