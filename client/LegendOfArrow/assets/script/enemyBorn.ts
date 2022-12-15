@@ -38,7 +38,7 @@ export class enemyBorn extends Component {
 
     start() {
         // 在每隔 1 秒执行一次 chikenBorn 函数
-        this.schedule(this.chikenBorn, 1.0);
+        this.schedule(this.chikenBorn, 0.1);
     }
 
     update(deltaTime: number) {
@@ -66,7 +66,7 @@ export class enemyBorn extends Component {
         this.counter++;
 
         //数量等于3就不继续生成
-        if(this.counter >= 3)
+        if(this.counter >= 66)
         {
             this.unschedule(this.chikenBorn);
         }
@@ -77,7 +77,7 @@ export class enemyBorn extends Component {
         //鸡死后就减少数量
         this.counter--;
         // 当鸡的数量再次小于3时，重新开始生成鸡
-        if (this.counter < 3) {
+        if (this.counter < 20) {
             this.schedule(this.chikenBorn, 1.0);
         }
 

@@ -33,11 +33,11 @@ export class bulletControl extends Component {
 
     onLoad() {
         // 每 1/60 秒调用一次 onTimer 函数
-        this.schedule(this.onTimer, 1 / 60);
+        this.schedule(this.onTimer, 1/60);
         this._playerAni = this.node.getComponent(Animation);
         this.collider = this.node.getComponent(CircleCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
-
+        
         this.enemyBorn = this.node.parent.getComponent(enemyBorn);
 
         
@@ -73,7 +73,7 @@ export class bulletControl extends Component {
                 //延时0.01s后销毁子弹
                 this.scheduleOnce(() => {
                      this.node.destroy();// Code to be executed after the delay
-                }, 0.01);  
+                }, 0.001);  
                 if (other.node.hp <= 0) {
                     console.log("chicken destory");
     
