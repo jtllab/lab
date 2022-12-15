@@ -70,9 +70,13 @@ export class bulletControl extends Component {
                 console.log("hit begin other is:",other);
                 other.node.hp -= this.damage
                 console.log(other.node.hp);
+                //延时0.01s后销毁子弹
+                this.scheduleOnce(() => {
+                     this.node.destroy();// Code to be executed after the delay
+                }, 0.01);  
                 if (other.node.hp <= 0) {
                     console.log("chicken destory");
-                    
+    
                     //延时0.1s后销毁鸡
                     this.scheduleOnce(() => {
                         other.node.destroy();// Code to be executed after the delay
