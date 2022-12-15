@@ -26,7 +26,7 @@ export class heroControl extends Component {
     collider: Collider2D;
 
     //攻击间隔时间
-    private _interval: number = 1;
+    private _interval: number = 0.05;
     //攻击调用的函数
     private _attackMethod: Function = Node;
 
