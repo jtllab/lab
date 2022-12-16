@@ -79,7 +79,9 @@ export class bulletControl extends Component {
     
                     //延时0.1s后销毁鸡
                     this.scheduleOnce(() => {
-                        other.node.destroy();// Code to be executed after the delay
+                        if (other.node){
+                            other.node.destroy();// Code to be executed after the delay
+                        }
                     }, 0.01);
                     this.enemyBorn.chikenDied();
                 }
