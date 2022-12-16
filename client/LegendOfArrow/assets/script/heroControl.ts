@@ -50,6 +50,21 @@ export class heroControl extends Component {
     // 保留 posOffset 的原因是这相当于是子弹射出方向，子弹的移动方向也是根据这个来的
     posOffset: math.Vec3 = new math.Vec3(0, -this.speed, 0);
 
+    // level:exp
+    levelInfo: any = {
+        1:10,
+        2:40,
+        3:100,
+        4:200,
+        5:350,
+        6:500
+    }
+    // 最高等级
+    maxLevel: number = 6;
+    // 当前等级
+    level: number = 1;
+    // 升级所需经验
+    exp: number = this.levelInfo[this.level];
     
     @property(SpriteFrame)
     bulleteicon : SpriteFrame = null;
@@ -229,6 +244,16 @@ export class heroControl extends Component {
                 console.log("remain hp :", this.hp);
                 this.hpBar.progress = this.hp/this.hpMax;
                 break;
+            case "exp1Prefab":
+                console.log("Get exp");
+                this.exp -= other.node.getComponent("expControl").exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.01);
+                break
         }
     }
 
@@ -256,7 +281,22 @@ export class heroControl extends Component {
         }
     }
 
+    upateExp(){
+        this.exp = this.levelInfo[this.level] + this.exp
+    }
 
+    levelUpCheck() {
+        if (this.exp <= 0) {
+            this.level = this.level == this.maxLevel ? this.level: this.level+1;
+            this.upateExp();
+            this.changeProperty();
+            console.log("level up, current level %i", this.level);
+        }
+    }
+
+    changeProperty() {
+        console.log("Change Property");
+    }
 }
 
 

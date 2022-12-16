@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, Vec2, NodePool, SpriteFrame, Sprite, Input, input, math, Vec3, Collider2D, IPhysics2DContact, PhysicsSystem2D, Contact2DType, sp, SkeletalAnimationState,Animation, CircleCollider2D, RigidBody2D} from 'cc';
+import { _decorator, Component, Node, math, Vec3, Collider2D, IPhysics2DContact, Contact2DType, Animation, CircleCollider2D, Prefab} from 'cc';
+import { instantiate } from 'cc';
 import { heroControl } from './heroControl';
 const { ccclass, property } = _decorator;
 import { enemyBorn } from './enemyBorn';
@@ -23,6 +24,8 @@ export class bulletControl extends Component {
     // 声明 enemyBorn 类型的变量
     enemyBorn: enemyBorn = null;
 
+    @property(Prefab)
+    exp1Prefab : Prefab = null;
  
     @property(Animation)
     animation: Animation = null;
@@ -80,6 +83,7 @@ export class bulletControl extends Component {
                     //延时0.1s后销毁鸡
                     this.scheduleOnce(() => {
                         if (other.node){
+                            this.generateExp(other.node)
                             other.node.destroy();// Code to be executed after the delay
                         }
                     }, 0.01);
@@ -101,6 +105,16 @@ export class bulletControl extends Component {
         }
     // this.node.destroy();
         
+    }
+
+    generateExp(enemyNode: Node) {
+        let exp:Node = null;
+        if (enemyNode.name == 'chiken'){
+            exp = instantiate(this.exp1Prefab);
+        }
+
+        this.node.parent.addChild(exp);
+        exp.setPosition(enemyNode.getPosition())
     }
 }
 
