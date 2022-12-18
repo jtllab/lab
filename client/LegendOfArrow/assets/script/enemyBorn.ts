@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D } from 'cc';
 import { chikenControl } from './chikenControl';
 import { commonUtils } from './commonUtils';
 
@@ -38,7 +38,7 @@ export class enemyBorn extends Component {
 
     start() {
         // 在每隔 1 秒执行一次 chikenBorn 函数
-        this.schedule(this.chikenBorn, 1.0);
+        this.schedule(this.chikenBorn, 0.1);
     }
 
     update(deltaTime: number) {
@@ -62,15 +62,26 @@ export class enemyBorn extends Component {
         monsterNew.setPosition(this.hero.getPosition().add(this.monsterBornVec3));
         this.node.addChild(monsterNew);
 
-        //给chiken添加移动组件
-        // chiken.addComponent(chikenControl);
+
         this.counter++;
 
-        //数量等于50就不继续生成
-        if(this.counter == 50)
+        //数量等于3就不继续生成
+        if(this.counter >= 66)
         {
             this.unschedule(this.chikenBorn);
         }
+    }
+
+    chikenDied(){
+        
+        //鸡死后就减少数量
+        this.counter--;
+        // 当鸡的数量再次小于3时，重新开始生成鸡
+        if (this.counter < 20) {
+            this.schedule(this.chikenBorn, 1.0);
+        }
+
+        
     }
 
 }

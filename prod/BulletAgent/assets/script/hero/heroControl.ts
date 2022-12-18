@@ -1,8 +1,6 @@
 import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D } from 'cc';
 const { ccclass, property } = _decorator;
-import { bulletControl }  from './bulletControl';
-import { enemyControl } from './enemyControl';
-import { expControl } from './expControl';
+
 
 export enum HeroSpeedStatus {
     subSpeed = 0,  //减速
@@ -19,6 +17,8 @@ export class heroControl extends Component {
     down : boolean = false; //下
     private _state : string = '';
     private _playerAni: Animation = null;
+
+
 
     heroSpeedStatus: HeroSpeedStatus = HeroSpeedStatus.normalSpeed;
 
@@ -116,9 +116,11 @@ export class heroControl extends Component {
             // 这里有一个 BUG，如果同时按下横竖两个方向键，会导致英雄实际跑动方向更快，就留给你们自己修复了(提示，斜向走时，减小 posOffsetMul 的值)
             if (this.left) {
                 //节点X坐标正方向移动
+                this.node.setScale(-1,1,1);
                 this.posOffset.x = -this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_left");
             } else if (this.right) {
+                this.node.setScale(1,1,1);
                 //节点X坐标负方向移动
                 this.posOffset.x = this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_right");
@@ -215,45 +217,16 @@ export class heroControl extends Component {
     //开火射击
     fire()
     {
-        //新的子弹生成新的预制体
-        let bullet:Node = instantiate(this.bulletPrefab);
-        
-        this.node.parent.addChild(bullet);
-        // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
-        var posOffset = this.posOffset.clone();
-        //子弹图层设置等于父节点图层
-       // bullet.layer = this.node.layer;
-        //设置相对父节点位置
-        bullet.setPosition(this.node.position);
 
-        
-        // 初始化子弹的移动速度，这包括的是子弹的方向和速度
-        bullet.getComponent(bulletControl).posOffset = posOffset.multiplyScalar(5);
-
-        //挂载到炮台节点下
-        this.node.parent.addChild(bullet);
     }
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
         switch (other.node.name){
             case "chiken":
-                //玩家碰到怪物减速
-                console.log(other._id);
-                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
-                //削减血量
-                this.hp -= other.node.getComponent(enemyControl).damage;
-                console.log("remain hp :", this.hp);
-                this.hpBar.progress = this.hp/this.hpMax;
                 break;
+                
             case "exp1Prefab":
-                console.log("Get exp");
-                this.exp -= other.node.getComponent(expControl).exp
-                this.levelUpCheck();
-                this.scheduleOnce(() => {
-                    if (other.node){
-                        other.node.destroy();// Code to be executed after the delay
-                    }
-                }, 0.1);
+              
                 break
         }
     }
