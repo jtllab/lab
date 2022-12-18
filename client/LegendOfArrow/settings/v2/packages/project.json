@@ -4,5 +4,10 @@
       "name": "UI_2",
       "value": 8
     }
-  ]
+  ],
+  "general": {
+    "designResolution": {
+      "fitHeight": false
+    }
+  }
 }
