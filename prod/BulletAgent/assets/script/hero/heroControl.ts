@@ -18,6 +18,8 @@ export class heroControl extends Component {
     private _state : string = '';
     private _playerAni: Animation = null;
 
+
+
     heroSpeedStatus: HeroSpeedStatus = HeroSpeedStatus.normalSpeed;
 
     camera: Node;
@@ -114,9 +116,11 @@ export class heroControl extends Component {
             // 这里有一个 BUG，如果同时按下横竖两个方向键，会导致英雄实际跑动方向更快，就留给你们自己修复了(提示，斜向走时，减小 posOffsetMul 的值)
             if (this.left) {
                 //节点X坐标正方向移动
+                this.node.setScale(-1,1,1);
                 this.posOffset.x = -this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_left");
             } else if (this.right) {
+                this.node.setScale(1,1,1);
                 //节点X坐标负方向移动
                 this.posOffset.x = this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_right");
