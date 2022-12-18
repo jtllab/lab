@@ -2,6 +2,7 @@ import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Anima
 const { ccclass, property } = _decorator;
 import { bulletControl }  from './bulletControl';
 import { enemyControl } from './enemyControl';
+import { expControl } from './expControl';
 
 export enum HeroSpeedStatus {
     subSpeed = 0,  //减速
@@ -246,13 +247,13 @@ export class heroControl extends Component {
                 break;
             case "exp1Prefab":
                 console.log("Get exp");
-                this.exp -= other.node.getComponent("expControl").exp
+                this.exp -= other.node.getComponent(expControl).exp
                 this.levelUpCheck();
                 this.scheduleOnce(() => {
                     if (other.node){
                         other.node.destroy();// Code to be executed after the delay
                     }
-                }, 0.01);
+                }, 0.1);
                 break
         }
     }
