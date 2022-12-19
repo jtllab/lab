@@ -1,4 +1,6 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D } from 'cc';
+import { enemyControl } from '../enemy/enemyControl';
+import { commonUtils } from '../utils/commonUtils';
 import { rocketControl } from '../weapons/rocketControl';
 const { ccclass, property } = _decorator;
 
@@ -42,7 +44,7 @@ export class heroControl extends Component {
     private _attackMethod: Function = Node;
 
     //hero移动速度
-    speed:number = 2;
+    speed:number = 4;
 
     //移动速度倍率
     speedMult: number = 1;
@@ -83,6 +85,8 @@ export class heroControl extends Component {
     @property(Prefab)
     bulletPrefab : Prefab = null;
 
+    rigidBody: RigidBody2D;
+
     start() {
         
     }
@@ -95,11 +99,12 @@ export class heroControl extends Component {
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
         this._attackMethod =  this.rocketFire;
         this.attack();
-        this.collider = this.node.getComponent(PolygonCollider2D);
+        this.collider = this.node.getComponent(BoxCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
         this.collider.on(Contact2DType.END_CONTACT,this.onEndContact,this);
         this.hpBar = this.node.getChildByName("hpBar").getComponent(ProgressBar);
         this.hpBar.progress = this.hp/this.hpMax;
+        this.rigidBody = this.node.getComponent(RigidBody2D);
     }
 
     update(deltaTime: number) {
@@ -108,7 +113,8 @@ export class heroControl extends Component {
         // 乘上 posOffsetMul，在不移动时，这个值为 0，乘以0后这个向量就是 0 了，就不会移动了
         off = off.multiplyScalar(this.posOffsetMul);
         // 用位置偏移量更新节点位置
-        this.node.setPosition(this.node.getPosition().add(off));
+        // this.node.setPosition(this.node.getPosition().add(off));
+        this.rigidBody.linearVelocity = commonUtils.convertVec3ToVec2(off);
         this.camera.setPosition(this.node.getPosition());
     }
     updatePosOffset() {
@@ -249,20 +255,23 @@ export class heroControl extends Component {
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
         switch (other.node.name){
-            case "chiken":
+            case "bat":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;
                 
             case "exp1Prefab":
-              
+                
                 break
         }
     }
 
     onEndContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null) {
         switch (other.node.name){
-            case "chiken":
+            case "bat":
                 //玩家离开怪物后恢复原速度倍率
                 // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
                 break;
         }

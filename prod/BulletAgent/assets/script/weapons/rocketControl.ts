@@ -27,8 +27,8 @@ export class rocketControl extends Component {
         // 每 1/60 秒调用一次 onTimer 函数
         this.schedule(this.onTimer, 1/60);
         this._playerAni = this.node.getComponent(Animation);
-        this.collider = this.node.getComponent(CircleCollider2D);
-        this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
+        // this.collider = this.node.getComponent(CircleCollider2D);
+        // this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
         
         //this.enemyBorn = this.node.parent.getComponent(enemyBorn);
          
