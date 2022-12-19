@@ -369,6 +369,10 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "rocketPrefab": {
+      "__uuid__": "21383a1f-f0b2-40bd-afb8-1cc5b0c3f88d",
+      "__expectedType__": "cc.Prefab"
+    },
     "bulleteicon": null,
     "bulletPrefab": null,
     "_id": "65QG2SfMZFd5XzwQqKczFa"
