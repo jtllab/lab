@@ -8,8 +8,10 @@ export class weaponControl extends Component {
     speed:number = 2;
     posOffset: math.Vec3 = new math.Vec3(0, -this.speed, 0);
 
-    //攻击间隔时间
+    // 攻击间隔时间
     private _interval: number = 0.5;
+    // 攻击方法
+    private _attackMethod: Function = null;
 
     @property(Prefab)
     bulletPrefab : Prefab = null;
@@ -33,12 +35,12 @@ export class weaponControl extends Component {
         let revolver:Node = instantiate(this.revolverPrefab);
         revolver.setPosition(this.node.position.x + 15, this.node.position.y - 15, this.node.position.z)
         this.node.addChild(revolver)
+        this._attackMethod = this.fire
     }
 
     attack() {
         this.schedule(function() {
-            // this._attackMethod()
-            this.fire()
+            this._attackMethod()
         }, this._interval);
     }
 
