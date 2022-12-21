@@ -2,6 +2,9 @@ import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Anima
 import { enemyControl } from '../enemy/enemyControl';
 import { commonUtils } from '../utils/commonUtils';
 import { rocketControl } from '../weapons/rocketControl';
+import { expControl } from '../exp/expControl';
+import { expMidControl } from '../exp/expMidControl';
+import { expBigControl } from '../exp/expBigControl';
 const { ccclass, property } = _decorator;
 
 
@@ -254,14 +257,41 @@ export class heroControl extends Component {
  
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
+        console.log("hit", other.node.name);
+        
         switch (other.node.name){
             case "bat":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;
                 
-            case "exp1Prefab":
-                
+            case "exp":
+                this.exp -= other.node.getComponent(expControl).exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.1);
+                break
+            case "expMid":
+                this.exp -= other.node.getComponent(expMidControl).exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.1);
+                break
+
+            case "expBig":
+                this.exp -= other.node.getComponent(expBigControl).exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.1);
                 break
         }
     }

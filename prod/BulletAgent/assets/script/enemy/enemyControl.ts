@@ -15,7 +15,7 @@ export class enemyControl extends Component {
 
     rigidBody: RigidBody2D;
 
-    //hp: number = 10;
+    hp: number = 10;
 
     scheduler: Scheduler;
 

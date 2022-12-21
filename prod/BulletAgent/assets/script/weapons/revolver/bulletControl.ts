@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, math, Vec3, Collider2D, IPhysics2DContact, Contact2DType, Animation, CircleCollider2D, Prefab} from 'cc';
 import { instantiate } from 'cc';
+import { enemyControl } from '../../enemy/enemyControl';
 const { ccclass, property } = _decorator;
 
 @ccclass('bullet')
@@ -16,11 +17,19 @@ export class bulletControl extends Component {
 
     collider: CircleCollider2D;
 
+
+
     //子弹伤害
     damage: number = 2;
 
     @property(Prefab)
-    exp1Prefab : Prefab = null;
+    expPrefab : Prefab = null;
+
+    @property(Prefab)
+    expMidPrefab : Prefab = null;
+
+    @property(Prefab)
+    expBigPrefab : Prefab = null;
  
     @property(Animation)
     animation: Animation = null;
@@ -35,7 +44,6 @@ export class bulletControl extends Component {
         this._playerAni = this.node.getComponent(Animation);
         this.collider = this.node.getComponent(CircleCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
-        
     }
 
     // 由于我们这里使用定时器来更新子弹飞行位置，所以不需要在 update 函数中更新子弹位置
@@ -63,30 +71,27 @@ export class bulletControl extends Component {
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
-        // console.log("hit begin self is:",self);
         switch (other.node.name){
-            case "chiken":
-                // console.log("hit begin other is:",other);
-                // other.node.hp -= this.damage
-                // console.log(other.node.hp);
-                // //延时0.01s后销毁子弹
-                // this.scheduleOnce(() => {
-                //      this.node.destroy();// Code to be executed after the delay
-                // }, 0.1);  
-                // if (other.node.hp <= 0) {
-                //     console.log("chicken destory");
-                //     //延时0.1s后销毁鸡
-                //     this.scheduleOnce(() => {
-                //         if (other.node){
-                //             this.generateExp(other.node)
-                //             console.log("chicken die die die");
+            case "bat":
+                other.node.getComponent(enemyControl).hp -= this.damage
+                //延时0.01s后销毁子弹
+                this.scheduleOnce(() => {
+                     this.node.destroy();// Code to be executed after the delay
+                }, 0.1);  
+                if (other.node.getComponent(enemyControl).hp <= 0) {
+                    console.log("bat destory");
+                    //延时0.1s后销毁鸡
+                    this.scheduleOnce(() => {
+                        if (other.node){
+                            this.generateExp(other.node)
+                            console.log("bat die die die");
 
-                //             other.node.destroy();// Code to be executed after the delay
-                //         }
-                //     }, 0.01);
-                //     this.enemyBorn.chikenDied();
-                // }
-                // break;
+                            other.node.destroy();// Code to be executed after the delay
+                        }
+                    }, 0.01);
+                    // this.enemyBorn.batDied();
+                }
+                break;
         }
     }
 
@@ -106,11 +111,10 @@ export class bulletControl extends Component {
 
     generateExp(enemyNode: Node) {
         let exp:Node = null;
-        if (enemyNode.name == 'chiken'){
-            exp = instantiate(this.exp1Prefab);
+        if (enemyNode.name == 'bat'){
+            exp = instantiate(this.expMidPrefab);
         }
-
-        this.node.parent.addChild(exp);
+        this.node.parent.parent.parent.addChild(exp);
         exp.setPosition(enemyNode.getPosition())
     }
 }
