@@ -11,13 +11,13 @@ export class enemyBorn extends Component {
     batPrefab : Prefab = null;
 
     @property(Prefab)
-    dagongrenZOmbiePrefab : Prefab = null;
+    dagongrenZombiePrefab : Prefab = null;
 
     @property(Prefab)
     hudiePrefab : Prefab = null;
 
     @property(Prefab)
-    inspectPrefab : Prefab = null;
+    insectPrefab : Prefab = null;
 
     @property(Prefab)
     zombiePrefab : Prefab = null;
@@ -41,11 +41,9 @@ export class enemyBorn extends Component {
     // 定义一个计数器，初始值为 0
     counter: number = 0;
 
-    @property(CCInteger)
-    monsterHp: number = 10;
-
     scheduler: Scheduler;
 
+    //游戏计时，用于不同时间产生不同的怪物
     timing: number = 0;
 
     onLoad(){
@@ -65,14 +63,47 @@ export class enemyBorn extends Component {
 
     timingCounter(){
         this.timing++;
-        if (this.timing < 30){
+        if (this.timing < 15){
             this.scheduler.schedule(this.batBorn, this, 0.5);
+        }
+        if (this.timing > 15 && this.timing < 30){
+            this.scheduler.schedule(this.hudieBorn, this, 0.5);
+        }
+        if (this.timing > 30 && this.timing < 45){
+            this.scheduler.schedule(this.insectBorn, this, 0.5);
+        }
+        if (this.timing > 45 && this.timing < 60){
+            this.scheduler.unschedule(this.batBorn, this);
+            this.scheduler.unschedule(this.hudieBorn, this);
+            this.scheduler.unschedule(this.insectBorn, this);
+            this.scheduler.schedule(this.zombieBorn, this, 0.3);
+        }
+        if (this.timing > 60){
+            this.scheduler.schedule(this.dagongrenZombieBorn, this, 0.3);
         }
     }
 
     batBorn() {
         this.enemyBaseBorn(this.batPrefab);
     }
+
+    dagongrenZombieBorn(){
+        this.enemyBaseBorn(this.dagongrenZombiePrefab);
+    }
+
+    hudieBorn() {
+        this.enemyBaseBorn(this.hudiePrefab);
+    }
+
+    insectBorn() {
+        this.enemyBaseBorn(this.insectPrefab);
+    }
+
+    zombieBorn() {
+        this.enemyBaseBorn(this.zombiePrefab);
+    }
+
+
 
     enemyBaseBorn(enemyPrefab: Prefab){
         let random = commonUtils.getRandomNum(1,2);
@@ -86,7 +117,6 @@ export class enemyBorn extends Component {
         // console.log("随机数:",random ,"生成坐标", this.monsterBornVec3);
         let monsterNew = instantiate(enemyPrefab);
         //玩家移动后画面外
-        monsterNew["hp"] = this.monsterHp;
         monsterNew.setPosition(this.hero.getPosition().add(this.monsterBornVec3));
         this.node.addChild(monsterNew);
 

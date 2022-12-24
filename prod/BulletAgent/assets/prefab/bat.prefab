@@ -149,8 +149,9 @@
     "__prefab": {
       "__id__": 7
     },
+    "damage": 1,
     "speed": 100,
-    "damage": 2,
+    "damageInterval": 1,
     "leftFrame": {
       "__uuid__": "8861593e-224a-4fd3-9ab1-f757a88e83de@f9941",
       "__expectedType__": "cc.SpriteFrame"

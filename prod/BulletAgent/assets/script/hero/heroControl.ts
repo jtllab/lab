@@ -264,7 +264,22 @@ export class heroControl extends Component {
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;
-                
+            case "insect":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;
+            case "hudie":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;   
+            case "dagongrenZombie":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;     
+            case "Zombie":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;    
             case "exp":
                 this.exp -= other.node.getComponent(expControl).exp
                 this.levelUpCheck();

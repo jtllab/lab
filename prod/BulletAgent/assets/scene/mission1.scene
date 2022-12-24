@@ -1246,20 +1246,20 @@
       "__uuid__": "43342d98-058d-41da-900f-bbdf66e4155a",
       "__expectedType__": "cc.Prefab"
     },
-    "dagongrenZOmbiePrefab": {
-      "__uuid__": "744e2511-1cf0-474b-af36-2d9538fa66bf",
+    "dagongrenZombiePrefab": {
+      "__uuid__": "c3000faa-718f-4f82-ac36-bcca565d2ff0",
       "__expectedType__": "cc.Prefab"
     },
     "hudiePrefab": {
       "__uuid__": "4f8e7b30-07a5-4138-ba8d-dbf84a7029da",
       "__expectedType__": "cc.Prefab"
     },
-    "inspectPrefab": {
+    "insectPrefab": {
       "__uuid__": "d36b555f-77d5-4b52-8751-da0bd28a185a",
       "__expectedType__": "cc.Prefab"
     },
     "zombiePrefab": {
-      "__uuid__": "8507a083-1f8a-4864-aac8-be0586b5b1f0",
+      "__uuid__": "e656ac9c-b8e8-4666-9230-afe32e2cbd8c",
       "__expectedType__": "cc.Prefab"
     },
     "_id": "66kqIYuq9OgZx1rjjWNvIw"

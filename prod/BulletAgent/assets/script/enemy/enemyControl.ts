@@ -15,11 +15,9 @@ export class enemyControl extends Component {
 
     distVec = new Vec2();
 
-    @property(CCInteger)
-    speed: number;
-
     rigidBody: RigidBody2D;
 
+    @property(CCInteger)
     hp: number = 10;
 
     scheduler: Scheduler;
@@ -29,6 +27,12 @@ export class enemyControl extends Component {
     //怪物碰撞的伤害
     @property(CCInteger)
     damage: number;
+
+    @property(CCInteger)
+    speed: number;
+
+    @property(CCInteger)
+    damageInterval: number;
 
     //怪物朝向
     @property(SpriteFrame)
@@ -66,7 +70,7 @@ export class enemyControl extends Component {
 
     beginAttach(){
         this.attachHero();
-        this.scheduler.schedule(this.attachHero, this, 2);
+        this.scheduler.schedule(this.attachHero, this, this.damageInterval);
     }
 
     stopAttach(){
