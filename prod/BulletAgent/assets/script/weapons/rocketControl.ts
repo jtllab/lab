@@ -21,11 +21,11 @@ export class rocketControl extends Component {
 
     start() {
         this.beginPos = this.node.getPosition();
+        this.schedule(this.onTimer, 1/60);
     }
 
     update(deltaTime: number) {
         // 每 1/60 秒调用一次 onTimer 函数
-        this.schedule(this.onTimer, 1/60);
         this._playerAni = this.node.getComponent(Animation);
         // this.collider = this.node.getComponent(CircleCollider2D);
         // this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);

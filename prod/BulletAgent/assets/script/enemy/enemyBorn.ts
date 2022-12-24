@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D, Scheduler, director, CCInteger } from 'cc';
 import { commonUtils } from '../utils/commonUtils';
 
 
@@ -41,24 +41,40 @@ export class enemyBorn extends Component {
     // 定义一个计数器，初始值为 0
     counter: number = 0;
 
-    chikenHP: number = 10;
+    @property(CCInteger)
+    monsterHp: number = 10;
+
+    scheduler: Scheduler;
+
+    timing: number = 0;
 
     onLoad(){
         this.hero = find("Canvas/hero");
+        this.scheduler = director.getScheduler();
         console.log(this.hero);
     }
 
     start() {
         // 在每隔 1 秒执行一次 chikenBorn 函数
-        this.schedule(this.batBorn, 0.1);
+        this.scheduler.schedule(this.timingCounter, this, 1);
     }
 
     update(deltaTime: number) {
         
     }
 
-    batBorn()
-    {
+    timingCounter(){
+        this.timing++;
+        if (this.timing < 30){
+            this.scheduler.schedule(this.batBorn, this, 0.5);
+        }
+    }
+
+    batBorn() {
+        this.enemyBaseBorn(this.batPrefab);
+    }
+
+    enemyBaseBorn(enemyPrefab: Prefab){
         let random = commonUtils.getRandomNum(1,2);
         if (random == 1){
             //x轴随机，y轴画面外
@@ -68,9 +84,9 @@ export class enemyBorn extends Component {
             this.monsterBornVec3.set(commonUtils.getRandomBinary() * (this.maxX + (Math.random() * (this.maxX - this.minX))),commonUtils.getRandomBinary() * (Math.random() * this.canvasY));
         }
         // console.log("随机数:",random ,"生成坐标", this.monsterBornVec3);
-        let monsterNew = instantiate(this.batPrefab);
+        let monsterNew = instantiate(enemyPrefab);
         //玩家移动后画面外
-        monsterNew["hp"] = this.chikenHP
+        monsterNew["hp"] = this.monsterHp;
         monsterNew.setPosition(this.hero.getPosition().add(this.monsterBornVec3));
         this.node.addChild(monsterNew);
 
