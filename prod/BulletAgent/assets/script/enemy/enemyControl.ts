@@ -1,7 +1,12 @@
-import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director } from 'cc';
+import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director, SpriteFrame, Sprite } from 'cc';
 import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../utils/commonUtils';
 const { ccclass, property } = _decorator;
+
+export enum enemyDirection {
+    LEFT = 0,
+    RIGHT
+}
 
 @ccclass('enemyControl')
 export class enemyControl extends Component {
@@ -25,6 +30,15 @@ export class enemyControl extends Component {
     @property(CCInteger)
     damage: number;
 
+    //怪物朝向
+    @property(SpriteFrame)
+    leftFrame: SpriteFrame;
+
+    @property(SpriteFrame)
+    rightFrame: SpriteFrame;
+
+    enmeryDire: enemyDirection = enemyDirection.LEFT;
+
     onLoad(){
         this.scheduler = director.getScheduler();
     }
@@ -33,6 +47,7 @@ export class enemyControl extends Component {
         this.hero = find("Canvas/hero");
         this.heroControl = this.hero.getComponent(heroControl);
         this.rigidBody = this.node.getComponent(RigidBody2D);
+        this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
     }
 
     update(deltaTime: number) {
@@ -41,9 +56,9 @@ export class enemyControl extends Component {
         // console.log("distVec is", this.distVec);
         //使怪物正面朝着英雄
         if(this.distVec.x>0){
-            this.node.setScale(-1,1);
+            this.updateEnemyDirection(enemyDirection.RIGHT);
         }else{
-            this.node.setScale(1,1);
+            this.updateEnemyDirection(enemyDirection.LEFT);
         }
         // console.log("newPos is", newPos);
         this.rigidBody.linearVelocity = this.distVec.normalize().multiplyScalar(this.speed * deltaTime)
@@ -62,6 +77,19 @@ export class enemyControl extends Component {
         console.log("remain hp:", this.heroControl.hp);
         this.heroControl.hp -= this.damage;
         this.heroControl.hpBar.progress = this.heroControl.hp / this.heroControl.hpMax;
+    }
+
+    //更新怪物朝向
+    updateEnemyDirection(direction: enemyDirection){
+        if (this.enmeryDire == direction){
+            return ;
+        }
+        this.enmeryDire = direction;
+        if (this.enmeryDire == enemyDirection.LEFT){
+            this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
+        }else {
+            this.node.getComponent(Sprite).spriteFrame = this.rightFrame;
+        }
     }
 }
 
