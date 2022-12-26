@@ -10,11 +10,13 @@ export class battlePanel extends Component {
     timeCount: number = 0
 
     timeCountNode: Node = null;
+    killedNode: Node = null;
+
+    killed: number = 0;
 
     start() {
         this.timeCountNode = this.node.getChildByName("time")
-        this.timeCountNode.getComponent(Label).string = "00:00";
-
+        this.killedNode = this.node.getChildByName("killed")
         this.diffX = this.node.parent.getChildByName("hero").position.x - this.node.position.x
         this.diffY = this.node.parent.getChildByName("hero").position.y - this.node.position.y
 
@@ -24,6 +26,7 @@ export class battlePanel extends Component {
     }
 
     update(deltaTime: number) {
+        this.killedNode.getComponent(Label).string = this.killed.toString();
         if (this.diffX === 0 || this.diffY === 0){
             return 
         }

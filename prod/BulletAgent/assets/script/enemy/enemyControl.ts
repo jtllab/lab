@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director, SpriteFrame, Sprite } from 'cc';
 import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../utils/commonUtils';
+import { battlePanel } from '../battlePanel/battlePanel';
 const { ccclass, property } = _decorator;
 
 export enum enemyDirection {
@@ -94,6 +95,10 @@ export class enemyControl extends Component {
         }else {
             this.node.getComponent(Sprite).spriteFrame = this.rightFrame;
         }
+    }
+
+    onDestroy(){
+        this.node.parent.getChildByName("battlePanel").getComponent(battlePanel).killed += 1;
     }
 }
 
