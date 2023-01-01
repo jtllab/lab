@@ -80,8 +80,7 @@ export class enemyControl extends Component {
 
     attachHero(){
         console.log("remain hp:", this.heroControl.hp);
-        this.heroControl.hp -= this.damage;
-        this.heroControl.hpBar.progress = this.heroControl.hp / this.heroControl.hpMax;
+        this.heroControl.getHurt(this.damage);
     }
 
     //更新怪物朝向

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director } from 'cc';
 import { enemyControl } from '../enemy/enemyControl';
 import { commonUtils } from '../utils/commonUtils';
 import { rocketControl } from '../weapons/rocketControl';
@@ -34,6 +34,13 @@ export class heroControl extends Component {
     //用于挂在火箭预制体
     @property(Prefab)
     rocketPrefab : Prefab = null;
+
+    // 失败时要弹出的ui
+    @property(Prefab)
+    missonFailPrefab : Prefab = null;
+
+    // 只需实例一个失败UI
+    missionFailUI:Node = null;
 
     heroSpeedStatus: HeroSpeedStatus = HeroSpeedStatus.normalSpeed;
 
@@ -351,6 +358,21 @@ export class heroControl extends Component {
 
     changeProperty() {
         console.log("Change Property");
+    }
+
+    // 英雄受到伤害
+    getHurt(damage:number) {
+        this.hp -= damage;
+        this.hp = Math.max(this.hp, 0);
+        this.hpBar.progress = this.hp / this.hpMax;
+        
+        // 英雄死亡
+        if (this.hp <= 0 && this.missionFailUI==null) {
+           this.missionFailUI = instantiate(this.missonFailPrefab);
+           this.node.parent.addChild(this.missionFailUI);
+           this.missionFailUI.setPosition(this.node.position);
+           director.pause();
+        }
     }
 }
 
