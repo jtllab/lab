@@ -61,12 +61,13 @@ export class weaponControl extends Component {
 
         
         // 初始化子弹的移动速度，这包括的是子弹的方向和速度
-        // console.log("xxx", bullet.getComponent(bulletControl));
-        let  speed = posOffset.multiplyScalar(5)
-        bullet.getComponent(bulletControl).getComponent(RigidBody2D).linearVelocity = new math.Vec2(speed.x, speed.y);
-
-        //挂载到炮台节点下
-        this.node.addChild(bullet);
+        let  speed = posOffset.multiplyScalar(2);
+        let linearVelocity = new math.Vec2(speed.x, speed.y);
+        bullet.getComponent(RigidBody2D).linearVelocity = linearVelocity;
+        bullet.getComponent(RigidBody2D).fixedRotation = true;
+        // 获取速度的方向，旋转到速度方向
+        let angle = new math.Vec2(1,0).signAngle(linearVelocity.normalize())/Math.PI*180;
+        bullet.setWorldRotationFromEuler(0,0,angle);
     }
 }
 
