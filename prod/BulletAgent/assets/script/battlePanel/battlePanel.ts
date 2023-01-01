@@ -24,7 +24,7 @@ export class battlePanel extends Component {
 
     start() {
         this.heroComponent = this.node.parent.getChildByName("hero").getComponent(heroControl)
-        this.timeCountNode = this.node.getChildByName("time")
+        this.timeCountNode = this.node.getChildByName("battleTopBg").getChildByName("time")
         this.killedNode = this.node.getChildByName("killNum")
         this.levelNode = this.node.getChildByName("expLevel")
         this.pauseNode = this.node.getChildByName("pause")
