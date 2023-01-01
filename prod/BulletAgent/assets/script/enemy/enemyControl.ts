@@ -97,7 +97,9 @@ export class enemyControl extends Component {
     }
 
     onDestroy(){
-        this.node.parent.getChildByName("battlePanel").getComponent(battlePanel).killed += 1;
+        if (this.node.parent.getChildByName("battlePanel")){
+            this.node.parent.getChildByName("battlePanel").getComponent(battlePanel).killed += 1;
+        }
     }
 }
 
