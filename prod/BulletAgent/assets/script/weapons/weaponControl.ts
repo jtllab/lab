@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, instantiate, math } from 'cc';
+import { _decorator, Component, Node, Prefab, instantiate, math, RigidBody2D } from 'cc';
 const { ccclass, property } = _decorator;
 import { bulletControl } from './revolver/bulletControl';
 import { heroControl } from '../hero/heroControl';
@@ -9,9 +9,11 @@ export class weaponControl extends Component {
     posOffset: math.Vec3 = new math.Vec3(0, -this.speed, 0);
 
     // 攻击间隔时间
-    private _interval: number = 0.5;
+    private _interval: number = 0.1;
     // 攻击方法
     private _attackMethod: Function = null;
+
+    bulletArray: Node[] = new Array(5);
 
     @property(Prefab)
     bulletPrefab : Prefab = null;
@@ -60,8 +62,8 @@ export class weaponControl extends Component {
         
         // 初始化子弹的移动速度，这包括的是子弹的方向和速度
         // console.log("xxx", bullet.getComponent(bulletControl));
-        
-        bullet.getComponent(bulletControl).posOffset = posOffset.multiplyScalar(5);
+        let  speed = posOffset.multiplyScalar(5)
+        bullet.getComponent(bulletControl).getComponent(RigidBody2D).linearVelocity = new math.Vec2(speed.x, speed.y);
 
         //挂载到炮台节点下
         this.node.addChild(bullet);

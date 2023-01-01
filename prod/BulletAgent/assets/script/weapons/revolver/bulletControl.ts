@@ -62,12 +62,6 @@ export class bulletControl extends Component {
                 return;
             }
         }
-        // 更新子弹位置
-        if (this.posOffset.x < 0){
-            this.posOffset.x = -this.posOffset.x
-        }
-        
-        this.node.setPosition(this.node.getPosition().add(this.posOffset));
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
