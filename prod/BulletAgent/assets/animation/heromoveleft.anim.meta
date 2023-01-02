@@ -2,12 +2,12 @@
   "ver": "2.0.3",
   "importer": "animation-clip",
   "imported": true,
-  "uuid": "8855f8cf-8d80-47fc-af2c-cc90202b1f3c",
+  "uuid": "95f7b04c-107c-4860-a402-e8c270a61356",
   "files": [
     ".cconb"
   ],
   "subMetas": {},
   "userData": {
-    "name": "heromove"
+    "name": "heromoveleft"
   }
 }
