@@ -115,6 +115,7 @@ export class heroControl extends Component {
         this.hpBar = this.node.getChildByName("hpBar").getComponent(ProgressBar);
         this.hpBar.progress = this.hp/this.hpMax;
         this.rigidBody = this.node.getComponent(RigidBody2D);
+        director.resume();
     }
 
     update(deltaTime: number) {
