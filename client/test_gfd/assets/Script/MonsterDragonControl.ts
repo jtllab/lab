@@ -21,12 +21,17 @@ export class monster_dragon_Control extends Component {
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
         
-        console.info("onBeginContact");
-        
+        let otherBox_size = other.node.getComponent(BoxCollider2D).size;
+
+        // player 非攻击状态的碰撞体积设为了(0,0)，所以遇到为（0，0）的碰撞体积不会减少HP
+        if(otherBox_size.width == 0 && otherBox_size.height == 0) return;
+        this.hp--;
+        console.info(this.hp);
 
     }
 
     update(deltaTime: number) {
+        
         
         if(this.hp == 0)
         {

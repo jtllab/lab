@@ -149,7 +149,17 @@
     "__prefab": {
       "__id__": 7
     },
-    "damage": 2,
+    "damage": 1,
+    "speed": 100,
+    "damageInterval": 1,
+    "leftFrame": {
+      "__uuid__": "8861593e-224a-4fd3-9ab1-f757a88e83de@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "rightFrame": {
+      "__uuid__": "31216e98-1e5c-491d-98b2-bb3f7c3076d7@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": ""
   },
   {

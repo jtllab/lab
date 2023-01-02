@@ -1,4 +1,10 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, PhysicsSystem2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director } from 'cc';
+import { enemyControl } from '../enemy/enemyControl';
+import { commonUtils } from '../utils/commonUtils';
+import { rocketControl } from '../weapons/rocketControl';
+import { expControl } from '../exp/expControl';
+import { expMidControl } from '../exp/expMidControl';
+import { expBigControl } from '../exp/expBigControl';
 const { ccclass, property } = _decorator;
 
 
@@ -20,6 +26,22 @@ export class heroControl extends Component {
 
 
 
+    //技能开关
+    rocketSW : boolean = false;
+    thunderSW : boolean = false;
+    guardianSW : boolean = false;
+
+    //用于挂在火箭预制体
+    @property(Prefab)
+    rocketPrefab : Prefab = null;
+
+    // 失败时要弹出的ui
+    @property(Prefab)
+    missonFailPrefab : Prefab = null;
+
+    // 只需实例一个失败UI
+    missionFailUI:Node = null;
+
     heroSpeedStatus: HeroSpeedStatus = HeroSpeedStatus.normalSpeed;
 
     camera: Node;
@@ -27,12 +49,12 @@ export class heroControl extends Component {
     collider: Collider2D;
 
     //攻击间隔时间
-    private _interval: number = 0.05;
+    private _interval: number = 1;
     //攻击调用的函数
     private _attackMethod: Function = Node;
 
     //hero移动速度
-    speed:number = 2;
+    speed:number = 4;
 
     //移动速度倍率
     speedMult: number = 1;
@@ -73,6 +95,8 @@ export class heroControl extends Component {
     @property(Prefab)
     bulletPrefab : Prefab = null;
 
+    rigidBody: RigidBody2D;
+
     start() {
         
     }
@@ -83,13 +107,14 @@ export class heroControl extends Component {
         this._playerAni = this.node.getComponent(Animation);
         this.camera = find("Canvas/Camera");
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
-        this._attackMethod =  this.fire
-        this.attack()
-        this.collider = this.node.getComponent(PolygonCollider2D);
+        this._attackMethod =  this.rocketFire;
+        this.attack();
+        this.collider = this.node.getComponent(BoxCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
         this.collider.on(Contact2DType.END_CONTACT,this.onEndContact,this);
         this.hpBar = this.node.getChildByName("hpBar").getComponent(ProgressBar);
         this.hpBar.progress = this.hp/this.hpMax;
+        this.rigidBody = this.node.getComponent(RigidBody2D);
     }
 
     update(deltaTime: number) {
@@ -98,7 +123,8 @@ export class heroControl extends Component {
         // 乘上 posOffsetMul，在不移动时，这个值为 0，乘以0后这个向量就是 0 了，就不会移动了
         off = off.multiplyScalar(this.posOffsetMul);
         // 用位置偏移量更新节点位置
-        this.node.setPosition(this.node.getPosition().add(off));
+        // this.node.setPosition(this.node.getPosition().add(off));
+        this.rigidBody.linearVelocity = commonUtils.convertVec3ToVec2(off);
         this.camera.setPosition(this.node.getPosition());
     }
     updatePosOffset() {
@@ -214,28 +240,90 @@ export class heroControl extends Component {
         }, this._interval);
     }
 
-    //开火射击
-    fire()
-    {
-
-    }
+     //发射火箭
+     rocketFire()
+     {
+         //新的子弹生成新的预制体
+         let rocket:Node = instantiate(this.rocketPrefab);
+         
+         this.node.parent.addChild(rocket);
+         // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
+         var posOffset = this.posOffset.clone();
+         //子弹图层设置等于父节点图层
+        // bullet.layer = this.node.layer;
+         //设置相对父节点位置
+         rocket.setPosition(this.node.position);
+ 
+         
+         // 初始化子弹的移动速度，这包括的是子弹的方向和速度
+         rocket.getComponent(rocketControl).posOffset = posOffset.multiplyScalar(5);
+ 
+         //挂载到炮台节点下
+         this.node.parent.addChild(rocket);
+     }
+ 
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
+        console.log("hit", other.node.name);
+        
         switch (other.node.name){
-            case "chiken":
+            case "bat":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;
-                
-            case "exp1Prefab":
-              
+            case "insect":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;
+            case "hudie":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;   
+            case "dagongrenZombie":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;     
+            case "Zombie":
+                other.node.getComponent(enemyControl).beginAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
+                break;    
+            case "exp":
+                this.exp -= other.node.getComponent(expControl).exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.1);
+                break
+            case "expMid":
+                this.exp -= other.node.getComponent(expMidControl).exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.1);
+                break
+
+            case "expBig":
+                this.exp -= other.node.getComponent(expBigControl).exp
+                this.levelUpCheck();
+                this.scheduleOnce(() => {
+                    if (other.node){
+                        other.node.destroy();// Code to be executed after the delay
+                    }
+                }, 0.1);
                 break
         }
     }
 
     onEndContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null) {
         switch (other.node.name){
-            case "chiken":
+            case "bat":
                 //玩家离开怪物后恢复原速度倍率
                 // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
                 break;
         }
@@ -270,6 +358,21 @@ export class heroControl extends Component {
 
     changeProperty() {
         console.log("Change Property");
+    }
+
+    // 英雄受到伤害
+    getHurt(damage:number) {
+        this.hp -= damage;
+        this.hp = Math.max(this.hp, 0);
+        this.hpBar.progress = this.hp / this.hpMax;
+        
+        // 英雄死亡
+        if (this.hp <= 0 && this.missionFailUI==null) {
+           this.missionFailUI = instantiate(this.missonFailPrefab);
+           this.node.parent.addChild(this.missionFailUI);
+           this.missionFailUI.setPosition(this.node.position);
+           director.pause();
+        }
     }
 }
 

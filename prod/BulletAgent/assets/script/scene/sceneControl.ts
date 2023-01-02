@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, director } from 'cc';
+import { _decorator, Component, Node, director, SceneAsset } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('sceneControl')
@@ -9,6 +9,15 @@ export class sceneControl {
 
     static loadMainScene(){
         director.loadScene("mission1");
+    }
+
+    static loadScene(sceneAsset: SceneAsset){
+        if (sceneAsset) {
+            director.loadScene(sceneAsset.name);
+        }
+        else {
+            console.log("无法加载，场景资源不存在");
+        }
     }
 }
 
