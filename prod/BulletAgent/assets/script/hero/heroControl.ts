@@ -326,6 +326,30 @@ export class heroControl extends Component {
                 other.node.getComponent(enemyControl).stopAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
                 break;
+            case "insect":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "hudie":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "dagongrenZombie":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "Zombie":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
         }
     }
 

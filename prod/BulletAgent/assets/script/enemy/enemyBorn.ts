@@ -49,7 +49,7 @@ export class enemyBorn extends Component {
     onLoad(){
         this.hero = find("Canvas/hero");
         this.scheduler = director.getScheduler();
-        console.log(this.hero);
+        console.log("canvas script load enemyBorn",this.hero);
     }
 
     start() {
