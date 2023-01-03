@@ -69,7 +69,10 @@ export class rocketControl extends Component {
                 console.log("hit Zombie");
                 this.node.getComponent(Animation).play("rocketBoom");
                 this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
-                
+
+                // 放大碰撞体的尺寸
+                this.collider.size.x *= 10;
+                this.collider.size.y *= 10;
                 this.scheduleOnce(() => {
                     
                     this.node.destroy();
