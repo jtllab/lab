@@ -115,6 +115,7 @@ export class heroControl extends Component {
         this.hpBar = this.node.getChildByName("hpBar").getComponent(ProgressBar);
         this.hpBar.progress = this.hp/this.hpMax;
         this.rigidBody = this.node.getComponent(RigidBody2D);
+        director.resume();
     }
 
     update(deltaTime: number) {
@@ -321,6 +322,30 @@ export class heroControl extends Component {
     onEndContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null) {
         switch (other.node.name){
             case "bat":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "insect":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "hudie":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "dagongrenZombie":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "Zombie":
                 //玩家离开怪物后恢复原速度倍率
                 // console.log(other);
                 other.node.getComponent(enemyControl).stopAttach();

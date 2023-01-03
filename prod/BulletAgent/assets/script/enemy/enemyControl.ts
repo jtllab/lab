@@ -66,7 +66,7 @@ export class enemyControl extends Component {
             this.updateEnemyDirection(enemyDirection.LEFT);
         }
         // console.log("newPos is", newPos);
-        this.rigidBody.linearVelocity = this.distVec.normalize().multiplyScalar(this.speed * deltaTime)
+        this.rigidBody.linearVelocity = this.distVec.normalize().multiplyScalar(this.speed * deltaTime);
     }
 
     beginAttach(){
