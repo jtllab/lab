@@ -170,6 +170,23 @@ export class heroControl extends Component {
         }
     }
 
+
+    setDir(dir: Vec3) {
+        if (dir.length() == 0) {
+            // stop
+            this.posOffsetMul = 0;
+        } else {
+            this.posOffsetMul = 1;
+            this.posOffset = dir.normalize().multiplyScalar(this.speed * this.speedMult * this.speedUnusualMult);
+            if(this.posOffset.x > 0){
+                this.node.setScale(1,1,1);
+            }
+            if(this.posOffset.x < 0){
+                this.node.setScale(-1,1,1);
+            }
+        }
+    }
+
     //按下按键时
     onKeyDown(event:EventKeyboard)
     {
