@@ -106,6 +106,26 @@ export class bulletControl extends Component {
                     // this.enemyBorn.batDied();
                 }
                 break;
+            case "Zombie":
+                other.node.getComponent(enemyControl).hp -= this.damage
+                //延时0.01s后销毁子弹
+                this.scheduleOnce(() => {
+                     this.node.destroy();// Code to be executed after the delay
+                }, 0.1);  
+                if (other.node.getComponent(enemyControl).hp <= 0) {
+                    console.log("bat destory");
+                    //延时0.1s后销蝴蝶
+                    this.scheduleOnce(() => {
+                        if (other.node){
+                            this.generateExp(other.node)
+                            console.log("hudie die die die");
+
+                            other.node.destroy();// Code to be executed after the delay
+                        }
+                    }, 0.01);
+                    // this.enemyBorn.batDied();
+                }
+                break;    
         }
     }
 
@@ -129,6 +149,8 @@ export class bulletControl extends Component {
             exp = instantiate(this.expPrefab);
         } else if (enemyNode.name == 'hudie') {
             exp = instantiate(this.expMidPrefab);
+        } else if (enemyNode.name == 'Zombie') {
+            exp = instantiate(this.expBigPrefab);
         }
         this.node.parent.parent.parent.addChild(exp);
         exp.setPosition(enemyNode.getPosition())
