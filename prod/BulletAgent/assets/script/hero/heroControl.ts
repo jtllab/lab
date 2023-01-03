@@ -264,7 +264,15 @@ export class heroControl extends Component {
          //console.log("rocketDirection", rocketDirection);
          //console.log("randomAngle", randomAngle);
          //console.log("rotation", rocket.rotation);
-         
+        // 初始化子弹的移动速度，这包括的是子弹的方向和速度
+        let  speed = rocketDirection.multiplyScalar(2);
+        let linearVelocity = new math.Vec2(speed.x, speed.y);
+        rocket.getComponent(RigidBody2D).linearVelocity = linearVelocity;
+        rocket.getComponent(RigidBody2D).fixedRotation = true;
+        // 获取速度的方向，旋转到速度方向
+        let angle = new math.Vec2(1,0).signAngle(linearVelocity.normalize())/Math.PI*180;
+        rocket.setWorldRotationFromEuler(0,0,angle);
+
 
          
          //挂载到炮台节点下
@@ -273,7 +281,7 @@ export class heroControl extends Component {
  
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
-        console.log("hit", other.node.name);
+        //console.log("hit", other.node.name);
         
         switch (other.node.name){
             case "bat":

@@ -67,6 +67,9 @@ export class rocketControl extends Component {
                 break;     
             case "Zombie":
                 console.log("hit Zombie");
+                this.scheduleOnce(() => {
+                    this.node.destroy();
+                  }, 0.01);
                 break;    
         
         }
