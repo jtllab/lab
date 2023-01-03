@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact } from 'cc';
+import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('rocketControl')
@@ -14,10 +14,15 @@ export class rocketControl extends Component {
      private _state : string = '';
      private _playerAni: Animation = null;
  
-     collider: CircleCollider2D;
+     collider: BoxCollider2D;
  
      //火箭伤害
      damage: number = 20;
+
+     onLoad(){
+        this.collider = this.node.getComponent(BoxCollider2D);
+        this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
+     }
 
     start() {
         this.beginPos = this.node.getPosition();
@@ -27,11 +32,6 @@ export class rocketControl extends Component {
     update(deltaTime: number) {
         // 每 1/60 秒调用一次 onTimer 函数
         this._playerAni = this.node.getComponent(Animation);
-        // this.collider = this.node.getComponent(CircleCollider2D);
-        // this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
-        
-        //this.enemyBorn = this.node.parent.getComponent(enemyBorn);
-         
     }
 
     onTimer() {
@@ -53,7 +53,21 @@ export class rocketControl extends Component {
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
         // console.log("hit begin self is:",self);
         switch (other.node.name){
-          
+            case "bat":
+                console.log("hit bat");
+                break;
+            case "insect":
+                console.log("hit insect");
+                break;
+            case "hudie":
+                console.log("hit hudie");
+                break;   
+            case "dagongrenZombie":
+                console.log("hit dagongrenZombie");
+                break;     
+            case "Zombie":
+                console.log("hit Zombie");
+                break;    
         
         }
     }

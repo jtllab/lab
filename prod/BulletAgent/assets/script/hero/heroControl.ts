@@ -261,9 +261,9 @@ export class heroControl extends Component {
          
          // 初始化子弹的移动速度，这包括的是子弹的方向和速度
          rocket.getComponent(rocketControl).posOffset = rocketDirection.multiplyScalar(5);
-         console.log("rocketDirection", rocketDirection);
-         console.log("randomAngle", randomAngle);
-         console.log("rotation", rocket.rotation);
+         //console.log("rocketDirection", rocketDirection);
+         //console.log("randomAngle", randomAngle);
+         //console.log("rotation", rocket.rotation);
          
 
          
