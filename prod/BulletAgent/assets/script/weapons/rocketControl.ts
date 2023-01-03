@@ -6,7 +6,7 @@ export class rocketControl extends Component {
 
 
     // 火箭的移动方向
-    public posOffset: math.Vec3 = new math.Vec3(0, 0, 0);
+    public posOffset: math.Vec3 = new math.Vec3(0,0,0);
 
      // 记录火箭的初始位置，用于检查火箭是否飞出太远，如果太远则销毁，防止火箭一直存在浪费计算机资源
      private beginPos: Vec3;
