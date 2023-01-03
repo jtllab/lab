@@ -61,7 +61,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "_ZombieWorker",
+    "_name": "ZombieWorker_00",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -123,8 +123,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 36
+      "width": 46,
+      "height": 72
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -135,7 +135,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "bcvalingBG94W5Y7H0wpzc"
+    "fileId": "80YWBroutEjrmMOJp7+L8Y"
   },
   {
     "__type__": "cc.Sprite",
@@ -159,7 +159,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "57520716-48c8-4a19-8acf-41c9f8777fb0@f9941",
+      "__uuid__": "d5f000d6-71fe-46d6-a266-f71c16d42000@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -179,7 +179,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "95eKAXE0lIBoCdmrN1edrZ"
+    "fileId": "272s64trpNapqRaZTN8axR"
   },
   {
     "__type__": "cc.Animation",
@@ -207,7 +207,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "4f9g1uzv5AD7IabjrU4GwR"
+    "fileId": "267AI1pGFJpo4flnV4tSET"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -217,7 +217,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "adsivpNHFExKpSiTMduvlx"
+    "fileId": "91VLcs1YFHYbeEEPxWalXm"
   },
   {
     "__type__": "cc.UITransform",
