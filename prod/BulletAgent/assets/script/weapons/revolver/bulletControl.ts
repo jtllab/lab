@@ -17,7 +17,9 @@ export class bulletControl extends Component {
 
     collider: CircleCollider2D;
 
-
+    smallExp: string[] = ["Zombie", "hudie"]
+    middleExp: string[] = ["bat"]
+    bigExp: string[] = []
 
     //子弹伤害
     damage: number = 2;
@@ -65,67 +67,25 @@ export class bulletControl extends Component {
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
-        switch (other.node.name){
-            case "bat":
-                other.node.getComponent(enemyControl).hp -= this.damage
+        let enemyArray: string[] = ["bat", "hudie", "Zombie"]
+        if (enemyArray.indexOf(other.node.name) != -1) {
+            other.node.getComponent(enemyControl).hp -= this.damage
                 //延时0.01s后销毁子弹
                 this.scheduleOnce(() => {
                      this.node.destroy();// Code to be executed after the delay
                 }, 0.1);  
                 if (other.node.getComponent(enemyControl).hp <= 0) {
                     console.log("bat destory");
-                    //延时0.1s后销毁蝙蝠
+                    //延时0.1s后销毁敌人
                     this.scheduleOnce(() => {
                         if (other.node){
                             this.generateExp(other.node)
-                            console.log("bat die die die");
+                            console.log("enemy die die die");
 
                             other.node.destroy();// Code to be executed after the delay
                         }
                     }, 0.01);
-                    // this.enemyBorn.batDied();
                 }
-                break;
-            case "hudie":
-                other.node.getComponent(enemyControl).hp -= this.damage
-                //延时0.01s后销毁子弹
-                this.scheduleOnce(() => {
-                     this.node.destroy();// Code to be executed after the delay
-                }, 0.1);  
-                if (other.node.getComponent(enemyControl).hp <= 0) {
-                    console.log("bat destory");
-                    //延时0.1s后销蝴蝶
-                    this.scheduleOnce(() => {
-                        if (other.node){
-                            this.generateExp(other.node)
-                            console.log("hudie die die die");
-
-                            other.node.destroy();// Code to be executed after the delay
-                        }
-                    }, 0.01);
-                    // this.enemyBorn.batDied();
-                }
-                break;
-            case "Zombie":
-                other.node.getComponent(enemyControl).hp -= this.damage
-                //延时0.01s后销毁子弹
-                this.scheduleOnce(() => {
-                     this.node.destroy();// Code to be executed after the delay
-                }, 0.1);  
-                if (other.node.getComponent(enemyControl).hp <= 0) {
-                    console.log("bat destory");
-                    //延时0.1s后销蝴蝶
-                    this.scheduleOnce(() => {
-                        if (other.node){
-                            this.generateExp(other.node)
-                            console.log("hudie die die die");
-
-                            other.node.destroy();// Code to be executed after the delay
-                        }
-                    }, 0.01);
-                    // this.enemyBorn.batDied();
-                }
-                break;    
         }
     }
 
@@ -145,12 +105,14 @@ export class bulletControl extends Component {
 
     generateExp(enemyNode: Node) {
         let exp:Node = null;
-        if (enemyNode.name == 'bat'){
+        if (this.smallExp.indexOf(enemyNode.name) !== -1) {
             exp = instantiate(this.expPrefab);
-        } else if (enemyNode.name == 'hudie') {
+        } else if (this.middleExp.indexOf(enemyNode.name) !== -1) {
             exp = instantiate(this.expMidPrefab);
-        } else if (enemyNode.name == 'Zombie') {
+        } else if (this.bigExp.indexOf(enemyNode.name) !== -1) {
             exp = instantiate(this.expBigPrefab);
+        } else {
+            return 
         }
         this.node.parent.parent.parent.addChild(exp);
         exp.setPosition(enemyNode.getPosition())
