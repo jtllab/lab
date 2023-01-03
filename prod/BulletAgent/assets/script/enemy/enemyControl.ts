@@ -36,11 +36,11 @@ export class enemyControl extends Component {
     damageInterval: number;
 
     //怪物朝向
-    // @property(SpriteFrame)
-    // leftFrame: SpriteFrame;
+    @property(Vec3)
+    leftVec3 = new Vec3();
 
-    // @property(SpriteFrame)
-    // rightFrame: SpriteFrame;
+    @property(Vec3)
+    rightVec3 = new Vec3();
 
     enmeryDire: enemyDirection = null;
 
@@ -95,9 +95,9 @@ export class enemyControl extends Component {
         }
         this.enmeryDire = direction;
         if (this.enmeryDire == enemyDirection.LEFT){
-            this.sprite.setScale(new Vec3(-1,1,0));
+            this.sprite.setScale(this.leftVec3);
         }else {
-            this.sprite.setScale(new Vec3(1,1,0));
+            this.sprite.setScale(this.rightVec3);
         }
     }
 

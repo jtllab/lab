@@ -358,6 +358,18 @@
     "damage": 1.5,
     "speed": 50,
     "damageInterval": 2,
+    "leftVec3": {
+      "__type__": "cc.Vec3",
+      "x": -1,
+      "y": 1,
+      "z": 0
+    },
+    "rightVec3": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 0
+    },
     "_id": ""
   },
   {
