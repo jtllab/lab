@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D } from 'cc';
+import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D,RigidBody2D, Vec2 } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('rocketControl')
@@ -47,7 +47,7 @@ export class rocketControl extends Component {
             }
         }
         // 更新火箭位置
-        this.node.setPosition(this.node.getPosition().add(this.posOffset));
+        //this.node.setPosition(this.node.getPosition().add(this.posOffset));
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
@@ -67,9 +67,13 @@ export class rocketControl extends Component {
                 break;     
             case "Zombie":
                 console.log("hit Zombie");
+                this.node.getComponent(Animation).play("rocketBoom");
+                this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
+                
                 this.scheduleOnce(() => {
+                    
                     this.node.destroy();
-                  }, 0.01);
+                  }, 0.5);
                 break;    
         
         }

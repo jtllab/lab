@@ -270,13 +270,13 @@ export class heroControl extends Component {
         rocket.getComponent(RigidBody2D).linearVelocity = linearVelocity;
         rocket.getComponent(RigidBody2D).fixedRotation = true;
         // 获取速度的方向，旋转到速度方向
-        let angle = new math.Vec2(1,0).signAngle(linearVelocity.normalize())/Math.PI*180;
-        rocket.setWorldRotationFromEuler(0,0,angle);
+        let angle = new math.Vec2(0,1).signAngle(linearVelocity.normalize())/Math.PI*180;
+        rocket.eulerAngles = new Vec3(0,0,angle);
 
 
          
          //挂载到炮台节点下
-         this.node.parent.addChild(rocket);
+         //this.node.parent.addChild(rocket);
      }
  
 
