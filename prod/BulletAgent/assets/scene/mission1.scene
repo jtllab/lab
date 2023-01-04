@@ -657,6 +657,10 @@
       "__uuid__": "21383a1f-f0b2-40bd-afb8-1cc5b0c3f88d",
       "__expectedType__": "cc.Prefab"
     },
+    "thunderPrefab": {
+      "__uuid__": "901f3f57-1cd0-45bf-a4f0-060470f4d30e",
+      "__expectedType__": "cc.Prefab"
+    },
     "missonFailPrefab": {
       "__uuid__": "8e4d7d06-bb64-4d78-8eea-1ceaf3f8b748",
       "__expectedType__": "cc.Prefab"

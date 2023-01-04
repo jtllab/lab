@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director, Vec2, Vec3 } from 'cc';
+import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director, Vec2, Vec3, View } from 'cc';
 import { enemyControl } from '../enemy/enemyControl';
 import { commonUtils } from '../utils/commonUtils';
 import { rocketControl } from '../weapons/rocketControl';
@@ -34,6 +34,10 @@ export class heroControl extends Component {
     //用于挂在火箭预制体
     @property(Prefab)
     rocketPrefab : Prefab = null;
+
+    // 闪电预制体
+    @property(Prefab)
+    thunderPrefab : Prefab = null;
 
     // 失败时要弹出的ui
     @property(Prefab)
@@ -217,6 +221,10 @@ export class heroControl extends Component {
                 this.down = true;
                 this.setState('hero_down');
                 break;
+
+            case KeyCode.KEY_V:
+                this.lightning();
+                break;
         }
         this.updatePosOffset();
 
@@ -294,6 +302,63 @@ export class heroControl extends Component {
          
          //挂载到炮台节点下
          //this.node.parent.addChild(rocket);
+     }
+
+     
+     // 闪电
+     lightning() {
+        let thunder:Node = instantiate(this.thunderPrefab);
+        
+        let parent = this.node.parent;
+        parent.addChild(thunder);
+        
+
+        let visibleSize = View.instance.getVisibleSize();
+        
+        let pos = this.node.worldPosition;
+        console.log('ppppppppppppp', pos)
+
+        let enemiesInView = []
+
+        parent.children.forEach(c => {
+            if (c.getComponent(enemyControl)){
+                let c_pos = c.getWorldPosition();
+                let distance = new Vec3();
+                Vec3.subtract(distance, pos, c_pos);
+                distance.x = Math.abs(distance.x);
+                distance.y = Math.abs(distance.y);
+
+                if (distance.x <= visibleSize.x/2 && distance.y <= visibleSize.y/2){
+                    console.log(c.name, distance, c_pos, pos);
+                    enemiesInView.push(c)
+                }
+            }
+        });
+
+        
+        if (enemiesInView.length > 0) {
+            let minPos = new Vec3(visibleSize.x/2, visibleSize.y/2, 0);
+            let nearestEnemy:Node = enemiesInView[0];
+
+            enemiesInView.forEach(e => {
+                let e_pos = e.getWorldPosition();
+                let distance = new Vec3();
+                Vec3.subtract(distance, pos, e_pos);
+                distance.x = Math.abs(distance.x);
+                distance.y = Math.abs(distance.y);
+                Vec3.min(minPos, minPos, distance);
+                
+                if (Vec3.equals(minPos, distance)) {
+                    nearestEnemy = e;
+                }
+            });
+            thunder.setWorldPosition(nearestEnemy.worldPosition);
+            console.log('nearestEnemy', nearestEnemy.position);
+            console.log('nearestEnemy worldPosition', nearestEnemy.worldPosition);
+        }
+        console.log('lighting', thunder.position);
+        console.log('lighting wwwwwww', thunder.worldPosition);
+        console.log(visibleSize);
      }
  
 
