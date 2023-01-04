@@ -14,6 +14,9 @@ export class sceneControl {
     static loadScene(sceneAsset: SceneAsset){
         if (sceneAsset) {
             director.loadScene(sceneAsset.name);
+            if (director.isPaused) {
+                director.resume();
+            }
         }
         else {
             console.log("无法加载，场景资源不存在");

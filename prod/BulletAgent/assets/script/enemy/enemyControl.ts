@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director, SpriteFrame, Sprite } from 'cc';
+import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director, SpriteFrame, Sprite, Vec3 } from 'cc';
 import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../utils/commonUtils';
 import { battlePanel } from '../battlePanel/battlePanel';
@@ -36,13 +36,15 @@ export class enemyControl extends Component {
     damageInterval: number;
 
     //怪物朝向
-    @property(SpriteFrame)
-    leftFrame: SpriteFrame;
+    @property(Vec3)
+    leftVec3 = new Vec3();
 
-    @property(SpriteFrame)
-    rightFrame: SpriteFrame;
+    @property(Vec3)
+    rightVec3 = new Vec3();
 
-    enmeryDire: enemyDirection = enemyDirection.LEFT;
+    enmeryDire: enemyDirection = null;
+
+    sprite : Node;
 
     onLoad(){
         this.scheduler = director.getScheduler();
@@ -52,7 +54,10 @@ export class enemyControl extends Component {
         this.hero = find("Canvas/hero");
         this.heroControl = this.hero.getComponent(heroControl);
         this.rigidBody = this.node.getComponent(RigidBody2D);
-        this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
+        this.sprite = this.node.getChildByName("ZombieBody");
+        //初始怪物朝向
+
+        // this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
     }
 
     update(deltaTime: number) {
@@ -90,9 +95,9 @@ export class enemyControl extends Component {
         }
         this.enmeryDire = direction;
         if (this.enmeryDire == enemyDirection.LEFT){
-            this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
+            this.sprite.setScale(this.leftVec3);
         }else {
-            this.node.getComponent(Sprite).spriteFrame = this.rightFrame;
+            this.sprite.setScale(this.rightVec3);
         }
     }
 
