@@ -1150,6 +1150,10 @@
       "__uuid__": "901f3f57-1cd0-45bf-a4f0-060470f4d30e",
       "__expectedType__": "cc.Prefab"
     },
+    "guardianPrefab": {
+      "__uuid__": "06b7578a-bcab-4f46-9bd7-193e195b1c13",
+      "__expectedType__": "cc.Prefab"
+    },
     "missonFailPrefab": {
       "__uuid__": "8e4d7d06-bb64-4d78-8eea-1ceaf3f8b748",
       "__expectedType__": "cc.Prefab"

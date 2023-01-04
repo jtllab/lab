@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director, Vec2, Vec3, View } from 'cc';
-=======
-import { _decorator, Component, Node, input, Input, EventKeyboard,KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director, Vec2, Vec3 } from 'cc';
->>>>>>> adbab78 (添加守护者)
 import { enemyControl } from '../enemy/enemyControl';
 import { commonUtils } from '../utils/commonUtils';
 import { rocketControl } from '../weapons/rocketControl';
@@ -38,16 +34,14 @@ export class heroControl extends Component {
     @property(Prefab)
     rocketPrefab : Prefab = null;
 
-<<<<<<< HEAD
     // 闪电预制体
     @property(Prefab)
     thunderPrefab : Prefab = null;
-=======
+
     //用于挂在守护者预制体
     @property(Prefab)
     guardianPrefab : Prefab = null;
     
->>>>>>> adbab78 (添加守护者)
 
     // 失败时要弹出的ui
     @property(Prefab)
@@ -328,7 +322,6 @@ export class heroControl extends Component {
          //this.node.parent.addChild(rocket);
      }
 
-<<<<<<< HEAD
      
      // 闪电
      lightning() {
@@ -389,14 +382,14 @@ export class heroControl extends Component {
                 thunder.destroy();
             }, 0.5);
         }
-=======
+    }
+
      //生成守护者
      createGurdian()
      {
          let guardian:Node = instantiate(this.guardianPrefab);
          this.node.addChild(guardian);
          //let rotateAction = rotateBy(1, 360);
->>>>>>> adbab78 (添加守护者)
      }
  
 
