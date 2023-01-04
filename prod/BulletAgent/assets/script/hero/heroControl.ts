@@ -47,15 +47,19 @@ export class heroControl extends Component {
     @property(Prefab)
     missonFailPrefab : Prefab = null;
 
+    // 玩家运动体节点，用于获取玩家的位置
     @property(Node)
     playerMoveNode: Node;
 
+    // 玩家动画节点，用于控制玩家玩家的动画
     @property(Node)
     playerAnimationNode: Node;
 
+    // 玩家血条节点
     @property(Node)
     hpBarNode: Node;
 
+    // 玩家肉体节点，除开武器啥的外部节点
     @property(Node)
     playerBodyNode: Node;
 
@@ -390,7 +394,7 @@ export class heroControl extends Component {
      createGurdian()
      {
          let guardian:Node = instantiate(this.guardianPrefab);
-         this.node.addChild(guardian);
+         this.playerMoveNode.addChild(guardian);
          //let rotateAction = rotateBy(1, 360);
      }
  
