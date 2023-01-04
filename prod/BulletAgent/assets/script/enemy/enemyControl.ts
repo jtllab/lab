@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director, SpriteFrame, Sprite, Vec3 } from 'cc';
+import { _decorator, Component, Node, Vec2, find, CCInteger, RigidBody2D, Scheduler, director, SpriteFrame, Sprite, Vec3, resources, Prefab, instantiate } from 'cc';
 import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../utils/commonUtils';
 import { battlePanel } from '../battlePanel/battlePanel';
@@ -46,13 +46,30 @@ export class enemyControl extends Component {
 
     sprite : Node;
 
+    expPrefab: Prefab = null;
+    expMiddlePrefab: Prefab = null;
+    expBigPrefab: Prefab = null;
+
+    smallExp: string[] = ["Zombie", "hudie"]
+    middleExp: string[] = ["bat"]
+    bigExp: string[] = []
+
     onLoad(){
         this.scheduler = director.getScheduler();
+        resources.load("exp/exp", Prefab, (err, prefab) => {
+            this.expPrefab = prefab;
+        });
+        resources.load("exp/expMid", Prefab, (err, prefab) => {
+            this.expMiddlePrefab = prefab;
+        });
+        resources.load("exp/expBig", Prefab, (err, prefab) => {
+            this.expBigPrefab = prefab;
+        });
     }
 
     start() {
-        this.hero = find("Canvas/hero/heroui");
-        this.heroControl = this.hero.getParent().getComponent(heroControl);
+        this.hero = find("Canvas/hero");
+        this.heroControl = this.hero.getComponent(heroControl);
         this.rigidBody = this.node.getComponent(RigidBody2D);
         this.sprite = this.node.getChildByName("ZombieBody");
         //初始怪物朝向
@@ -102,6 +119,25 @@ export class enemyControl extends Component {
     }
 
     onDestroy(){
+        let exp:Node = null;
+        if (this.expPrefab && this.expMiddlePrefab && this.expBigPrefab){
+            if (this.smallExp.indexOf(this.node.name) !== -1) {
+                exp = instantiate(this.expPrefab);
+            } else if (this.middleExp.indexOf(this.node.name) !== -1) {
+                exp = instantiate(this.expMiddlePrefab);
+            } else if (this.bigExp.indexOf(this.node.name) !== -1) {
+                exp = instantiate(this.expBigPrefab);
+            } else {
+                console.warn("can't find this monster", this.node.name)
+            }
+            if (exp) {
+                this.node.parent.addChild(exp);
+                exp.setPosition(this.node.getPosition())
+            }
+        } else {
+            console.warn("expPrefab is null")
+        }
+        
         if (this.node.parent.getChildByName("battlePanel")){
             this.node.parent.getChildByName("battlePanel").getComponent(battlePanel).killed += 1;
         }

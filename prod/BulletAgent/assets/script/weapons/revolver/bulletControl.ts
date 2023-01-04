@@ -17,10 +17,6 @@ export class bulletControl extends Component {
 
     collider: CircleCollider2D;
 
-    smallExp: string[] = ["Zombie", "hudie"]
-    middleExp: string[] = ["bat"]
-    bigExp: string[] = []
-
     //子弹伤害
     damage: number = 2;
 
@@ -79,7 +75,6 @@ export class bulletControl extends Component {
                     //延时0.1s后销毁敌人
                     this.scheduleOnce(() => {
                         if (other.node){
-                            this.generateExp(other.node)
                             console.log("enemy die die die");
 
                             other.node.destroy();// Code to be executed after the delay
@@ -101,21 +96,6 @@ export class bulletControl extends Component {
         }
     // this.node.destroy();
         
-    }
-
-    generateExp(enemyNode: Node) {
-        let exp:Node = null;
-        if (this.smallExp.indexOf(enemyNode.name) !== -1) {
-            exp = instantiate(this.expPrefab);
-        } else if (this.middleExp.indexOf(enemyNode.name) !== -1) {
-            exp = instantiate(this.expMidPrefab);
-        } else if (this.bigExp.indexOf(enemyNode.name) !== -1) {
-            exp = instantiate(this.expBigPrefab);
-        } else {
-            return 
-        }
-        this.node.parent.parent.parent.addChild(exp);
-        exp.setPosition(enemyNode.getPosition())
     }
 }
 
