@@ -21,12 +21,6 @@ PhysicsSystem2D.instance.enable = true;
 
 @ccclass("Player")
 export default class Player extends Component {
-  @property({
-    displayName: "刚体模式",
-    tooltip: "不会立即停止",
-  })
-  rigidbody = false;
-
   // from joystick
   @property({
     displayName: "Move Dir",
@@ -67,13 +61,7 @@ export default class Player extends Component {
   @property(Node)
   playerNode: Node;
 
-  _body: RigidBody2D | null = null;
-
   onLoad() {
-    if (this.rigidbody) {
-      this._body = this.playerNode.getComponent(RigidBody2D);
-    }
-
     instance.on(SystemEventType.TOUCH_START, this.onTouchStart, this);
     instance.on(SystemEventType.TOUCH_MOVE, this.onTouchMove, this);
     instance.on(SystemEventType.TOUCH_END, this.onTouchEnd, this);
@@ -122,24 +110,7 @@ export default class Player extends Component {
    * 移动
    */
   move() {
-    // this.playerNode.angle = misc.radiansToDegrees(Math.atan2(this.moveDir.y, this.moveDir.x)) - 90;
-
-    if (this.rigidbody && this._body) {
-      const moveVec = this.moveDir.clone().multiplyScalar(this._moveSpeed / 20);
-      const force = new Vec2(moveVec.x, moveVec.y);
-      this._body.applyForceToCenter(force, true);
-    } else {
-    //   const oldPos = this.playerNode.getPosition();
-    //   const newPos = oldPos.add(
-    //     // fps: 60
-    //     this.moveDir.clone().multiplyScalar(this._moveSpeed / 60)
-    //   );
-    //   console.log(this._moveSpeed / 60);
-    //   this.playerNode.setPosition(newPos);
-      this.playerNode.getComponent(heroControl).setDir(this.moveDir.clone())
-
-    //   console.log(newPos);
-    }
+      this.playerNode.getComponent(heroControl).setDir(this.moveDir.clone());
   }
 
   update(deltaTime: number) {

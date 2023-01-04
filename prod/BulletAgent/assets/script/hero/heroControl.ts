@@ -22,7 +22,6 @@ export class heroControl extends Component {
     up : boolean = false; //上
     down : boolean = false; //下
     private _state : string = '';
-    private _playerAni: Animation = null;
 
 
 
@@ -42,6 +41,18 @@ export class heroControl extends Component {
     // 失败时要弹出的ui
     @property(Prefab)
     missonFailPrefab : Prefab = null;
+
+    @property(Node)
+    playerMoveNode: Node;
+
+    @property(Node)
+    playerAnimationNode: Node;
+
+    @property(Node)
+    hpBarNode: Node;
+
+    @property(Node)
+    playerBodyNode: Node;
 
     // 只需实例一个失败UI
     missionFailUI:Node = null;
@@ -99,7 +110,7 @@ export class heroControl extends Component {
     @property(Prefab)
     bulletPrefab : Prefab = null;
 
-    rigidBody: RigidBody2D;
+    playerMoveRigidBody: RigidBody2D;
 
     start() {
         
@@ -108,17 +119,16 @@ export class heroControl extends Component {
     {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
-        this._playerAni = this.node.getComponent(Animation);
         this.camera = find("Canvas/Camera");
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
         this._attackMethod =  this.rocketFire;
         this.attack();
-        this.collider = this.node.getComponent(BoxCollider2D);
+        this.collider = this.playerMoveNode.getComponent(BoxCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
         this.collider.on(Contact2DType.END_CONTACT,this.onEndContact,this);
-        this.hpBar = this.node.getChildByName("hpBar").getComponent(ProgressBar);
+        this.hpBar = this.hpBarNode.getComponent(ProgressBar);
         this.hpBar.progress = this.hp/this.hpMax;
-        this.rigidBody = this.node.getComponent(RigidBody2D);
+        this.playerMoveRigidBody = this.playerMoveNode.getComponent(RigidBody2D);
         director.resume();
     }
 
@@ -128,10 +138,11 @@ export class heroControl extends Component {
         // 乘上 posOffsetMul，在不移动时，这个值为 0，乘以0后这个向量就是 0 了，就不会移动了
         off = off.multiplyScalar(this.posOffsetMul);
         // 用位置偏移量更新节点位置
-        // this.node.setPosition(this.node.getPosition().add(off));
-        this.rigidBody.linearVelocity = commonUtils.convertVec3ToVec2(off);
-        this.camera.setPosition(this.node.getPosition());
+        // this.playerMoveNode.setPosition(this.playerMoveNode.getPosition().add(off));
+        this.playerMoveRigidBody.linearVelocity = commonUtils.convertVec3ToVec2(off);
+        this.camera.setPosition(this.playerMoveNode.getPosition());
     }
+
     updatePosOffset() {
         this.posOffsetMul = 0;
         if (this.left || this.right || this.up || this.down) {
@@ -147,11 +158,11 @@ export class heroControl extends Component {
             // 这里有一个 BUG，如果同时按下横竖两个方向键，会导致英雄实际跑动方向更快，就留给你们自己修复了(提示，斜向走时，减小 posOffsetMul 的值)
             if (this.left) {
                 //节点X坐标正方向移动
-                this.node.setScale(-1,1,1);
+                this.playerBodyNode.setScale(-1,1,1);
                 this.posOffset.x = -this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_left");
             } else if (this.right) {
-                this.node.setScale(1,1,1);
+                this.playerBodyNode.setScale(1,1,1);
                 //节点X坐标负方向移动
                 this.posOffset.x = this.speed * this.speedMult * this.speedUnusualMult;
                 this.setState("hero_right");
@@ -183,10 +194,10 @@ export class heroControl extends Component {
             this.posOffsetMul = 1;
             this.posOffset = dir.normalize().multiplyScalar(this.speed * this.speedMult * this.speedUnusualMult);
             if(this.posOffset.x > 0){
-                this.node.setScale(1,1,1);
+                this.playerBodyNode.setScale(1,1,1);
             }
             if(this.posOffset.x < 0){
-                this.node.setScale(-1,1,1);
+                this.playerBodyNode.setScale(-1,1,1);
             }
         }
     }
@@ -255,8 +266,8 @@ export class heroControl extends Component {
         if (this._state == state) return;
 
         this._state = state;
-        if (this._playerAni){
-            this._playerAni.play(this._state);
+        if (this.playerAnimationNode){
+            this.playerAnimationNode.getComponent(Animation).play(this._state);
         }
     }
 
@@ -272,13 +283,13 @@ export class heroControl extends Component {
          //新的子弹生成新的预制体
          let rocket:Node = instantiate(this.rocketPrefab);
          
-         this.node.parent.addChild(rocket);
+         this.node.getChildByName("bullet").addChild(rocket);
          // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
          //var posOffset = this.posOffset.clone();
          //子弹图层设置等于父节点图层
         // bullet.layer = this.node.layer;
          //设置相对父节点位置
-         rocket.setPosition(this.node.position);
+         rocket.setPosition(this.playerMoveNode.position);
 
          let randomAngle = Math.random() * 2 * Math.PI;  // 随机生成 0 到 2π 之间的数
          let rocketDirection = new Vec3(Math.cos(randomAngle), Math.sin(randomAngle));  // 生成一个随机方向的向量
@@ -312,7 +323,7 @@ export class heroControl extends Component {
         parent.addChild(thunder);
         
         let visibleSize = View.instance.getVisibleSize();
-        let pos = this.node.worldPosition;
+        let pos = this.playerMoveNode.worldPosition;
         let enemiesInView : Array<Node> = new Array<Node>(); 
 
         parent.children.forEach(c => {
@@ -498,7 +509,7 @@ export class heroControl extends Component {
         if (this.hp <= 0 && this.missionFailUI==null) {
            this.missionFailUI = instantiate(this.missonFailPrefab);
            this.node.parent.addChild(this.missionFailUI);
-           this.missionFailUI.setPosition(this.node.position);
+           this.missionFailUI.setPosition(this.playerMoveNode.position);
            director.pause();
         }
     }

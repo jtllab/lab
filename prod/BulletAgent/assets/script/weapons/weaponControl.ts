@@ -21,6 +21,9 @@ export class weaponControl extends Component {
     @property(Prefab)
     revolverPrefab : Prefab = null;
 
+    @property(Node)
+    playerNode: Node;
+
     onLoad(){
         this.attack()
     }
@@ -52,7 +55,7 @@ export class weaponControl extends Component {
         
         this.node.addChild(bullet);
         // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
-        var posOffset = this.node.parent.getComponent(heroControl).posOffset.clone();
+        var posOffset = this.playerNode.getComponent(heroControl).posOffset.clone();
         //子弹图层设置等于父节点图层
        // bullet.layer = this.node.layer;
         //设置相对父节点位置
@@ -67,7 +70,7 @@ export class weaponControl extends Component {
         bullet.getComponent(RigidBody2D).fixedRotation = true;
         // 获取速度的方向，旋转到速度方向
         let angle = new math.Vec2(1,0).signAngle(linearVelocity.normalize())/Math.PI*180;
-        bullet.setWorldRotationFromEuler(0,0,angle);
+        bullet.eulerAngles = new math.Vec3(0,0,angle);
     }
 }
 
