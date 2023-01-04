@@ -1,4 +1,6 @@
 import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D,RigidBody2D, Vec2 } from 'cc';
+import { enemyControl } from '../enemy/enemyControl';
+import { bulletControl } from './revolver/bulletControl';
 const { ccclass, property } = _decorator;
 
 @ccclass('rocketControl')
@@ -52,35 +54,32 @@ export class rocketControl extends Component {
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
         // console.log("hit begin self is:",self);
-        switch (other.node.name){
-            case "bat":
-                console.log("hit bat");
-                break;
-            case "insect":
-                console.log("hit insect");
-                break;
-            case "hudie":
-                console.log("hit hudie");
-                break;   
-            case "dagongrenZombie":
-                console.log("hit dagongrenZombie");
-                break;     
-            case "Zombie":
-                console.log("hit Zombie");
+
+        let enemyArray: string[] = ["bat", "hudie", "Zombie"]
+        if (enemyArray.indexOf(other.node.name) != -1) {
+            other.node.getComponent(enemyControl).hp -= this.damage
+            console.log("hit Zombie");
                 this.node.getComponent(Animation).play("rocketBoom");
                 this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
-
-                // 放大碰撞体的尺寸
-                this.collider.size.x *= 10;
-                this.collider.size.y *= 10;
                 this.scheduleOnce(() => {
-                    
                     this.node.destroy();
                   }, 0.5);
-                break;    
-        
+                  if (other.node.getComponent(enemyControl).hp <= 0) {
+                    console.log("bat destory");
+                    //延时0.1s后销毁敌人
+                    this.scheduleOnce(() => {
+                        if (other.node){
+                            console.log("enemy die die die");
+                            //other.node.getComponent(bulletControl).generateExp(other.node);
+                            other.node.destroy();// Code to be executed after the delay
+                        }
+                    }, 0.01);
         }
+        
     }
+    
+    
 }
 
 
+}
