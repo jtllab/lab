@@ -52,7 +52,7 @@ export class enemyControl extends Component {
 
     start() {
         this.hero = find("Canvas/hero/heroui");
-        this.heroControl = this.hero.getComponent(heroControl);
+        this.heroControl = this.hero.getParent().getComponent(heroControl);
         this.rigidBody = this.node.getComponent(RigidBody2D);
         this.sprite = this.node.getChildByName("ZombieBody");
         //初始怪物朝向
