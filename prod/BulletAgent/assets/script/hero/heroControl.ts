@@ -49,23 +49,23 @@ export class heroControl extends Component {
 
     // 玩家运动体节点，用于获取玩家的位置
     @property(Node)
-    playerMoveNode: Node;
+    public playerMoveNode: Node;
 
     // 玩家动画节点，用于控制玩家玩家的动画
     @property(Node)
-    playerAnimationNode: Node;
+    public playerAnimationNode: Node;
 
     // 玩家血条节点
     @property(Node)
-    hpBarNode: Node;
+    public hpBarNode: Node;
 
     // 玩家肉体节点，除开武器啥的外部节点
     @property(Node)
-    playerBodyNode: Node;
+    public playerBodyNode: Node;
 
     // 玩家肉体节点，除开武器啥的外部节点
     @property(Node)
-    playerWeaponNode: Node;
+    public playerWeaponNode: Node;
 
     // 只需实例一个失败UI
     missionFailUI:Node = null;
