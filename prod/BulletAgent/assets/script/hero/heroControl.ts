@@ -220,6 +220,12 @@ export class heroControl extends Component {
             let dirN = dir.clone().normalize();
             let dir2 = new Vec2(dirN.x, dirN.y);
             let angle = new math.Vec2(1,0).signAngle(dir2)/Math.PI*180;
+            if (angle>=-90&& angle<=90) {
+                this.playerWeaponNode.setScale(1,1,1);
+            } else {
+                this.playerWeaponNode.setScale(-1,1,1);
+                angle+=180;
+            }
             this.playerWeaponNode.eulerAngles = new Vec3(0,0,angle);
         }
     }

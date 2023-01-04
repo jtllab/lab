@@ -24,6 +24,9 @@ export class weaponControl extends Component {
     @property(Node)
     playerNode: Node;
 
+    @property(Node)
+    bulletPoolNode: Node;
+
     onLoad(){
         this.attack()
     }
@@ -53,14 +56,14 @@ export class weaponControl extends Component {
         //新的子弹生成新的预制体
         let bullet:Node = instantiate(this.bulletPrefab);
         
-        this.node.addChild(bullet);
+        this.bulletPoolNode.addChild(bullet);
         // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
         var posOffset = this.playerNode.getComponent(heroControl).posOffset.clone();
         //子弹图层设置等于父节点图层
        // bullet.layer = this.node.layer;
         //设置相对父节点位置
-        let position = this.node.getChildByName("revolver").position
-        bullet.setPosition(position.x + 10, position.y + 5, position.z);
+        let position = this.node.getChildByName("revolver").worldPosition
+        bullet.setWorldPosition(position.x + 10, position.y + 5, position.z);
 
         
         // 初始化子弹的移动速度，这包括的是子弹的方向和速度
