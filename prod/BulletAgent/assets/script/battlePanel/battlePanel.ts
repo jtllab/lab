@@ -18,19 +18,23 @@ export class battlePanel extends Component {
     pauseNode: Node = null;
     expBar: ProgressBar = null;
 
+    // 玩家节点
+    @property(Node)
+    heroNode: Node;
+
     heroComponent: heroControl = null;
 
     killed: number = 0;
 
     start() {
-        this.heroComponent = this.node.parent.getChildByName("hero").getComponent(heroControl)
+        this.heroComponent = this.heroNode.getComponent(heroControl)
         this.timeCountNode = this.node.getChildByName("battleTopBg").getChildByName("time")
         this.killedNode = this.node.getChildByName("killNum")
         this.levelNode = this.node.getChildByName("expLevel")
         this.pauseNode = this.node.getChildByName("pause")
         this.expBar = this.levelNode.getComponent(ProgressBar)
-        this.diffX = this.node.parent.getChildByName("hero").position.x - this.node.position.x
-        this.diffY = this.node.parent.getChildByName("hero").position.y - this.node.position.y
+        this.diffX = this.heroComponent.playerMoveNode.worldPosition.x - this.node.worldPosition.x
+        this.diffY = this.heroComponent.playerMoveNode.worldPosition.y - this.node.worldPosition.y
 
         this.pauseNode.on(Button.EventType.CLICK, this.pauseCallback, this);
 
@@ -49,10 +53,10 @@ export class battlePanel extends Component {
         if (this.diffX === 0 || this.diffY === 0){
             return 
         }
-        let x = this.node.parent.getChildByName("hero").position.x - this.diffX;
-        let y = this.node.parent.getChildByName("hero").position.y - this.diffY;
+        let x = this.heroComponent.playerMoveNode.worldPosition.x - this.diffX;
+        let y = this.heroComponent.playerMoveNode.worldPosition.y - this.diffY;
         
-        this.node.setPosition(x, y, this.node.position.z)
+        this.node.setWorldPosition(x, y, this.node.worldPosition.z)
     }
 
     updateTime() {
