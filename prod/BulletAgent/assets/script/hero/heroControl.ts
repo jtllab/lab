@@ -63,6 +63,10 @@ export class heroControl extends Component {
     @property(Node)
     playerBodyNode: Node;
 
+    // 玩家肉体节点，除开武器啥的外部节点
+    @property(Node)
+    playerWeaponNode: Node;
+
     // 只需实例一个失败UI
     missionFailUI:Node = null;
 
@@ -210,6 +214,12 @@ export class heroControl extends Component {
             if(this.posOffset.x < 0){
                 this.playerBodyNode.setScale(-1,1,1);
             }
+
+            // 获取速度的方向，旋转到速度方向
+            let dirN = dir.clone().normalize();
+            let dir2 = new Vec2(dirN.x, dirN.y);
+            let angle = new math.Vec2(1,0).signAngle(dir2)/Math.PI*180;
+            this.playerWeaponNode.eulerAngles = new Vec3(0,0,angle);
         }
     }
 

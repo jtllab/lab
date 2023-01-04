@@ -1170,6 +1170,9 @@
     "playerBodyNode": {
       "__id__": 22
     },
+    "playerWeaponNode": {
+      "__id__": 34
+    },
     "bulleteicon": null,
     "bulletPrefab": null,
     "_id": "76gVTuH6ZKyIPry/3yjtAK"
