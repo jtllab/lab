@@ -1160,6 +1160,12 @@
     "playerAnimationNode": {
       "__id__": 23
     },
+    "hpBarNode": {
+      "__id__": 38
+    },
+    "playerBodyNode": {
+      "__id__": 22
+    },
     "bulleteicon": null,
     "bulletPrefab": null,
     "_id": "76gVTuH6ZKyIPry/3yjtAK"
