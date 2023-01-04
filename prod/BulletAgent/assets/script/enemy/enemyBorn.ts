@@ -126,7 +126,7 @@ export class enemyBorn extends Component {
         //数量等于3就不继续生成
         if(this.counter >= 66)
         {
-            this.unschedule(this.batBorn);
+            // this.unschedule(this.batBorn);
         }
     }
 
@@ -136,7 +136,7 @@ export class enemyBorn extends Component {
         this.counter--;
         // 当鸡的数量再次小于3时，重新开始生成鸡
         if (this.counter < 20) {
-            this.schedule(this.batBorn, 1.0);
+            // this.schedule(this.batBorn, 1.0);
         }
 
         
