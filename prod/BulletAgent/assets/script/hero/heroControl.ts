@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { _decorator, Component, Node, input, Input, EventKeyboard, KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director, Vec2, Vec3, View } from 'cc';
+=======
+import { _decorator, Component, Node, input, Input, EventKeyboard,KeyCode,Animation, Sprite, SpriteFrame, instantiate, Prefab, math, RigidBody2D, Contact2DType, Collider2D, IPhysics2DContact, find, sp, PolygonCollider2D, ProgressBar, BoxCollider2D, absMax, director, Vec2, Vec3 } from 'cc';
+>>>>>>> adbab78 (添加守护者)
 import { enemyControl } from '../enemy/enemyControl';
 import { commonUtils } from '../utils/commonUtils';
 import { rocketControl } from '../weapons/rocketControl';
@@ -34,9 +38,16 @@ export class heroControl extends Component {
     @property(Prefab)
     rocketPrefab : Prefab = null;
 
+<<<<<<< HEAD
     // 闪电预制体
     @property(Prefab)
     thunderPrefab : Prefab = null;
+=======
+    //用于挂在守护者预制体
+    @property(Prefab)
+    guardianPrefab : Prefab = null;
+    
+>>>>>>> adbab78 (添加守护者)
 
     // 失败时要弹出的ui
     @property(Prefab)
@@ -122,6 +133,8 @@ export class heroControl extends Component {
         this.camera = find("Canvas/Camera");
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
         this._attackMethod =  this.rocketFire;
+
+        this._attackMethod = this.createGurdian;
         this.attack();
         this.collider = this.playerMoveNode.getComponent(BoxCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
@@ -315,6 +328,7 @@ export class heroControl extends Component {
          //this.node.parent.addChild(rocket);
      }
 
+<<<<<<< HEAD
      
      // 闪电
      lightning() {
@@ -375,6 +389,14 @@ export class heroControl extends Component {
                 thunder.destroy();
             }, 0.5);
         }
+=======
+     //生成守护者
+     createGurdian()
+     {
+         let guardian:Node = instantiate(this.guardianPrefab);
+         this.node.addChild(guardian);
+         //let rotateAction = rotateBy(1, 360);
+>>>>>>> adbab78 (添加守护者)
      }
  
 
