@@ -2619,16 +2619,16 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "batPrefab": {
-      "__uuid__": "43342d98-058d-41da-900f-bbdf66e4155a",
+    "rngPrefab": {
+      "__uuid__": "0755c587-3c14-410c-a367-22c455581b79",
       "__expectedType__": "cc.Prefab"
     },
-    "dagongrenZombiePrefab": {
-      "__uuid__": "c3000faa-718f-4f82-ac36-bcca565d2ff0",
+    "zombieWorkerPrefab": {
+      "__uuid__": "84354d8d-d857-42ee-a05f-a39b542fe40e",
       "__expectedType__": "cc.Prefab"
     },
-    "hudiePrefab": {
-      "__uuid__": "4f8e7b30-07a5-4138-ba8d-dbf84a7029da",
+    "zombieDogPrefab": {
+      "__uuid__": "6ee1523f-b649-4dc7-8648-e62b51d994cb",
       "__expectedType__": "cc.Prefab"
     },
     "insectPrefab": {
