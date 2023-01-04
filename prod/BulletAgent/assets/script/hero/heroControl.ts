@@ -136,7 +136,8 @@ export class heroControl extends Component {
         // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
         this._attackMethod =  this.rocketFire;
 
-        this._attackMethod = this.createGurdian;
+        this.createGurdian();
+
         this.attack();
         this.collider = this.playerMoveNode.getComponent(BoxCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
