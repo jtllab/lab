@@ -363,7 +363,9 @@ export class heroControl extends Component {
                     nearestEnemy = e;
                 }
             });
+            let thunderAni = thunder.getComponent(Animation);
             thunder.setWorldPosition(nearestEnemy.worldPosition);
+            thunderAni.play();
 
             // 杀伤范围内敌人
             let radius = 100;
