@@ -8,13 +8,13 @@ const { ccclass, property } = _decorator;
 export class enemyBorn extends Component {
 
     @property(Prefab)
-    batPrefab : Prefab = null;
+    rngPrefab : Prefab = null;
 
     @property(Prefab)
-    dagongrenZombiePrefab : Prefab = null;
+    zombieWorkerPrefab : Prefab = null;
 
     @property(Prefab)
-    hudiePrefab : Prefab = null;
+    zombieDogPrefab : Prefab = null;
 
     @property(Prefab)
     insectPrefab : Prefab = null;
@@ -62,37 +62,37 @@ export class enemyBorn extends Component {
     }
 
     timingCounter(){
-        // this.timing++;
-        // if (this.timing < 15){
-        //     this.scheduler.schedule(this.batBorn, this, 0.5);
-        // }
-        // if (this.timing > 15 && this.timing < 30){
-        //     this.scheduler.schedule(this.hudieBorn, this, 0.5);
-        // }
-        // if (this.timing > 30 && this.timing < 45){
-        //     this.scheduler.schedule(this.insectBorn, this, 0.5);
-        // }
-        // if (this.timing > 45 && this.timing < 60){
-        //     this.scheduler.unschedule(this.batBorn, this);
-        //     this.scheduler.unschedule(this.hudieBorn, this);
-        //     this.scheduler.unschedule(this.insectBorn, this);
+        this.timing++;
+        if (this.timing < 15){
             this.scheduler.schedule(this.zombieBorn, this, 0.3);
-        // }
+        }
+        if (this.timing > 15 && this.timing < 30){
+            this.scheduler.schedule(this.zombieWorkerBorn, this, 0.5);
+        }
+        if (this.timing > 30 && this.timing < 45){
+            this.scheduler.schedule(this.rngBorn, this, 0.5);
+        }
+        if (this.timing > 45 && this.timing < 60){
+            this.scheduler.unschedule(this.zombieBorn, this);
+            this.scheduler.unschedule(this.zombieWorkerBorn, this);
+            this.scheduler.unschedule(this.rngBorn, this);
+            this.scheduler.schedule(this.zombieDogBorn, this, 0.5);
+        }
         // if (this.timing > 60){
-        //     this.scheduler.schedule(this.dagongrenZombieBorn, this, 0.3);
+        //     this.scheduler.schedule(this.zombieWorkerPrefab, this, 0.3);
         // }
     }
 
-    batBorn() {
-        this.enemyBaseBorn(this.batPrefab);
+    rngBorn() {
+        this.enemyBaseBorn(this.rngPrefab);
     }
 
-    dagongrenZombieBorn(){
-        this.enemyBaseBorn(this.dagongrenZombiePrefab);
+    zombieWorkerBorn(){
+        this.enemyBaseBorn(this.zombieWorkerPrefab);
     }
 
-    hudieBorn() {
-        this.enemyBaseBorn(this.hudiePrefab);
+    zombieDogBorn() {
+        this.enemyBaseBorn(this.zombieDogPrefab);
     }
 
     insectBorn() {

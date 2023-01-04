@@ -44,6 +44,7 @@ export class enemyControl extends Component {
 
     enmeryDire: enemyDirection = null;
 
+    @property(Node)
     sprite : Node;
 
     expPrefab: Prefab = null;
@@ -71,15 +72,14 @@ export class enemyControl extends Component {
         this.hero = find("Canvas/hero");
         this.heroControl = this.hero.getComponent(heroControl);
         this.rigidBody = this.node.getComponent(RigidBody2D);
-        this.sprite = this.node.getChildByName("ZombieBody");
         //初始怪物朝向
-
+        console.log(this.sprite);
         // this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
     }
 
     update(deltaTime: number) {
         //玩家坐标减去怪物坐标得到距离，即方向
-        this.distVec.set(commonUtils.convertVec3ToVec2(this.hero.getPosition().subtract(this.node.getPosition())));
+        this.distVec.set(commonUtils.convertVec3ToVec2(this.heroControl.playerMoveNode.getPosition().subtract(this.node.getPosition())));
         // console.log("distVec is", this.distVec);
         //使怪物正面朝着英雄
         if(this.distVec.x>0){
