@@ -573,11 +573,13 @@ export class heroControl extends Component {
             this.changeProperty();
             console.log("level up, current level %i", this.level);
 
-            //升级生成守护者
-            if(this.guardianNum < 5){
-                //this.createGurdian();
-                this.guardianNum = this.guardianNum + 1;
-            }
+            this.scheduleOnce(() => {
+                //升级生成守护者
+                if(this.guardianNum < 5){
+                    this.createGurdian();
+                    this.guardianNum = this.guardianNum + 1;
+                }
+            }, 0.2);
         }
     }
 
