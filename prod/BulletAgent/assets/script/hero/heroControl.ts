@@ -6,6 +6,7 @@ import { expControl } from '../exp/expControl';
 import { expMidControl } from '../exp/expMidControl';
 import { expBigControl } from '../exp/expBigControl';
 import { enemyBorn } from '../enemy/enemyBorn';
+import { guardianControl } from '../weapons/guardianControl';
 const { ccclass, property } = _decorator;
 
 
@@ -425,6 +426,8 @@ export class heroControl extends Component {
      {
          let guardian:Node = instantiate(this.guardianPrefab);
          this.playerMoveNode.addChild(guardian);
+         let controller = guardian.addComponent(guardianControl);
+         controller.playerMoveNode = this.playerMoveNode;
          //let rotateAction = rotateBy(1, 360);
      }
  
