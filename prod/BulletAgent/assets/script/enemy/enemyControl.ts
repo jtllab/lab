@@ -73,7 +73,7 @@ export class enemyControl extends Component {
         this.heroControl = this.hero.getComponent(heroControl);
         this.rigidBody = this.node.getComponent(RigidBody2D);
         //初始怪物朝向
-        console.log(this.sprite);
+        // console.log(this.sprite);
         // this.node.getComponent(Sprite).spriteFrame = this.leftFrame;
     }
 

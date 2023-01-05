@@ -21,6 +21,10 @@ export class guardianControl extends Component {
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onHitBegin,this);
     }
 
+    setAngle(v: number) {
+        this.fAngle = v;
+    }
+
    start() {
 
    }
@@ -35,7 +39,7 @@ export class guardianControl extends Component {
         let centerPoint = this.playerMoveNode.getWorldPosition();
         let targetPoint = new math.Vec3(centerPoint.x + this.radius * Math.cos(this.fAngle), centerPoint.y + this.radius * Math.sin(this.fAngle));
         this.node.setWorldPosition(targetPoint);
-        //this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
+        this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){

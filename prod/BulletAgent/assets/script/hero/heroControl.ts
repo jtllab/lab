@@ -141,6 +141,7 @@ export class heroControl extends Component {
         this._attackMethod =  this.rocketFire;
 
         this.createGurdian();
+        this.createGurdian();
 
         this.attack();
         this.collider = this.playerMoveNode.getComponent(BoxCollider2D);
@@ -425,16 +426,33 @@ export class heroControl extends Component {
         }
     }
 
+    guardianList: Array<Node> = new Array<Node>();
+
      //生成守护者
      createGurdian()
      {
         //生成预制体守护者
          let guardian:Node = instantiate(this.guardianPrefab);
-         let controller = guardian.addComponent(guardianControl);
+         guardian.addComponent(guardianControl);
+         let controller = guardian.getComponent(guardianControl);
          controller.playerMoveNode = this.playerMoveNode;
+
         //guardian.addComponent(RigidBody);
 
-         this.playerMoveNode.addChild(guardian);
+         //this.playerMoveNode.addChild(guardian);
+         this.node.getChildByName("bullet").addChild(guardian);
+
+        this.guardianList.push(guardian);
+        {
+            // 平均所有的轮盘所处的弧度
+            let angle = 2 * Math.PI / this.guardianList.length;
+            // 计算每个轮盘的位置
+            for (let i = 0; i < this.guardianList.length; i++) {
+                let controller = this.guardianList[i].getComponent(guardianControl);
+                controller.setAngle(angle * i);
+            }
+        }
+        
          //数量+1
          this.guardianNum = this.guardianNum + 1;
     }
