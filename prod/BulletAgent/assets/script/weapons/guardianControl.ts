@@ -6,21 +6,21 @@ export class guardianControl extends Component {
 
     //伤害
     damage: number = 20;
-
     playerMoveNode: Node = null;
-
+    //当前所在角度
+    fAngle:number = 0;
+    //当前转速
+    fAngleSpeed:number = 1;
+    //旋转半径
+    radius:number = 200;
     onLoad(){
-
-     }
-
-    start() {
-     
 
     }
 
-    fAngle:number = 0;
-    fAngleSpeed:number = 3;
-    radius:number = 200;
+   start() {
+    
+
+   }
     update() {
         if (this.playerMoveNode == null) {
             return
@@ -34,6 +34,7 @@ export class guardianControl extends Component {
         this.node.setWorldPosition(targetPoint);
         // this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
     }
+    
 }
 
 

@@ -43,6 +43,8 @@ export class heroControl extends Component {
     //用于挂在守护者预制体
     @property(Prefab)
     guardianPrefab : Prefab = null;
+    //守护者数量
+    guardianNum : number = 0;
     
 
     // 失败时要弹出的ui
@@ -424,12 +426,14 @@ export class heroControl extends Component {
      //生成守护者
      createGurdian()
      {
+        //生成预制体守护者
          let guardian:Node = instantiate(this.guardianPrefab);
          let controller = guardian.addComponent(guardianControl);
          controller.playerMoveNode = this.playerMoveNode;
          this.playerMoveNode.addChild(guardian);
-         //let rotateAction = rotateBy(1, 360);
-     }
+         //数量+1
+         this.guardianNum = this.guardianNum + 1;
+        }
  
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
@@ -546,6 +550,10 @@ export class heroControl extends Component {
             this.upateExp();
             this.changeProperty();
             console.log("level up, current level %i", this.level);
+            //每升一级生成一个守护者
+            if(this.guardianNum<=5){
+                this.createGurdian();
+            }
         }
     }
 
