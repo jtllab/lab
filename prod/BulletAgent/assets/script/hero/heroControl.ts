@@ -433,23 +433,23 @@ export class heroControl extends Component {
         //console.log("hit", other.node.name);
         
         switch (other.node.name){
-            case "bat":
+            case "Zombie":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;
-            case "insect":
+            case "ZombieWorker":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;
-            case "hudie":
+            case "Enemy_RNG":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;   
-            case "dagongrenZombie":
+            case "Zombie_Dog":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;     
-            case "Zombie":
+            case "insect":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;    
@@ -486,31 +486,31 @@ export class heroControl extends Component {
 
     onEndContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null) {
         switch (other.node.name){
-            case "bat":
+            case "Zombie":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "ZombieWorker":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "Enemy_RNG":
+                //玩家离开怪物后恢复原速度倍率
+                // console.log(other);
+                other.node.getComponent(enemyControl).stopAttach();
+                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
+                break;
+            case "Zombie_Dog":
                 //玩家离开怪物后恢复原速度倍率
                 // console.log(other);
                 other.node.getComponent(enemyControl).stopAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
                 break;
             case "insect":
-                //玩家离开怪物后恢复原速度倍率
-                // console.log(other);
-                other.node.getComponent(enemyControl).stopAttach();
-                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
-                break;
-            case "hudie":
-                //玩家离开怪物后恢复原速度倍率
-                // console.log(other);
-                other.node.getComponent(enemyControl).stopAttach();
-                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
-                break;
-            case "dagongrenZombie":
-                //玩家离开怪物后恢复原速度倍率
-                // console.log(other);
-                other.node.getComponent(enemyControl).stopAttach();
-                this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
-                break;
-            case "Zombie":
                 //玩家离开怪物后恢复原速度倍率
                 // console.log(other);
                 other.node.getComponent(enemyControl).stopAttach();
