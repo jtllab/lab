@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, Quat, instantiate, Prefab, math, RigidBody2D, Collider2D, IPhysics2DContact, Vec2, CircleCollider2D, Contact2DType } from 'cc';
+import { _decorator, Component, Node, Vec3, Quat, instantiate, Prefab, math, RigidBody2D, Collider2D, IPhysics2DContact, Vec2, CircleCollider2D, Contact2DType, RigidBody } from 'cc';
 import { enemyControl } from '../enemy/enemyControl';
 const { ccclass, property } = _decorator;
 
@@ -22,7 +22,6 @@ export class guardianControl extends Component {
     }
 
    start() {
-    
 
    }
     update() {
@@ -36,7 +35,7 @@ export class guardianControl extends Component {
         let centerPoint = this.playerMoveNode.getWorldPosition();
         let targetPoint = new math.Vec3(centerPoint.x + this.radius * Math.cos(this.fAngle), centerPoint.y + this.radius * Math.sin(this.fAngle));
         this.node.setWorldPosition(targetPoint);
-        // this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
+        //this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
