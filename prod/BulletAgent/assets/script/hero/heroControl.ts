@@ -8,6 +8,7 @@ import { expBigControl } from '../exp/expBigControl';
 import { enemyBorn } from '../enemy/enemyBorn';
 import { guardianControl } from '../weapons/guardianControl';
 import { Thunder } from '../skill/Thunder';
+import { SkillBase } from '../skill/SkillBase';
 const { ccclass, property } = _decorator;
 
 
@@ -34,7 +35,7 @@ export class heroControl extends Component {
     guardianSW : boolean = false;
 
     // 闪电技能
-    private _thunder:Thunder = null;
+    private _thunder:SkillBase = null;
 
     //用于挂在火箭预制体
     @property(Prefab)

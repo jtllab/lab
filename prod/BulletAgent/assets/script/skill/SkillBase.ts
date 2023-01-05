@@ -13,6 +13,8 @@ export class SkillBase extends Component {
         this._hero = hero;
         this._prefab = prefab;
     }
+
+    public doSkill(){}
 }
 
 
