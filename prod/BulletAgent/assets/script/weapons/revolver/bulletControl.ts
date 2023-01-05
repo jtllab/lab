@@ -63,7 +63,7 @@ export class bulletControl extends Component {
     }
 
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
-        let enemyArray: string[] = ["bat", "hudie", "Zombie","ZombieWorker","enemy_RNG","Zombie_Dog"]
+        let enemyArray: string[] = ["bat", "hudie", "Zombie","ZombieWorker","Enemy_RNG","Zombie_Dog"]
         if (enemyArray.indexOf(other.node.name) != -1) {
             other.node.getComponent(enemyControl).hp -= this.damage
                 //延时0.01s后销毁子弹
