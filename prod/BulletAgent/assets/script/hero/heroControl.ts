@@ -480,10 +480,6 @@ export class heroControl extends Component {
             this.upateExp();
             this.changeProperty();
             console.log("level up, current level %i", this.level);
-            //每升一级生成一个守护者
-            if(this.guardianNum<=5){
-                this.createGurdian();
-            }
         }
     }
 
