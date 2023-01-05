@@ -55,7 +55,7 @@ export class rocketControl extends Component {
     onHitBegin(self: Collider2D, other: Collider2D,contact: IPhysics2DContact | null){
         // console.log("hit begin self is:",self);
 
-        let enemyArray: string[] = ["bat", "hudie", "Zombie"]
+        let enemyArray: string[] = ["bat", "hudie", "Zombie","ZombieWorker","enemy_RNG","Zombie_Dog"]
         if (enemyArray.indexOf(other.node.name) != -1) {
             other.node.getComponent(enemyControl).hp -= this.damage
             console.log("hit Zombie");
