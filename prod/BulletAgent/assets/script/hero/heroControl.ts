@@ -210,14 +210,15 @@ export class heroControl extends Component {
         if (dir.length() == 0) {
             // stop
             this.posOffsetMul = 0;
+            this.playerAnimationNode.getComponent(Animation).pause();
         } else {
             this.posOffsetMul = 1;
             this.posOffset = dir.normalize().multiplyScalar(this.speed * this.speedMult * this.speedUnusualMult);
             if(this.posOffset.x > 0){
-                this.playerBodyNode.setScale(1,1,1);
+                this.setState("heromove");
             }
             if(this.posOffset.x < 0){
-                this.playerBodyNode.setScale(-1,1,1);
+                this.setState("heromoveleft");
             }
 
             // 获取速度的方向，旋转到速度方向
@@ -432,9 +433,7 @@ export class heroControl extends Component {
          controller.playerMoveNode = this.playerMoveNode;
         //guardian.addComponent(RigidBody);
 
-         //this.playerMoveNode.addChild(guardian);
-         this.node.getChildByName("bullet").addChild(guardian);
-
+         this.playerMoveNode.addChild(guardian);
          //数量+1
          this.guardianNum = this.guardianNum + 1;
     }
@@ -554,14 +553,12 @@ export class heroControl extends Component {
             this.upateExp();
             this.changeProperty();
             console.log("level up, current level %i", this.level);
-            this.scheduleOnce(() => {
+
             //升级生成守护者
             if(this.guardianNum < 5){
-                this.createGurdian();
+                //this.createGurdian();
                 this.guardianNum = this.guardianNum + 1;
             }
-              }, 0.2);
-
         }
     }
 
