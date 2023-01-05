@@ -43,8 +43,6 @@ export class heroControl extends Component {
     //用于挂在守护者预制体
     @property(Prefab)
     guardianPrefab : Prefab = null;
-    //守护者数量
-    guardianNum : number = 0;
     
 
     // 失败时要弹出的ui
@@ -452,9 +450,6 @@ export class heroControl extends Component {
                 controller.setAngle(angle * i);
             }
         }
-        
-         //数量+1
-         this.guardianNum = this.guardianNum + 1;
     }
  
 
@@ -575,9 +570,8 @@ export class heroControl extends Component {
 
             this.scheduleOnce(() => {
                 //升级生成守护者
-                if(this.guardianNum < 5){
+                if(this.guardianList.length < 5){
                     this.createGurdian();
-                    this.guardianNum = this.guardianNum + 1;
                 }
             }, 0.2);
         }
