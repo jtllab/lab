@@ -11,7 +11,7 @@ export class guardianControl extends Component {
     //当前所在角度
     fAngle:number = 0;
     //当前转速
-    fAngleSpeed:number = 1;
+    fAngleSpeed:number = 2;
     //旋转半径
     radius:number = 200;
 
@@ -46,7 +46,7 @@ export class guardianControl extends Component {
         if (enemyArray.indexOf(other.node.name) != -1) {
             other.node.getComponent(enemyControl).hp -= this.damage
                 this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
-                
+
                   if (other.node.getComponent(enemyControl).hp <= 0) {
                     //延时0.1s后销毁敌人
                     this.scheduleOnce(() => {
