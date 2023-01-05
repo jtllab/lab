@@ -425,9 +425,9 @@ export class heroControl extends Component {
      createGurdian()
      {
          let guardian:Node = instantiate(this.guardianPrefab);
-         this.playerMoveNode.addChild(guardian);
          let controller = guardian.addComponent(guardianControl);
          controller.playerMoveNode = this.playerMoveNode;
+         this.playerMoveNode.addChild(guardian);
          //let rotateAction = rotateBy(1, 360);
      }
  

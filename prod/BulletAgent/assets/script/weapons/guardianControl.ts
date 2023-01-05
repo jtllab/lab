@@ -22,6 +22,9 @@ export class guardianControl extends Component {
     fAngleSpeed:number = 3;
     radius:number = 200;
     update() {
+        if (this.playerMoveNode == null) {
+            return
+        }
         this.fAngle += (2 * Math.PI) / 360*this.fAngleSpeed; // 每帧增加的弧度
         if (this.fAngle > 2 * Math.PI) {
             this.fAngle -= 2 * Math.PI; // 避免弧度过大导致精度丢失
@@ -29,7 +32,7 @@ export class guardianControl extends Component {
         let centerPoint = this.playerMoveNode.getWorldPosition();
         let targetPoint = new math.Vec3(centerPoint.x + this.radius * Math.cos(this.fAngle), centerPoint.y + this.radius * Math.sin(this.fAngle));
         this.node.setWorldPosition(targetPoint);
-        this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
+        // this.node.getComponent(RigidBody2D)["_body"].syncPositionToPhysics();
     }
 }
 
