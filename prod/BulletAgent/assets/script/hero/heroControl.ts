@@ -432,7 +432,9 @@ export class heroControl extends Component {
          controller.playerMoveNode = this.playerMoveNode;
         //guardian.addComponent(RigidBody);
 
-         this.playerMoveNode.addChild(guardian);
+         //this.playerMoveNode.addChild(guardian);
+         this.node.getChildByName("bullet").addChild(guardian);
+
          //数量+1
          this.guardianNum = this.guardianNum + 1;
     }
@@ -552,12 +554,14 @@ export class heroControl extends Component {
             this.upateExp();
             this.changeProperty();
             console.log("level up, current level %i", this.level);
-
+            this.scheduleOnce(() => {
             //升级生成守护者
             if(this.guardianNum < 5){
-                //this.createGurdian();
+                this.createGurdian();
                 this.guardianNum = this.guardianNum + 1;
             }
+              }, 0.2);
+
         }
     }
 
