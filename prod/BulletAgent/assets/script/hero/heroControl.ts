@@ -203,6 +203,11 @@ export class heroControl extends Component {
             this.posOffsetMul = 0;
             this.playerAnimationNode.getComponent(Animation).pause();
         }
+        if (this.posOffsetMul>0) {
+            this.setDir(this.posOffset);
+        } else {
+            this.setDir(new math.Vec3());
+        }
     }
 
 
@@ -242,28 +247,20 @@ export class heroControl extends Component {
         {
             //键盘A触发
             case KeyCode.KEY_A:
-                console.log('AAAA');
                 this.left = true;
-                this.setState('heromoveleft');
                 break;
             
             //键盘D触发
             case KeyCode.KEY_D:
-                console.log('DDDD');
                 this.right = true;
-                this.setState('heromove');
                 break;
              //键盘W触发
             case KeyCode.KEY_W:
-                console.log('WWW');
                 this.up = true;
-                this.setState('hero_up');
                 break;
              //键盘S触发
             case KeyCode.KEY_S:
-                console.log('SSS');
                 this.down = true;
-                this.setState('hero_down');
                 break;
 
             case KeyCode.KEY_V:
