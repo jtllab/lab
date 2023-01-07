@@ -198,7 +198,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "BG_city_01"
+    "value": "BG"
   },
   {
     "__type__": "cc.TargetInfo",

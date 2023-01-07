@@ -1,6 +1,18 @@
 import { _decorator, Component, Node, Vec2, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
+export enum CoordinateUnit {
+    X = "X",
+    Y = "Y",
+    Z = "Z"
+}
+
+export enum Degree {
+    MAX = "MAX",
+    MIN = "MIN",
+    MID = "MID"
+}
+
 @ccclass('commonUtils')
 export class commonUtils extends Component {
     start() {
