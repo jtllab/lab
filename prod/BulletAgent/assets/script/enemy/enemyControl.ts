@@ -121,11 +121,8 @@ export class enemyControl extends Component {
     }
 
     getHurt(damage: number) {
-        console.log('eeeeeeeeeeeeeenemy hp bbbbefore', this.hp);
         let finalDamage = damage - this.defend;
         this.hp -= finalDamage;
-        
-        console.log('eeeeeeeeeeeeeenemy hp', this.hp);
         if (this.hp < 0) {
             this.node.destroy();
         }
