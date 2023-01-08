@@ -21,6 +21,8 @@ export class enemyControl extends Component {
     @property(CCInteger)
     hp: number = 10;
 
+    defend = 1;
+
     scheduler: Scheduler;
 
     heroControl: heroControl;
@@ -115,6 +117,17 @@ export class enemyControl extends Component {
             this.sprite.setScale(this.leftVec3);
         }else {
             this.sprite.setScale(this.rightVec3);
+        }
+    }
+
+    getHurt(damage: number) {
+        console.log('eeeeeeeeeeeeeenemy hp bbbbefore', this.hp);
+        let finalDamage = damage - this.defend;
+        this.hp -= finalDamage;
+        
+        console.log('eeeeeeeeeeeeeenemy hp', this.hp);
+        if (this.hp < 0) {
+            this.node.destroy();
         }
     }
 

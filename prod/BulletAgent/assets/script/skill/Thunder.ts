@@ -6,9 +6,14 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Thunder')
 export class Thunder extends SkillBase {
+    constructor(parent:Node, hero:Node, prefab:Prefab, skillInterval){
+        let damage = 10;
+        super(parent, hero, prefab, skillInterval, damage);
+    }
+
     doSkill() {
         let visibleSize = View.instance.getVisibleSize();
-        let pos = this._hero.worldPosition;
+        let pos = this._hero.getWorldPosition();
 
         let enemyBornNode:Node = null;
         for (const c of this._parent.children) {
@@ -68,7 +73,7 @@ export class Thunder extends SkillBase {
 
                 if (Vec3.len(distance) < radius) {
                     // 敌人扣血
-                    // e.getComponent(enemyControl)
+                    e.getComponent(enemyControl).getHurt(this.getDamage());
                 }
             });
 
