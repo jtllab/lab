@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D, Scheduler, director, CCInteger } from 'cc';
+import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../utils/commonUtils';
 
 
@@ -17,7 +18,7 @@ export class enemyBorn extends Component {
     zombieDogPrefab : Prefab = null;
 
     @property(Prefab)
-    insectPrefab : Prefab = null;
+    batPrefab : Prefab = null;
 
     @property(Prefab)
     zombiePrefab : Prefab = null;
@@ -25,6 +26,8 @@ export class enemyBorn extends Component {
     monsterBornVec3 = new Vec3();
 
     hero: Node = null;
+
+    heroControl: heroControl;
 
     minX: number = 360;
 
@@ -48,6 +51,7 @@ export class enemyBorn extends Component {
 
     onLoad(){
         this.hero = find("Canvas/hero");
+        this.heroControl = this.hero.getComponent(heroControl);
         this.scheduler = director.getScheduler();
         console.log("canvas script load enemyBorn",this.hero);
     }
@@ -78,9 +82,9 @@ export class enemyBorn extends Component {
             this.scheduler.unschedule(this.rngBorn, this);
             this.scheduler.schedule(this.zombieDogBorn, this, 0.5);
         }
-        // if (this.timing > 60){
-        //     this.scheduler.schedule(this.zombieWorkerPrefab, this, 0.3);
-        // }
+        if (this.timing > 60){
+            this.scheduler.schedule(this.batBorn, this, 0.3);
+        }
     }
 
     rngBorn() {
@@ -95,8 +99,8 @@ export class enemyBorn extends Component {
         this.enemyBaseBorn(this.zombieDogPrefab);
     }
 
-    insectBorn() {
-        this.enemyBaseBorn(this.insectPrefab);
+    batBorn() {
+        this.enemyBaseBorn(this.batPrefab);
     }
 
     zombieBorn() {
@@ -117,7 +121,7 @@ export class enemyBorn extends Component {
         // console.log("随机数:",random ,"生成坐标", this.monsterBornVec3);
         let monsterNew = instantiate(enemyPrefab);
         //玩家移动后画面外
-        monsterNew.setPosition(this.hero.getPosition().add(this.monsterBornVec3));
+        monsterNew.setPosition(this.heroControl.playerMoveNode.getPosition().add(this.monsterBornVec3));
         this.node.addChild(monsterNew);
 
 
@@ -130,17 +134,17 @@ export class enemyBorn extends Component {
         }
     }
 
-    batDied(){
+    // batDied(){
         
-        //鸡死后就减少数量
-        this.counter--;
-        // 当鸡的数量再次小于3时，重新开始生成鸡
-        if (this.counter < 20) {
-            // this.schedule(this.batBorn, 1.0);
-        }
+    //     //鸡死后就减少数量
+    //     this.counter--;
+    //     // 当鸡的数量再次小于3时，重新开始生成鸡
+    //     if (this.counter < 20) {
+    //         // this.schedule(this.batBorn, 1.0);
+    //     }
 
         
-    }
+    // }
 
 }
 

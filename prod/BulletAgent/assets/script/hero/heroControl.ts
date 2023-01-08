@@ -386,7 +386,7 @@ export class heroControl extends Component {
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;     
-            case "insect":
+            case "bat":
                 other.node.getComponent(enemyControl).beginAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.subSpeed);
                 break;    
@@ -447,7 +447,7 @@ export class heroControl extends Component {
                 other.node.getComponent(enemyControl).stopAttach();
                 this.updateHeroSpeedStatus(HeroSpeedStatus.normalSpeed);
                 break;
-            case "insect":
+            case "bat":
                 //玩家离开怪物后恢复原速度倍率
                 // console.log(other);
                 other.node.getComponent(enemyControl).stopAttach();
