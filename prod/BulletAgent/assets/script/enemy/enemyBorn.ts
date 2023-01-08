@@ -29,18 +29,6 @@ export class enemyBorn extends Component {
 
     heroControl: heroControl;
 
-    minX: number = 360;
-
-    maxX: number = 390;
-
-    canvasX: number = 720;
-
-    minY: number = 640;
-
-    maxY: number = 670;
-
-    canvasY: number = 1280;
-
     // 定义一个计数器，初始值为 0
     counter: number = 0;
 
