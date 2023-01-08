@@ -1052,6 +1052,14 @@
       "__uuid__": "9412826d-f7bd-4d35-91dc-1af8f6e11d11",
       "__expectedType__": "cc.Prefab"
     },
+    "rocketPrefab": {
+      "__uuid__": "21383a1f-f0b2-40bd-afb8-1cc5b0c3f88d",
+      "__expectedType__": "cc.Prefab"
+    },
+    "guardianPrefab": {
+      "__uuid__": "06b7578a-bcab-4f46-9bd7-193e195b1c13",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": "6fgylB/xZF8oSoPzKHActB"
   },
   {
@@ -1159,14 +1167,6 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "rocketPrefab": {
-      "__uuid__": "21383a1f-f0b2-40bd-afb8-1cc5b0c3f88d",
-      "__expectedType__": "cc.Prefab"
-    },
-    "guardianPrefab": {
-      "__uuid__": "06b7578a-bcab-4f46-9bd7-193e195b1c13",
-      "__expectedType__": "cc.Prefab"
-    },
     "missonFailPrefab": {
       "__uuid__": "8e4d7d06-bb64-4d78-8eea-1ceaf3f8b748",
       "__expectedType__": "cc.Prefab"
@@ -1541,10 +1541,7 @@
       "__uuid__": "6ee1523f-b649-4dc7-8648-e62b51d994cb",
       "__expectedType__": "cc.Prefab"
     },
-    "batPrefab": {
-      "__uuid__": "43342d98-058d-41da-900f-bbdf66e4155a",
-      "__expectedType__": "cc.Prefab"
-    },
+    "batPrefab": null,
     "zombiePrefab": {
       "__uuid__": "88671c60-9464-40b6-a5b6-502a954989a9",
       "__expectedType__": "cc.Prefab"

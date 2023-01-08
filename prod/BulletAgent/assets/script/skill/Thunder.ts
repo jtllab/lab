@@ -6,7 +6,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Thunder')
 export class Thunder extends SkillBase {
-    constructor(parent:Node, hero:Node, prefab:Prefab, skillInterval){
+    constructor(parent:Node, hero:Node, prefab:Prefab, skillInterval:number){
         let damage = 10;
         super(parent, hero, prefab, skillInterval, damage);
     }

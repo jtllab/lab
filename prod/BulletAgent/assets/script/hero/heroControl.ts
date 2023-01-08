@@ -27,20 +27,6 @@ export class heroControl extends Component {
 
 
 
-    //技能开关
-    rocketSW : boolean = false;
-    thunderSW : boolean = false;
-    guardianSW : boolean = false;
-
-    //用于挂在火箭预制体
-    @property(Prefab)
-    rocketPrefab : Prefab = null;
-
-    //用于挂在守护者预制体
-    @property(Prefab)
-    guardianPrefab : Prefab = null;
-    
-
     // 失败时要弹出的ui
     @property(Prefab)
     missonFailPrefab : Prefab = null;
@@ -76,8 +62,6 @@ export class heroControl extends Component {
 
     //攻击间隔时间
     private _interval: number = 1;
-    //攻击调用的函数
-    private _attackMethod: Function = Node;
 
     //hero移动速度
     speed:number = 4;
@@ -131,13 +115,7 @@ export class heroControl extends Component {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
         this.camera = find("Canvas/Camera");
-        // 挂载游戏攻击方法，后面攻击方法可以通过赋值来修改，比如出刀或者射击
-        this._attackMethod =  this.rocketFire;
 
-        this.createGurdian();
-        this.createGurdian();
-
-        this.attack();
         this.collider = this.playerMoveNode.getComponent(BoxCollider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this);
         this.collider.on(Contact2DType.END_CONTACT,this.onEndContact,this);
@@ -292,78 +270,6 @@ export class heroControl extends Component {
             this.playerAnimationNode.getComponent(Animation).play(this._state);
         }
     }
-
-    attack() {
-        this.schedule(function() {
-            this._attackMethod()
-        }, this._interval);
-    }
-
-     //发射火箭
-     rocketFire()
-     {
-         //新的子弹生成新的预制体
-         let rocket:Node = instantiate(this.rocketPrefab);
-         
-         this.node.getChildByName("bullet").addChild(rocket);
-         // 注意，因为 Vec3 的计算方法都会修改自己的值，所以要先 clone 一个值再操作，避免修改到原始值
-         //var posOffset = this.posOffset.clone();
-         //子弹图层设置等于父节点图层
-        // bullet.layer = this.node.layer;
-         //设置相对父节点位置
-         rocket.setPosition(this.playerMoveNode.position);
-
-         let randomAngle = Math.random() * 2 * Math.PI;  // 随机生成 0 到 2π 之间的数
-         let rocketDirection = new Vec3(Math.cos(randomAngle), Math.sin(randomAngle));  // 生成一个随机方向的向量
- 
-         
-         // 初始化子弹的移动速度，这包括的是子弹的方向和速度
-         rocket.getComponent(rocketControl).posOffset = rocketDirection.multiplyScalar(5);
-         //console.log("rocketDirection", rocketDirection);
-         //console.log("randomAngle", randomAngle);
-         //console.log("rotation", rocket.rotation);
-        // 初始化子弹的移动速度，这包括的是子弹的方向和速度
-        let  speed = rocketDirection.multiplyScalar(2);
-        let linearVelocity = new math.Vec2(speed.x, speed.y);
-        rocket.getComponent(RigidBody2D).linearVelocity = linearVelocity;
-        rocket.getComponent(RigidBody2D).fixedRotation = true;
-        // 获取速度的方向，旋转到速度方向
-        let angle = new math.Vec2(0,1).signAngle(linearVelocity.normalize())/Math.PI*180;
-        rocket.eulerAngles = new Vec3(0,0,angle);
-
-
-         
-         //挂载到炮台节点下
-         //this.node.parent.addChild(rocket);
-     }
-
-    guardianList: Array<Node> = new Array<Node>();
-
-     //生成守护者
-     createGurdian()
-     {
-        //生成预制体守护者
-         let guardian:Node = instantiate(this.guardianPrefab);
-         guardian.addComponent(guardianControl);
-         let controller = guardian.getComponent(guardianControl);
-         controller.playerMoveNode = this.playerMoveNode;
-
-        //guardian.addComponent(RigidBody);
-
-         //this.playerMoveNode.addChild(guardian);
-         this.node.getChildByName("bullet").addChild(guardian);
-
-        this.guardianList.push(guardian);
-        {
-            // 平均所有的轮盘所处的弧度
-            let angle = 2 * Math.PI / this.guardianList.length;
-            // 计算每个轮盘的位置
-            for (let i = 0; i < this.guardianList.length; i++) {
-                let controller = this.guardianList[i].getComponent(guardianControl);
-                controller.setAngle(angle * i);
-            }
-        }
-    }
  
 
     onBeginContact(self: Collider2D, other: Collider2D, contact: IPhysics2DContact | null){
@@ -481,12 +387,12 @@ export class heroControl extends Component {
             this.changeProperty();
             console.log("level up, current level %i", this.level);
 
-            this.scheduleOnce(() => {
-                //升级生成守护者
-                if(this.guardianList.length < 5){
-                    this.createGurdian();
-                }
-            }, 0.2);
+            // this.scheduleOnce(() => {
+            //     //升级生成守护者
+            //     if(this.guardianList.length < 5){
+            //         this.createGurdian();
+            //     }
+            // }, 0.2);
         }
     }
 
