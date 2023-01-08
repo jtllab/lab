@@ -21,7 +21,7 @@ export class enemyControl extends Component {
     @property(CCInteger)
     hp: number = 10;
 
-    defend = 1;
+    defend = 0;
 
     scheduler: Scheduler;
 
@@ -124,7 +124,9 @@ export class enemyControl extends Component {
         let finalDamage = damage - this.defend;
         this.hp -= finalDamage;
         if (this.hp < 0) {
-            this.node.destroy();
+            this.scheduleOnce(() => {
+                this.node.destroy();
+            }, 0.01);
         }
     }
 

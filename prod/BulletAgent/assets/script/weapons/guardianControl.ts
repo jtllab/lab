@@ -47,22 +47,11 @@ export class guardianControl extends Component {
 
         let enemyArray: string[] = ["bat", "hudie", "Zombie","ZombieWorker","Enemy_RNG","Zombie_Dog"]
         if (enemyArray.indexOf(other.node.name) != -1) {
-            other.node.getComponent(enemyControl).hp -= this.damage
-                this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
-
-                  if (other.node.getComponent(enemyControl).hp <= 0) {
-                    //延时0.1s后销毁敌人
-                    this.scheduleOnce(() => {
-                        if (other.node){
-                            console.log("enemy die die die");
-                            other.node.destroy();
-                        }
-                    }, 0.01);
+            this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
+            other.node.getComponent(enemyControl).getHurt(this.damage);
         }
         
     }
-    
-}
     
 }
 
