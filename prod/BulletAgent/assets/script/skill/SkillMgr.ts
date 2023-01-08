@@ -17,10 +17,14 @@ export class SkillMgr extends Component {
     private _skillInterval: number = 1;
 
     onLoad(){
-        this._thuder = new Thunder(this.node.parent.parent.parent, this.node.parent, this.thunderPrefab, 1);
-        this.doSkillRepeat();
-        
+        let heroNode = this.node.parent;
+        let canvas = this.node.parent.parent.parent;
 
+        // 闪电挂载到画布下
+        this._thuder = new Thunder(canvas, heroNode, this.thunderPrefab, 1);
+
+
+        this.doSkillRepeat();
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     }
 
@@ -35,7 +39,7 @@ export class SkillMgr extends Component {
         this._thuder.doSkillRepeat();
     }
 
-     //按下按键时
+     //按下按键时触发技能，可用于测试
     onKeyDown(event:EventKeyboard)
     {
         switch(event.keyCode)

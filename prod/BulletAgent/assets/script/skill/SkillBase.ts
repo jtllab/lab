@@ -3,6 +3,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('SkillBase')
 export class SkillBase extends Component {
+    // 技能挂载的父节点
     protected _parent : Node = null;
     protected _hero : Node = null;
     protected _prefab : Prefab = null;
@@ -17,10 +18,9 @@ export class SkillBase extends Component {
         this._prefab = prefab;
         this._skillInterval = skillInterval;
         this._damage = damage;
-        console.log('cccccccccccccccccc',this._parent);
-        console.log('_hero ooooooooooo',this._hero);
     }
 
+    // 技能逻辑
     public doSkill(){}
 
     // 技能升级
