@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D,RigidBody2D, Vec2 } from 'cc';
+import { _decorator, Component, Node, math, Vec3, CircleCollider2D,Animation, Contact2DType, Collider2D, IPhysics2DContact, BoxCollider2D,RigidBody2D, Vec2, AudioClip, AudioSource } from 'cc';
 import { enemyControl } from '../enemy/enemyControl';
 import { bulletControl } from './revolver/bulletControl';
 const { ccclass, property } = _decorator;
@@ -15,11 +15,17 @@ export class rocketControl extends Component {
 
      private _state : string = '';
      private _playerAni: Animation = null;
- 
+
+    //挂爆炸音效
+     @property(AudioClip)
+     boomSource : AudioSource;
+
      collider: BoxCollider2D;
  
      //火箭伤害
      damage: number = 20;
+
+
 
      onLoad(){
         this.collider = this.node.getComponent(BoxCollider2D);
@@ -34,6 +40,7 @@ export class rocketControl extends Component {
     update(deltaTime: number) {
         // 每 1/60 秒调用一次 onTimer 函数
         this._playerAni = this.node.getComponent(Animation);
+      
     }
 
     onTimer() {
@@ -60,6 +67,11 @@ export class rocketControl extends Component {
             other.node.getComponent(enemyControl).hp -= this.damage
             console.log("hit Zombie");
                 this.node.getComponent(Animation).play("rocketBoom");
+
+                this.scheduleOnce(() => {
+                    this.boomSource.play();
+                  }, 0.1);
+                
                 this.node.getComponent(RigidBody2D).linearVelocity =  new Vec2(0,0);
                 this.scheduleOnce(() => {
                     this.node.destroy();
