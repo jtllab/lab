@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D, Scheduler, director, CCInteger } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab, Vec3, find, NodeEventType, RigidBody2D, Scheduler, director, CCInteger, View, math } from 'cc';
 import { heroControl } from '../hero/heroControl';
 import { commonUtils } from '../utils/commonUtils';
 
@@ -35,16 +35,21 @@ export class enemyBorn extends Component {
 
     canvasX: number = 720;
 
-    minY: number = 512;
+    minY: number = 640;
 
-    maxY: number = 542;
+    maxY: number = 670;
 
-    canvasY: number = 1024;
+    canvasY: number = 1280;
 
     // 定义一个计数器，初始值为 0
     counter: number = 0;
 
     scheduler: Scheduler;
+
+    visibleSize: math.Size;
+
+    //怪物在画面外生成的偏移区域
+    visibleOffset: number = 30;
 
     //游戏计时，用于不同时间产生不同的怪物
     timing: number = 0;
@@ -53,7 +58,7 @@ export class enemyBorn extends Component {
         this.hero = find("Canvas/hero");
         this.heroControl = this.hero.getComponent(heroControl);
         this.scheduler = director.getScheduler();
-        console.log("canvas script load enemyBorn",this.hero);
+        this.visibleSize = View.instance.getVisibleSize();
     }
 
     start() {
@@ -113,10 +118,12 @@ export class enemyBorn extends Component {
         let random = commonUtils.getRandomNum(1,2);
         if (random == 1){
             //x轴随机，y轴画面外
-            this.monsterBornVec3.set(commonUtils.getRandomBinary() * (Math.random() * this.canvasX),commonUtils.getRandomBinary() * (this.maxY + (Math.random() * (this.maxY - this.minY))));
+            this.monsterBornVec3.set(commonUtils.getRandomBinary() * (Math.random() * this.visibleSize.x),
+                commonUtils.getRandomBinary() * ((this.visibleSize.y / 2 + this.visibleOffset) + (Math.random() * ((this.visibleSize.y / 2 + this.visibleOffset) - (this.visibleSize.y / 2)))));
         }else if (random == 2){
             //y轴随机，x轴画面外
-            this.monsterBornVec3.set(commonUtils.getRandomBinary() * (this.maxX + (Math.random() * (this.maxX - this.minX))),commonUtils.getRandomBinary() * (Math.random() * this.canvasY));
+            this.monsterBornVec3.set(commonUtils.getRandomBinary() * ((this.visibleSize.x / 2 + this.visibleOffset) + (Math.random() * ((this.visibleSize.x / 2 + this.visibleOffset) - (this.visibleSize.x / 2)))),
+                commonUtils.getRandomBinary() * (Math.random() * this.visibleSize.y));
         }
         // console.log("随机数:",random ,"生成坐标", this.monsterBornVec3);
         let monsterNew = instantiate(enemyPrefab);
