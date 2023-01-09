@@ -1541,7 +1541,10 @@
       "__uuid__": "6ee1523f-b649-4dc7-8648-e62b51d994cb",
       "__expectedType__": "cc.Prefab"
     },
-    "batPrefab": null,
+    "batPrefab": {
+      "__uuid__": "bf04c20a-01e8-48e2-8406-594bf14d581c",
+      "__expectedType__": "cc.Prefab"
+    },
     "zombiePrefab": {
       "__uuid__": "88671c60-9464-40b6-a5b6-502a954989a9",
       "__expectedType__": "cc.Prefab"
