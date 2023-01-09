@@ -1549,6 +1549,14 @@
       "__uuid__": "88671c60-9464-40b6-a5b6-502a954989a9",
       "__expectedType__": "cc.Prefab"
     },
+    "xizhuangjiangshiPrefab": {
+      "__uuid__": "462009d2-a61e-4d96-a4c0-e8a3573d8377",
+      "__expectedType__": "cc.Prefab"
+    },
+    "shibingjiangshiPrefab": {
+      "__uuid__": "05d39d6a-4ddb-463e-b712-2be58db9ea76",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": "17bpW1V69L/ZWnSd7ONBgp"
   },
   {
