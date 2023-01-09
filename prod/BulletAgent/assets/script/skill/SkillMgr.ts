@@ -3,6 +3,7 @@ import { Thunder } from './Thunder';
 import { SkillBase } from './SkillBase';
 import { Rocket } from './Rocket';
 import { Guardian } from './Guardian';
+import { Drone } from './Drone';
 const { ccclass, property } = _decorator;
 
 @ccclass('SkillMgr')
@@ -19,10 +20,14 @@ export class SkillMgr extends Component {
     @property(Prefab)
     guardianPrefab : Prefab = null;
 
+    @property(Prefab)
+    drone : Prefab = null;
+
     // 技能
     private _thuder: SkillBase = null;
     private _rocket: SkillBase = null;
     private _guardian: SkillBase = null;
+    private _drone: SkillBase = null;
 
 
     // 技能间隔
@@ -38,6 +43,8 @@ export class SkillMgr extends Component {
         this._rocket = new Rocket(canvas, heroNode, this.rocketPrefab, 1);
 
         this._guardian = new Guardian(canvas, heroNode, this.guardianPrefab);
+
+        // this._drone = new Drone(canvas, heroNode, this.drone);
 
 
         this.doSkillRepeat();
