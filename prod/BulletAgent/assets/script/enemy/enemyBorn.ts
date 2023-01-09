@@ -9,6 +9,7 @@ const { ccclass, property } = _decorator;
 export class enemyBorn extends Component {
 
     @property(Prefab)
+
     rngPrefab : Prefab = null;
 
     @property(Prefab)
@@ -22,6 +23,12 @@ export class enemyBorn extends Component {
 
     @property(Prefab)
     zombiePrefab : Prefab = null;
+
+    @property(Prefab)
+    xizhuangjiangshiPrefab : Prefab = null;    //西装僵尸
+
+    @property(Prefab)
+    shibingjiangshiPrefab : Prefab = null;    //士兵僵尸
 
     monsterBornVec3 = new Vec3();
 
@@ -62,6 +69,8 @@ export class enemyBorn extends Component {
         this.timing++;
         if (this.timing < 15){
             this.scheduler.schedule(this.zombieBorn, this, 0.3);
+        //    this.scheduler.schedule(this.xizhuangjiangshiBron, this, 0.3);
+            this.scheduler.schedule(this.shibingjiangshiBron, this, 0.3);
         }
         if (this.timing > 15 && this.timing < 30){
             this.scheduler.schedule(this.zombieWorkerBorn, this, 0.5);
@@ -98,6 +107,14 @@ export class enemyBorn extends Component {
 
     zombieBorn() {
         this.enemyBaseBorn(this.zombiePrefab);
+    }
+
+    shibingjiangshiBron(){
+        this.enemyBaseBorn(this.shibingjiangshiPrefab);
+    }
+
+    xizhuangjiangshiBron() {
+        this.enemyBaseBorn(this.xizhuangjiangshiPrefab);
     }
 
 
