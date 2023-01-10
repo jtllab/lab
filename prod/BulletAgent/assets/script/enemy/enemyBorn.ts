@@ -110,11 +110,11 @@ export class enemyBorn extends Component {
     }
 
     shibingjiangshiBron(){
-        this.enemyBaseBorn(this.shibingjiangshiPrefab);
+        // this.enemyBaseBorn(this.shibingjiangshiPrefab);
     }
 
     xizhuangjiangshiBron() {
-        this.enemyBaseBorn(this.xizhuangjiangshiPrefab);
+        // this.enemyBaseBorn(this.xizhuangjiangshiPrefab);
     }
 
 

@@ -6,6 +6,25 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Thunder')
 export class Thunder extends SkillBase {
+
+    private flag = true;
+
+    onLoad(){
+        console.log('ttttttttttttttthuder onload');
+    }
+
+    start() {
+        console.log('ttttttttttttttthuder start');
+    }
+
+    update() {
+        if (this.flag) {
+            console.log('ttttttttttttttthuder update');
+            this.flag = false;
+        }
+    }
+
+
     init(parent:Node, hero:Node, prefab:Prefab, skillInterval:number, repeat=true){
         let damage = 10;
         super.init(parent, hero, prefab, skillInterval, repeat, damage);
