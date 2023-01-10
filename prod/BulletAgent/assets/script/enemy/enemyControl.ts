@@ -81,7 +81,7 @@ export class enemyControl extends Component {
 
     update(deltaTime: number) {
         //玩家坐标减去怪物坐标得到距离，即方向
-        this.distVec.set(commonUtils.convertVec3ToVec2(this.heroControl.playerMoveNode.getPosition().subtract(this.node.getPosition())));
+        this.distVec.set(commonUtils.convertVec3ToVec2(this.heroControl.playerMoveNode.getWorldPosition().subtract(this.node.getWorldPosition())));
         // console.log("distVec is", this.distVec);
         //使怪物正面朝着英雄
         if(this.distVec.x>0){

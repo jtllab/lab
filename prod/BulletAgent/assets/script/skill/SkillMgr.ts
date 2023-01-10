@@ -52,7 +52,7 @@ export class SkillMgr extends Component {
         root.addComponent(Thunder);
         root.addComponent(Rocket);
         root.addComponent(Guardian);
-        root.addComponent(Drone);
+        // root.addComponent(Drone);
 
         //结点加到场景
         this.node.addChild(root);
@@ -67,13 +67,13 @@ export class SkillMgr extends Component {
         this._guardian = root.getComponent(Guardian);
         this._guardian.init(canvas, heroNode, this.guardianPrefab);
 
-        this._drone = root.getComponent(Drone);
-        this._drone.init(canvas, heroNode, this.dronePrefab);
+        // this._drone = root.getComponent(Drone);
+        // this._drone.init(canvas, heroNode, this.dronePrefab);
 
         this._skillArr.push(this._thuder);
         this._skillArr.push(this._rocket);
         this._skillArr.push(this._guardian);
-        this._skillArr.push(this._drone);
+        // this._skillArr.push(this._drone);
 
 
         this.doSkillRepeat();
