@@ -1,5 +1,6 @@
 import { CCInteger, instantiate, Vec3, _decorator, Prefab, Node, Scheduler, director } from 'cc';
 import { commonUtils } from '../utils/commonUtils';
+import { timingDestroy } from '../utils/timingDestroy';
 import { SkillBase } from './SkillBase';
 const { ccclass, property } = _decorator;
 
@@ -33,7 +34,7 @@ export class Drone extends SkillBase {
     scheduler: Scheduler;
 
     //瞄准间隔
-    aimInterval: number = 0.3;
+    aimInterval: number = 0.07;
 
     onLoad(){
         this.scheduler = director.getScheduler();
@@ -68,7 +69,7 @@ export class Drone extends SkillBase {
         // console.log("radian is", radian);
         this.targetPos = this._hero.getWorldPosition().clone();
         this.attachAim.setWorldPosition(new Vec3(this.targetPos.x + (this.aroundRadius * Math.cos(radian)), this.targetPos.y + (this.aroundRadius * Math.sin(radian))));
-        console.log("attachAim is", this.attachAim.getWorldPosition());
+        // console.log("attachAim is", this.attachAim.getWorldPosition());
 
     }
 
@@ -79,9 +80,11 @@ export class Drone extends SkillBase {
 
     generateAim(){
         let droneMissileAim = instantiate(this._prefab);
-        droneMissileAim.setWorldPosition(commonUtils.getRandomVec3AroundTarget(this.attachAim.getWorldPosition().clone(),1));
-        this._parent.addChild(droneMissileAim);
+        droneMissileAim.setPosition(commonUtils.getRandomVec3AroundTarget(this.attachAim.getPosition().clone(),40));
         console.log(droneMissileAim.getWorldPosition());
+        droneMissileAim.addComponent(timingDestroy);
+        this._parent.addChild(droneMissileAim);
+        console.log("after add",droneMissileAim.getWorldPosition());
     }
 
 

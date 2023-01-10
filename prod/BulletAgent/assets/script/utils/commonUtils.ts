@@ -42,7 +42,13 @@ export class commonUtils extends Component {
      * @returns 
      */
     public static getRandomVec3AroundTarget(target: Vec3, randomRate: number): Vec3{
-        return new Vec3(target.x + this.getRandomNum(-randomRate,randomRate),target.y + this.getRandomNum(-randomRate,randomRate));
+        let x = target.x + this.getRandomNum(-randomRate,randomRate);
+        let y = target.y + this.getRandomNum(-randomRate,randomRate);
+        console.log("x is",x);
+        console.log("y is",y);
+        let newPos = new Vec3(x,y);
+        console.log("newpos is", newPos);
+        return newPos;
     }
 }
 
