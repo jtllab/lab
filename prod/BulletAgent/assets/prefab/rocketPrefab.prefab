@@ -152,6 +152,10 @@
     "__prefab": {
       "__id__": 7
     },
+    "boomSource": {
+      "__uuid__": "8c2dad91-07ec-443c-8378-6f1da205a013",
+      "__expectedType__": "cc.AudioClip"
+    },
     "_id": ""
   },
   {
