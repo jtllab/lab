@@ -7,8 +7,8 @@ const { ccclass, property } = _decorator;
 export class Guardian extends SkillBase {
     guardianList: Array<Node> = new Array<Node>();
 
-    constructor(parent:Node, hero:Node, prefab:Prefab){
-        super(parent, hero, prefab);
+    init(parent:Node, hero:Node, prefab:Prefab){
+        super.init(parent, hero, prefab);
         this.createGurdian();
         this.createGurdian();
     }

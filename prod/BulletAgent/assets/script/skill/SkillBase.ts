@@ -10,12 +10,14 @@ export class SkillBase extends Component {
     protected _level : number = 0;
     protected _damage : number = 0;
     protected _skillInterval: number = 1;
+    protected _isRepeatedSkill: boolean = false;
 
-    constructor(parent:Node, hero:Node, prefab:Prefab, skillInterval=1, damage=1){
-        super();
+
+    public init(parent:Node, hero:Node, prefab:Prefab, skillInterval=1, repeat=false, damage=1){
         this._parent = parent;
         this._hero = hero;
         this._prefab = prefab;
+        this._isRepeatedSkill = repeat;
         this._skillInterval = skillInterval;
         this._damage = damage;
     }
@@ -29,6 +31,15 @@ export class SkillBase extends Component {
     public getLevel() : number {
         return this._level;
     }
+
+    public isRepeatedSkill() : boolean {
+        return this._isRepeatedSkill;
+    }
+
+    protected setSkillRepead(isRepeated:boolean) : boolean{
+        this._isRepeatedSkill = isRepeated;
+        return this.isRepeatedSkill();
+    }
     
     public getDamage() : number {
         return this._damage;
@@ -40,9 +51,11 @@ export class SkillBase extends Component {
 
     // 重复释放技能
     public doSkillRepeat(){
-        this.schedule(function() {
-            this.doSkill();
-        }, this.getSkillInterval());
+        if (this.isRepeatedSkill()){
+            this.schedule(function() {
+                this.doSkill();
+            }, this.getSkillInterval());
+        }
     }
 }
 

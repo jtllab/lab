@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, Animation, Vec3, Scheduler , View } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, Animation, Vec3, Scheduler , View, repeat } from 'cc';
 import { enemyBorn } from '../enemy/enemyBorn';
 import { enemyControl } from '../enemy/enemyControl';
 import { SkillBase } from './SkillBase';
@@ -6,9 +6,9 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Thunder')
 export class Thunder extends SkillBase {
-    constructor(parent:Node, hero:Node, prefab:Prefab, skillInterval:number){
+    init(parent:Node, hero:Node, prefab:Prefab, skillInterval:number, repeat=true){
         let damage = 10;
-        super(parent, hero, prefab, skillInterval, damage);
+        super.init(parent, hero, prefab, skillInterval, repeat, damage);
     }
 
     doSkill() {
@@ -81,6 +81,10 @@ export class Thunder extends SkillBase {
                 thunder.destroy();
             }, 0.5);
         }
+    }
+
+    onDestroy(){
+
     }
 }
 

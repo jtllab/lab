@@ -1,10 +1,15 @@
-import { _decorator, Component, instantiate, math, Node, RigidBody2D, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, math, Node, Prefab, RigidBody2D, Vec3 } from 'cc';
 import { SkillBase } from './SkillBase';
 import { rocketControl } from '../weapons/rocketControl';
 const { ccclass, property } = _decorator;
 
 @ccclass('Rocket')
 export class Rocket extends SkillBase {
+
+    public init(parent:Node, hero:Node, prefab:Prefab,  skillInterval=1, repeat=true, damage=1){
+        super.init(parent, hero, prefab,  skillInterval, repeat, damage);
+    }
+
     //发射火箭
     doSkill()
     {
