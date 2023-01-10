@@ -1,9 +1,10 @@
-import { _decorator, Component, EventKeyboard, input, Input, KeyCode, Node, Prefab } from 'cc';
+import { _decorator, Component, EventKeyboard, input, Input, instantiate, KeyCode, Label, Node, Prefab, UITransform, Vec3 } from 'cc';
 import { Thunder } from './Thunder';
 import { SkillBase } from './SkillBase';
 import { Rocket } from './Rocket';
 import { Guardian } from './Guardian';
 import { Drone } from './Drone';
+import { skillConfig } from '../utils/skillConfig';
 const { ccclass, property } = _decorator;
 
 @ccclass('SkillMgr')
@@ -22,6 +23,10 @@ export class SkillMgr extends Component {
 
     @property(Prefab)
     drone : Prefab = null;
+
+
+    @property(Prefab)
+    skillCardPrefab : Prefab = null;
 
     // 技能
     private _thuder: SkillBase = null;
@@ -81,6 +86,30 @@ export class SkillMgr extends Component {
         });
     }
 
+    showChooseUI(){
+        if (this.skillCardPrefab){
+
+            let gap = 30;
+            let canvas = this.node.parent.parent.parent;
+
+            let skillNum = 3;
+            let skillCardArr = [];
+            for (let index = 0; index < skillNum; index++) {
+                let sc = instantiate(this.skillCardPrefab);
+
+                let width = sc.getComponent(UITransform).width;
+
+                let name = sc.getChildByName('mingcheng');
+                name.getComponent(Label).string = skillConfig.content[index].config.name;
+                let intro = sc.getChildByName('miaoshu');
+                intro.getComponent(Label).string = skillConfig.content[index].config.intro;
+
+                sc.setPosition(new Vec3((index-1)* (width+gap), 0, 0));
+                canvas.addChild(sc);
+            }
+        }
+    }
+
      //按下按键时触发技能，可用于测试
     onKeyDown(event:EventKeyboard)
     {
@@ -89,6 +118,9 @@ export class SkillMgr extends Component {
             case KeyCode.KEY_C:
                 this._thuder.doSkill();
                 break;
+            case KeyCode.KEY_V:
+                this.showChooseUI();
+                break;                
         }
     }
 }
