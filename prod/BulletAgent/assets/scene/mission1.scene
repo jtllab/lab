@@ -1052,15 +1052,15 @@
     "_enabled": true,
     "__prefab": null,
     "thunderPrefab": {
-      "__uuid__": "9412826d-f7bd-4d35-91dc-1af8f6e11d11",
+      "__uuid__": "0b398150-ca05-41f5-ba2e-976c046d40c9",
       "__expectedType__": "cc.Prefab"
     },
     "rocketPrefab": {
-      "__uuid__": "21383a1f-f0b2-40bd-afb8-1cc5b0c3f88d",
+      "__uuid__": "84f77d86-0500-4a11-adb4-fa4accc7fc58",
       "__expectedType__": "cc.Prefab"
     },
     "guardianPrefab": {
-      "__uuid__": "06b7578a-bcab-4f46-9bd7-193e195b1c13",
+      "__uuid__": "a1b63ae8-eb93-4808-bc09-3da225828c30",
       "__expectedType__": "cc.Prefab"
     },
     "dronePrefab": {
