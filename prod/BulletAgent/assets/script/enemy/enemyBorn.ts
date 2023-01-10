@@ -69,8 +69,8 @@ export class enemyBorn extends Component {
         this.timing++;
         if (this.timing < 15){
             this.scheduler.schedule(this.zombieBorn, this, 0.3);
-        //    this.scheduler.schedule(this.xizhuangjiangshiBron, this, 0.3);
-            // this.scheduler.schedule(this.shibingjiangshiBron, this, 0.3);
+            //this.scheduler.schedule(this.xizhuangjiangshiBron, this, 0.3);
+            this.scheduler.schedule(this.shibingjiangshiBron, this, 0.3);
         }
         if (this.timing > 15 && this.timing < 30){
             this.scheduler.schedule(this.zombieWorkerBorn, this, 0.5);
@@ -110,11 +110,11 @@ export class enemyBorn extends Component {
     }
 
     shibingjiangshiBron(){
-        // this.enemyBaseBorn(this.shibingjiangshiPrefab);
+         this.enemyBaseBorn(this.shibingjiangshiPrefab);
     }
 
     xizhuangjiangshiBron() {
-        // this.enemyBaseBorn(this.xizhuangjiangshiPrefab);
+         this.enemyBaseBorn(this.xizhuangjiangshiPrefab);
     }
 
 
