@@ -2,12 +2,12 @@
   "ver": "1.1.40",
   "importer": "prefab",
   "imported": true,
-  "uuid": "0b398150-ca05-41f5-ba2e-976c046d40c9",
+  "uuid": "490ef391-e8a9-468a-9c67-e10eb96037b9",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "shandian"
+    "syncNodeName": "Enemy_Chongzi_Red"
   }
 }

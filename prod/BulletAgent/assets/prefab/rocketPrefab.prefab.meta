@@ -2,12 +2,12 @@
   "ver": "1.1.40",
   "importer": "prefab",
   "imported": true,
-  "uuid": "0b398150-ca05-41f5-ba2e-976c046d40c9",
+  "uuid": "21383a1f-f0b2-40bd-afb8-1cc5b0c3f88d",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "shandian"
+    "syncNodeName": "rocketPrefab"
   }
 }

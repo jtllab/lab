@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.AnimationClip",
-    "_name": "Zombie_Dog",
+    "_name": "Enemy_robot",
     "_objFlags": 0,
     "__editorExtras__": {
       "embeddedPlayerGroups": []
@@ -16,9 +16,6 @@
     "_tracks": [
       {
         "__id__": 1
-      },
-      {
-        "__id__": 6
       }
     ],
     "_exoticAnimation": null,
@@ -58,80 +55,37 @@
   },
   {
     "__type__": "cc.ObjectCurve",
-    "_times": [],
-    "_values": []
-  },
-  {
-    "__type__": "cc.animation.ObjectTrack",
-    "_binding": {
-      "__type__": "cc.animation.TrackBinding",
-      "path": {
-        "__id__": 7
-      }
-    },
-    "_channel": {
-      "__id__": 10
-    }
-  },
-  {
-    "__type__": "cc.animation.TrackPath",
-    "_paths": [
-      {
-        "__id__": 8
-      },
-      {
-        "__id__": 9
-      },
-      "spriteFrame"
-    ]
-  },
-  {
-    "__type__": "cc.animation.HierarchyPath",
-    "path": "Zombie_Dog_5"
-  },
-  {
-    "__type__": "cc.animation.ComponentPath",
-    "component": "cc.Sprite"
-  },
-  {
-    "__type__": "cc.animation.Channel",
-    "_curve": {
-      "__id__": 11
-    }
-  },
-  {
-    "__type__": "cc.ObjectCurve",
     "_times": [
       0,
       0.3333333333333333,
-      0.6833333333333333,
+      0.6666666666666666,
       1,
       1.3333333333333333,
       1.6666666666666667
     ],
     "_values": [
       {
-        "__uuid__": "30c67b0e-f5fc-436e-b418-9a6d6311be2b@f9941",
+        "__uuid__": "aeff414c-05cf-4289-9ceb-6a81ac6fa719@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "bd32b6ba-bad5-4781-9f51-de78e662c671@f9941",
+        "__uuid__": "a2c761b1-487c-4c0d-8d85-5a24522655ac@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "26fb1e47-541c-432e-b999-ff3828af697a@f9941",
+        "__uuid__": "3f3fddad-5e8e-421e-a144-c12ae895b71f@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "1a79f41d-814d-47b7-a237-8987f95395a6@f9941",
+        "__uuid__": "b2b8e2ae-90df-4233-bde8-a59674567a95@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "5fb07023-db5d-4895-83a0-c1d6aa0c745f@f9941",
+        "__uuid__": "a2a9bfb7-0989-449b-bd73-55c3dea73df7@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "4ea1b2c9-b5e7-4bf0-9573-91019a4fcc93@f9941",
+        "__uuid__": "b839286d-11ba-4534-8ce0-0cf41960f08a@f9941",
         "__expectedType__": "cc.SpriteFrame"
       }
     ]

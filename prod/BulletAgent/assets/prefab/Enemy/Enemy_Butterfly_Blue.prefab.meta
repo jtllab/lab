@@ -2,12 +2,12 @@
   "ver": "1.1.40",
   "importer": "prefab",
   "imported": true,
-  "uuid": "0b398150-ca05-41f5-ba2e-976c046d40c9",
+  "uuid": "1752abe4-4144-4c06-93a2-1efc40d62d21",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "shandian"
+    "syncNodeName": "Enemy_Butterfly_Blue"
   }
 }
